@@ -13,14 +13,14 @@ public class Grid {
         this.maxY = maxY;
     }
 
-    public void addObject(GridObject object) {
+    public void addObject(GridObject object) throws PositionOccupiedException, PositionOutOfBoundsException {
         try {
             validPosition(object);
             objects.add(object);
         } catch (PositionOccupiedException e) {
-
+            throw e;
         } catch (PositionOutOfBoundsException e) {
-            
+            throw e;
         }
     }
 
