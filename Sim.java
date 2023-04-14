@@ -1,7 +1,9 @@
+import java.util.Random;
+
 public class Sim {
 
     private String name;
-    private String job=Job();
+    private String job;
     private int kekenyangan=80;
     private int mood=80;
     private int kesehatan=80;
@@ -9,14 +11,17 @@ public class Sim {
     private String status="";
     private String inventory="";
 
+    private static final String[] Jobs = {"Badut Sulap", "Koki", "Polisi", "Programmer", "Dokter", "Guru", "Penulis", "Musisi"};
+    private static final Random RANDOM = new Random();
+
     public Sim(String name) {
         // Konstruktor
-        this.name=name;
+        this.name = name;
+        this.job = JobGenerator();
     }
-    public String Job() {
-        String Job="random";
-        return Job;
-        // Mengeset mesin motor
+    public String JobGenerator() {
+        int index = RANDOM.nextInt(Jobs.length);
+        return Jobs[index];
     }
     public String getName() {
         return this.name;
@@ -39,12 +44,11 @@ public class Sim {
     public int getUang() {
         return this.uang;
     }
-    public int getKesehatan() {
+    public void work(){
+        mood-=10;
+        kekenyangan-=10;
+    }
+    public int getKesehatan(){
         return this.kesehatan;
     }
-    public String sound(){
-        return "Ngenggg";
-    }
 }
-
-
