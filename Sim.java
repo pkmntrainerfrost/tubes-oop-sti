@@ -23,6 +23,10 @@ public class Sim {
         int index = RANDOM.nextInt(Jobs.length);
         return Jobs[index];
     }
+    public String PindahJob(){
+        int index = RANDOM.nextInt(Jobs.length);
+        return Jobs[index];
+    }
     public String getName() {
         return this.name;
     }
