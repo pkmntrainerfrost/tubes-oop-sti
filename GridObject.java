@@ -16,11 +16,11 @@ public abstract class GridObject {
     }
 
     public int getMaximumX() {
-        return point.getX() + length - 1;
+        return point.getX() + length; //deleted -1
     }
 
     public int getMaximumY() {
-        return point.getY() + height - 1;
+        return point.getY() + height; //deleted -1
     }
 
     public int getMinimumX() {
@@ -31,6 +31,24 @@ public abstract class GridObject {
         return point.getY();
     }
 
+//ditambahin trista
+    public int getLength() {
+        return this.length;
+    }    
+
+    public int getHeight() {
+        return this.height;
+    }    
+
+
+    public void setLength(int num){
+        this.length += num;
+    }
+
+    public void setHeight(int num){
+        this.height += num;
+    }
+//sampe sini
     public boolean overlap(GridObject object) {
         return (this.getMinimumX() >= object.getMinimumX() && this.getMinimumX() <= object.getMaximumX()) || (this.getMinimumY() >= object.getMinimumY() && this.getMinimumY() <= this.getMaximumY());
     }
