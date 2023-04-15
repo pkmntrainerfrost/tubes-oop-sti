@@ -3,12 +3,12 @@ public abstract class GridObject {
     private Point point;
 
     private int length;
-    private int height;
+    private int width;
 
-    public GridObject(Point point, int length, int height) {
+    public GridObject(Point point, int length, int width) {
         this.point = point;
         this.length = length;
-        this.height = height;
+        this.width = width;
     }
 
     public Point getPoint() {
@@ -20,7 +20,7 @@ public abstract class GridObject {
     }
 
     public int getMaximumY() {
-        return point.getY() + height; //deleted -1
+        return point.getY() + width; //deleted -1
     }
 
     public int getMinimumX() {
@@ -36,8 +36,8 @@ public abstract class GridObject {
         return this.length;
     }    
 
-    public int getHeight() {
-        return this.height;
+    public int getWidth() {
+        return this.width;
     }    
 
 
@@ -45,8 +45,8 @@ public abstract class GridObject {
         this.length += num;
     }
 
-    public void setHeight(int num){
-        this.height += num;
+    public void setWidth(int num){
+        this.width += num;
     }
 //sampe sini
     public boolean overlap(GridObject object) {

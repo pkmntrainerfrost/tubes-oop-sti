@@ -51,7 +51,7 @@ public class House extends GridObject{
         }
         if (dir.equals("top") | dir.equals("under")){
             grid.setGridY(6);
-            setHeight(num);
+            setWidth(num);
         }        
     }
 
@@ -67,8 +67,8 @@ public class House extends GridObject{
 
 //sesuaikan aja yg bikin room nnt ini diapus, tp namanya samain kalo bisa
 class Room extends GridObject {
-    public Room(Point point, int length, int height) {
-        super(point, length, height);
+    public Room(Point point, int length, int width) {
+        super(point, length, width);
     }
 }
 
