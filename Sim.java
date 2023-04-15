@@ -19,15 +19,14 @@ public class Sim {
     public Sim(String name) {
         this.name = name;
         this.job = JobGenerator();
-        this.inventory = new HashSet<>();;
+        this.inventory = new HashSet<>();
     }
     public String JobGenerator() {
         int index = RANDOM.nextInt(Jobs.length);
         return Jobs[index];
     }
     public String PindahJob(){
-        int index = RANDOM.nextInt(Jobs.length);
-        return Jobs[index];
+        return Job.getJobChoices();
     }
     public String getName() {
         return this.name;
