@@ -1,50 +1,41 @@
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
-    private String name;
-    private List<GridObject> objects;
-    private int length;
-    private int width;
+public class Room extends GridObject {
+    private int panjangRuang;
+    private int lebarRuang;
+    private List<Object> daftarObjek;
 
-    public Room(String name, int length, int width) {
-        this.name = name;
-        this.length = length;
-        this.width = width;
-        this.objects = new ArrayList<>();
+    public Room(Point point, int length, int width) {
+    super(point, length, width);
+    this.panjangRuang = length;
+    this.lebarRuang = width;
+    this.daftarObjek = new ArrayList<Object>();
     }
 
-    public String getName() {
-        return name;
+    public int getPanjangRuang() {
+        return panjangRuang;
     }
 
-    public List<GridObject> getObjects() {
-        return objects;
+    public void setPanjangRuang(int panjangRuang) {
+        this.panjangRuang = panjangRuang;
     }
 
-    public int getLength() {
-        return length;
+    public int getLebarRuang() {
+        return lebarRuang;
     }
 
-    public int getWidth() {
-        return width;
+    public void setLebarRuang(int lebarRuang) {
+        this.lebarRuang = lebarRuang;
     }
 
-    public void addObject(GridObject object) throws PositionOccupiedException {
-        for (GridObject o : objects) {
-            if (object.intersects(o)) {
-                throw new PositionOccupiedException("Cannot add object to room, position is already occupied.");
-            }
-        }
-        objects.add(object);
+    public List<Object> getDaftarObject() {
+        return daftarObjek;
     }
 
-    public void removeObject(GridObject object) {
-        objects.remove(object);
+    public void setDaftarObject(List<Object> daftarObjek) {
+        this.daftarObjek = daftarObjek;
     }
-
-    public boolean contains(Point point) {
-        return (point.getX() >= getPosition().getX() && point.getX() < getPosition().getX() + length
-                && point.getY() >= getPosition().getY() && point.getY() < getPosition().getY() + width);
-    }
+    
 }
