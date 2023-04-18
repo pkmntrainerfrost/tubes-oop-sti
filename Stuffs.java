@@ -3,16 +3,16 @@ public class Stuffs extends GridObject implements Items {
     private int stuffLength;
     private int stuffWidth;
     private int stuffPrice;
-    private Action action;
+    private Action stuffAction;
 
     // constructor
-    public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Action action, Point point) {
+    public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Action stuffAction, Point point) {
         super(point, stuffLength, stuffWidth);
         this.stuffName = stuffName;
         this.stuffLength = stuffLength;
         this.stuffWidth = stuffWidth;
         this.stuffPrice = stuffPrice;
-        this.action = action;
+        this.stuffAction = stuffAction;
     }
 
     // override
@@ -38,8 +38,8 @@ public class Stuffs extends GridObject implements Items {
         return stuffPrice;
     }
 
-    public Action getAction() {
-        return action;
+    public Action getStuffAction() {
+        return stuffAction;
     }
 
     // setter
@@ -56,7 +56,7 @@ public class Stuffs extends GridObject implements Items {
         this.stuffPrice = stuffPrice;
     }
 
-    public void setAction(Action action) {
-        this.action = action;
+    public void setStuffAction(Action stuffAction) {
+        this.stuffAction = stuffAction;
     }
 }
