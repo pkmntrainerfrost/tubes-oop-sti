@@ -10,11 +10,14 @@ public class HouseDriver {
         Point pNew = new Point(1, 7);
         Room newRoom = new Room(pNew, 6, 6);
         try {
-            rumah.houseUpgrade(newRoom, "top");
+            rumah.upgradeHouse(newRoom, "top");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println(rumah.getRoomList());
+        System.out.println("max x ruangan: " + newRoom.getMaximumX());
+        System.out.println("max y ruangan: " + newRoom.getMaximumY());
+        System.out.println("min x ruangan: " + newRoom.getMinimumX());
+        System.out.println("min y ruangan: " + newRoom.getMinimumY());
     }
 }

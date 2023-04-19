@@ -18,21 +18,41 @@ public class House extends GridObject{
         }
     }
 
-    public void houseUpgrade(Room newRoom, String dir) throws Exception{
+    public void upgradeHouse(Room newRoom, String dir) throws Exception{
         // sementara 
-        Room neighbor = rooms.get(0);
+        Room neighbor = null;
         boolean isCharaInHouse = true;
+        // System.out.println(rooms.get(0).getMaximumX());
+        // System.out.println(rooms.get(0).getMaximumY());        
+        // System.out.println(rooms.get(0).getMinimumX());
+        // System.out.println(rooms.get(0).getMinimumY());
+
+        switch (dir) {
+            case "top":
+                neighbor = getBottomNeighbor(newRoom);
+                break;
+            case "bottom":
+                neighbor = getTopNeighbor(newRoom);
+                break;
+            case "left":
+                neighbor = getRightNeighbor(newRoom);
+                break;
+            case "right":
+                neighbor = getLeftNeighbor(newRoom);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid direction!");
+        }
+        
+        setHouseSize(6, dir);
+
         if (isCharaInHouse){
             try {
                 // Memastikan bahwa room yang akan ditambahkan terhubung dengan neighbornya
-                if ((dir.equals("top") && neighbor.getMaximumY() == newRoom.getMinimumY()) || (dir.equals("under") && neighbor.getMinimumY() == newRoom.getMaximumY()) || (dir.equals("left") && neighbor.getMaximumX() == newRoom.getMinimumX()) || (dir.equals("right") && neighbor.getMinimumX() == newRoom.getMaximumX())) {
-                    setHouseSize(6, dir);
+                if ((dir.equals("top") && neighbor.getMaximumY() == newRoom.getMinimumY()) || (dir.equals("under") && neighbor.getMinimumY() == newRoom.getMaximumY()) || (dir.equals("left") && neighbor.getMinimumX() == newRoom.getMaximumX()) || (dir.equals("right") && neighbor.getMaximumX() == newRoom.getMinimumX())) {
                     grid.addObject(newRoom);
                     rooms.add(newRoom);
                     //NOT YET: makan waktu untuk aksi
-                }
-                else {
-                    throw new PositionOccupiedException("the room is not connected!");
                 }
             } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
                 e.printStackTrace();
@@ -55,21 +75,66 @@ public class House extends GridObject{
         }        
     }
 
-    public Grid getGrid() { //pindah ke grid (?)
-        return grid;
+    public Room getTopNeighbor(Room theRoom) throws NoNeighborFound {
+        Room neighbor = null;
+        for (Room anotherRoom : rooms){
+            if(theRoom.getMaximumY() == anotherRoom.getMinimumY()){
+                neighbor = anotherRoom;
+            }else{
+                throw new NoNeighborFound("There are no neighbors in your upper area");
+            }
+        }
+        return neighbor;
+    }
+
+    public Room getBottomNeighbor(Room theRoom) throws NoNeighborFound {
+        Room neighbor = null;
+        for (Room anotherRoom : rooms){
+            if(theRoom.getMinimumY() == anotherRoom.getMaximumY()){
+                neighbor = anotherRoom;
+            }else{
+                throw new NoNeighborFound("There are no neighbors in your lower area");
+            }
+        }
+        return neighbor;
+    }
+
+    public Room getLeftNeighbor(Room theRoom) throws NoNeighborFound{
+        Room neighbor = null;
+        for (Room anotherRoom : rooms){
+            if(theRoom.getMinimumX() == anotherRoom.getMaximumX()){
+                neighbor = anotherRoom;
+            }else{
+                throw new NoNeighborFound("There are no neighbors in your left area");
+            }
+        }
+        return neighbor;
+    }
+
+    public Room getRightNeighbor(Room theRoom) throws NoNeighborFound{
+        Room neighbor = null;
+        for (Room anotherRoom : rooms){
+            if(theRoom.getMaximumX() == anotherRoom.getMinimumX()){
+                neighbor = anotherRoom;
+            }else{
+                throw new NoNeighborFound("There are no neighbors in your right area");
+            }
+        }
+        return neighbor;
     }
 
     public List<Room> getRoomList() {
         return rooms;
     }
 
+    public Grid getGrid(){
+        return grid;
+    }
+
 }
 
-//sesuaikan aja yg bikin room nnt ini diapus, tp namanya samain kalo bisa
-/*
-class Room extends GridObject {
-    public Room(Point point, int length, int width) {
-        super(point, length, width);
+class NoNeighborFound extends Exception{
+    public NoNeighborFound(String messageString){
+        super(messageString);
     }
 }
-*/

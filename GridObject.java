@@ -40,7 +40,6 @@ public abstract class GridObject {
         return this.width;
     }    
 
-
     public void setLength(int num){
         this.length += num;
     }
@@ -49,8 +48,19 @@ public abstract class GridObject {
         this.width += num;
     }
 //sampe sini
-    public boolean overlap(GridObject object) {
-        return (this.getMinimumX() >= object.getMinimumX() && this.getMinimumX() <= object.getMaximumX()) || (this.getMinimumY() >= object.getMinimumY() && this.getMinimumY() <= this.getMaximumY());
-    }
 
+//halo izin ganti source nya dari sini 
+//https://www.baeldung.com/java-check-if-two-rectangles-overlap
+
+    public boolean overlap(GridObject object) {
+        // return (this.getMinimumX() >= object.getMinimumX() && this.getMinimumX() <= object.getMaximumX()) || (this.getMinimumY() >= object.getMinimumY() && this.getMinimumY() <= this.getMaximumY());
+        boolean flag = true;
+        if (this.getMaximumY() <= object.getMinimumY() || this.getMinimumY() >= object.getMaximumY()){
+            flag = false;
+        }
+        if (this.getMaximumX() <= object.getMinimumX() || this.getMinimumX() >= object.getMaximumX()){
+            flag = false;
+        }
+        return flag;
+    }
 }
