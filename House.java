@@ -18,7 +18,7 @@ public class House extends GridObject{
         }
     }
 
-    public void upgradeHouse(Room newRoom, String dir) throws Exception{
+    public void upgradeHouse(Room newRoom, Sim sim, String dir) throws SimNotInHouseException, NoNeighborFoundException{
         // sementara 
         Room neighbor = null;
         boolean isCharaInHouse = true;
@@ -46,7 +46,7 @@ public class House extends GridObject{
         
         setHouseSize(6, dir);
 
-        if (isCharaInHouse){
+        if (sim.getInHouse()){
             try {
                 // Memastikan bahwa room yang akan ditambahkan terhubung dengan neighbornya
                 if ((dir.equals("top") && neighbor.getMaximumY() == newRoom.getMinimumY()) || (dir.equals("under") && neighbor.getMinimumY() == newRoom.getMaximumY()) || (dir.equals("left") && neighbor.getMinimumX() == newRoom.getMaximumX()) || (dir.equals("right") && neighbor.getMaximumX() == newRoom.getMinimumX())) {
@@ -60,10 +60,10 @@ public class House extends GridObject{
             rooms.add(newRoom);
         }
         else{
-            throw new Exception("You are not in your house!");
+            throw new SimNotInHouseException("Sim is not in the house!");
         }
     }
-
+    
     public void setHouseSize(int num, String dir){
         if (dir.equals("right") | dir.equals("left")){
             grid.setGridX(6);
@@ -75,49 +75,49 @@ public class House extends GridObject{
         }        
     }
 
-    public Room getTopNeighbor(Room theRoom) throws NoNeighborFound {
+    public Room getTopNeighbor(Room theRoom) throws NoNeighborFoundException {
         Room neighbor = null;
         for (Room anotherRoom : rooms){
             if(theRoom.getMaximumY() == anotherRoom.getMinimumY()){
                 neighbor = anotherRoom;
             }else{
-                throw new NoNeighborFound("There are no neighbors in your upper area");
+                throw new NoNeighborFoundException("There are no neighbors in your upper area");
             }
         }
         return neighbor;
     }
 
-    public Room getBottomNeighbor(Room theRoom) throws NoNeighborFound {
+    public Room getBottomNeighbor(Room theRoom) throws NoNeighborFoundException {
         Room neighbor = null;
         for (Room anotherRoom : rooms){
             if(theRoom.getMinimumY() == anotherRoom.getMaximumY()){
                 neighbor = anotherRoom;
             }else{
-                throw new NoNeighborFound("There are no neighbors in your lower area");
+                throw new NoNeighborFoundException("There are no neighbors in your lower area");
             }
         }
         return neighbor;
     }
 
-    public Room getLeftNeighbor(Room theRoom) throws NoNeighborFound{
+    public Room getLeftNeighbor(Room theRoom) throws NoNeighborFoundException{
         Room neighbor = null;
         for (Room anotherRoom : rooms){
             if(theRoom.getMinimumX() == anotherRoom.getMaximumX()){
                 neighbor = anotherRoom;
             }else{
-                throw new NoNeighborFound("There are no neighbors in your left area");
+                throw new NoNeighborFoundException("There are no neighbors in your left area");
             }
         }
         return neighbor;
     }
 
-    public Room getRightNeighbor(Room theRoom) throws NoNeighborFound{
+    public Room getRightNeighbor(Room theRoom) throws NoNeighborFoundException{
         Room neighbor = null;
         for (Room anotherRoom : rooms){
             if(theRoom.getMaximumX() == anotherRoom.getMinimumX()){
                 neighbor = anotherRoom;
             }else{
-                throw new NoNeighborFound("There are no neighbors in your right area");
+                throw new NoNeighborFoundException("There are no neighbors in your right area");
             }
         }
         return neighbor;
@@ -133,8 +133,8 @@ public class House extends GridObject{
 
 }
 
-class NoNeighborFound extends Exception{
-    public NoNeighborFound(String messageString){
+class NoNeighborFoundException extends Exception{
+    public NoNeighborFoundException(String messageString){
         super(messageString);
     }
 }

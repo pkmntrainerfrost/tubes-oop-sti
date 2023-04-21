@@ -42,6 +42,7 @@ class Work extends Action{
         int time = getDuration()/30;
         for (int i = 0; i < time; i++){
             getSim().setKekenyangan(-10);
+            getSim().setMood(-10);
         }
     }
 }
