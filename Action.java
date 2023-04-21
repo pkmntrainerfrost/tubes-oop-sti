@@ -1,11 +1,9 @@
 public abstract class Action {
-    private String action;
     private int duration;
     private Sim sim;
 
     // constructor
-    public Action(String action, int duration, Sim sim) {
-        this.action = action;
+    public Action(int duration, Sim sim) {
         this.duration = duration;
         this.sim = sim;
     }
@@ -13,10 +11,6 @@ public abstract class Action {
     public abstract void acted();
 
     // getter
-    public String getAction() {
-        return action;
-    }
-
     public int getDuration(){
         return duration;
     }
@@ -26,40 +20,37 @@ public abstract class Action {
     }
 
     // setter
-    public void setAction(String action) {
-        this.action = action;
-    }
 }
 
 class Work extends Action{
 
-    public Work(String action, int duration, Sim sim) {
-        super(action, duration, sim);
+    public Work(int duration, Sim sim) {
+        super(duration, sim);
     }
 
     @Override
     public void acted() {
         int time = getDuration()/30;
         for (int i = 0; i < time; i++){
-            getSim().setKekenyangan(-10);
-            getSim().setMood(-10);
+            getSim().setKekenyangan(getSim().getKekenyangan()-10);
+            getSim().setMood(getSim().getMood()-10);
         }
     }
 }
 
 class Exercise extends Action{
 
-    public Exercise(String action, int duration, Sim sim) {
-        super(action, duration, sim);
+    public Exercise(int duration, Sim sim) {
+        super(duration, sim);
     }
 
     @Override
     public void acted() {
         int time = getDuration()/20;
         for (int i = 0; i < time; i++){
-            getSim().setKesehatan(5);
-            getSim().setKekenyangan(-5);
-            getSim().setMood(10);
+            getSim().setKesehatan(getSim().getKesehatan()+5);
+            getSim().setKekenyangan(getSim().getKekenyangan()-5);
+            getSim().setMood(getSim().getMood()+10);
         }
     }
 }
@@ -67,16 +58,16 @@ class Exercise extends Action{
 //masih cari tau bikin num nya tergantung makanannya, belom selesai
 class Eat extends Action{
 
-    public Eat(String action, int duration, Sim sim) {
-        super(action, duration, sim);
+    public Eat(int duration, Sim sim) {
+        super(duration, sim);
     }
 
     @Override
     public void acted() {
         int time = getDuration()/240; // 4 menit equals to 240 secs
         for (int i = 0; i < time; i++){
-            getSim().setKesehatan(20);
-            getSim().setMood(30);
+            getSim().setKesehatan(getSim().getKesehatan()+20);
+            getSim().setMood(getSim().getMood()+30);
         }
     }
 }

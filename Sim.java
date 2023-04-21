@@ -1,6 +1,4 @@
-import java.util.Random;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Sim {
 
@@ -11,7 +9,7 @@ public class Sim {
     private int kesehatan=80;
     private int uang=100;
     private String status="";
-    private Set<String> inventory;
+    private Inventory inventory;
     private boolean inHouse;
 
     private static final String[] Jobs = {"Badut Sulap", "Koki", "Polisi", "Programmer", "Dokter", "Guru", "Penulis", "Musisi"};
@@ -20,8 +18,8 @@ public class Sim {
     public Sim(String name) {
         this.name = name;
         this.job = JobGenerator();
-        this.inventory = new HashSet<>();
-        this.inHouse = false;
+        this.inventory = new Inventory();
+        this.inHouse = true;
     }
     public String JobGenerator() {
         int index = RANDOM.nextInt(Jobs.length);
@@ -77,23 +75,21 @@ public class Sim {
         this.status = status;
     }
 
-    public Set<String> getInventory() {
+    public Inventory getInventory() {
         return this.inventory;
     }
-    public void addItemToInventory(String item) {
-        this.inventory.add(item);
+    public void addItemToInventory(String item, String category, int quantity) {
+        this.inventory.addItem(item, category, quantity);
     }
     public void setInHouse(boolean isInHouse){
         this.inHouse = isInHouse;
     }
-    public void work(){
-        mood-=10;
-        kekenyangan-=10;
-    }
 
-    public void getSimInfo() throws SimNotInHouseException{
+    public void displaySimInfo() throws SimNotInGameException{
         if (getInHouse()){
             try {
+                System.out.println("Sim Information:");
+                System.out.println("====================================");
                 System.out.println("Nama Sim: " + getName());
                 System.out.println("Pekerjaan Sim: " + getjob());
                 System.out.println("Kesehatan Sim: " + getKesehatan());
@@ -102,14 +98,14 @@ public class Sim {
                 System.out.println("Uang Sim: " + getUang());
             } catch (Exception e) {
                 // TODO: handle exception
-                throw new SimNotInHouseException("Sim is not in the house!");
+                throw new SimNotInGameException("Sim is not in the house!");
             }
         }
     }
 }
 
-class SimNotInHouseException extends Exception {
-    public SimNotInHouseException(String errorMessage) {
+class SimNotInGameException extends Exception {
+    public SimNotInGameException(String errorMessage) {
         super(errorMessage);
     }
 }

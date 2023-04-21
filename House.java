@@ -21,7 +21,6 @@ public class House extends GridObject{
     public void upgradeHouse(Room newRoom, Sim sim, String dir) throws SimNotInHouseException, NoNeighborFoundException{
         // sementara 
         Room neighbor = null;
-        boolean isCharaInHouse = true;
         // System.out.println(rooms.get(0).getMaximumX());
         // System.out.println(rooms.get(0).getMaximumY());        
         // System.out.println(rooms.get(0).getMinimumX());
@@ -52,6 +51,7 @@ public class House extends GridObject{
                 if ((dir.equals("top") && neighbor.getMaximumY() == newRoom.getMinimumY()) || (dir.equals("under") && neighbor.getMinimumY() == newRoom.getMaximumY()) || (dir.equals("left") && neighbor.getMinimumX() == newRoom.getMaximumX()) || (dir.equals("right") && neighbor.getMaximumX() == newRoom.getMinimumX())) {
                     grid.addObject(newRoom);
                     rooms.add(newRoom);
+                    sim.setUang(-1500);
                     //NOT YET: makan waktu untuk aksi
                 }
             } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
@@ -135,6 +135,12 @@ public class House extends GridObject{
 
 class NoNeighborFoundException extends Exception{
     public NoNeighborFoundException(String messageString){
+        super(messageString);
+    }
+}
+
+class SimNotInHouseException extends Exception{
+    public SimNotInHouseException(String messageString){
         super(messageString);
     }
 }
