@@ -16,9 +16,18 @@ public class Room extends GridObject {
 
     private Grid objectGrid;
 
-    public Room(Point point) {
+    private String name;
+    private boolean finished;
+
+    public Room(Point point, String name, boolean finished) {
         super(point, 1, 1);
         objectGrid = new Grid(6,6);
+        this.name = name;
+        finished = false;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 
     /*

@@ -1,4 +1,5 @@
 public abstract class Action {
+    
     private int duration;
     private Sim sim;
 

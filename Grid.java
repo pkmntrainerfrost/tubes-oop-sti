@@ -9,7 +9,7 @@ public class Grid {
     private int minY;
 
     public Grid(int maxX, int maxY, int minX, int minY) {
-        objects = new ArrayList<GridObject>();
+        objects = new ArrayList<>();
         this.maxX = maxX;
         this.maxY = maxY;
         this.minX = 0 - minX;
@@ -17,7 +17,7 @@ public class Grid {
     }
 
     public Grid(int maxX, int maxY) {
-        objects = new ArrayList<GridObject>();
+        objects = new ArrayList<>();
         this.maxX = maxX;
         this.maxY = maxY;
         this.minX = 0;

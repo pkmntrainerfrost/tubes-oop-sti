@@ -15,7 +15,7 @@ public class House extends GridObject{
 
         houseGrid = new Grid(5,5,5,5);
         try {
-            houseGrid.addObject(new Room(new Point(0,0)));
+            houseGrid.addObject(new Room(new Point(0,0),"placeholder",true));
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -39,13 +39,13 @@ public class House extends GridObject{
     }
     */
 
-    public void upgradeHouse(Room refRoom, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException{
-
+    public void upgradeHouse(Room refRoom, String name, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException, SimMiskinException {
+        
         int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY() - 1; 
         int y = up ? refRoom.getMaximumY() : refRoom.getMinimumY() - 1;
 
         Point p = new Point(x,y);
-        Room newRoom = new Room(p);
+        Room newRoom = new Room(p,name,false);
 
         boolean add = false;
 
@@ -53,10 +53,16 @@ public class House extends GridObject{
             throw new SimNotInHouseException("Sim is not in the house!");
         }
 
+        if (owner.getUang() < 1500) {
+            throw new SimMiskinException("Sim is miskin!");
+        }
+
         do {
             try {
                 houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
-                add = true;
+                owner.setUang(-1500);
+                HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
+                World.getInstance().getEvents().subscribe("timeincrement", upgrade);
             } catch (PositionOccupiedException e) {
                 throw new NeighborFoundException("This direction is already occupied!");
             } catch (PositionOutOfBoundsException e) {
@@ -66,8 +72,6 @@ public class House extends GridObject{
                 houseGrid.addMinY(1);
             }
         } while (!add);
-        
-        owner.setUang(-1500);
 
     }
 
@@ -205,6 +209,12 @@ class NeighborFoundException extends Exception{
 
 class SimNotInHouseException extends Exception{
     public SimNotInHouseException(String messageString){
+        super(messageString);
+    }
+}
+
+class SimMiskinException extends Exception {
+    public SimMiskinException(String messageString) {
         super(messageString);
     }
 }
