@@ -3,12 +3,12 @@ public abstract class GridObject {
     private Point point;
 
     private int length;
-    private int width;
+    private int height;
 
-    public GridObject(Point point, int length, int width) {
+    public GridObject(Point point, int length, int height) {
         this.point = point;
         this.length = length;
-        this.width = width;
+        this.height = height;
     }
 
     public Point getPoint() {
@@ -20,7 +20,7 @@ public abstract class GridObject {
     }
 
     public int getMaximumY() {
-        return point.getY() + width; //deleted -1
+        return point.getY() + height; //deleted -1
     }
 
     public int getMinimumX() {
@@ -36,16 +36,16 @@ public abstract class GridObject {
         return this.length;
     }    
 
-    public int getWidth() {
-        return this.width;
+    public int getHeight() {
+        return this.height;
     }    
 
     public void setLength(int num){
         this.length += num;
     }
 
-    public void setWidth(int num){
-        this.width += num;
+    public void getWidth(int num){
+        this.height += num;
     }
 //sampe sini
 

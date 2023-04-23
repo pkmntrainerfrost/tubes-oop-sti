@@ -5,22 +5,40 @@ public class Grid {
     private List<GridObject> objects;
     private int maxX;
     private int maxY;
+    private int minX;
+    private int minY;
 
-    public Grid(int maxX, int maxY) {
-        objects = new ArrayList<>();
+    public Grid(int maxX, int maxY, int minX, int minY) {
+        objects = new ArrayList<GridObject>();
         this.maxX = maxX;
         this.maxY = maxY;
+        this.minX = 0 - minX;
+        this.minY = 0 - minY;
     }
 
-    //ditambahin trista
-    public void setGridX(int num){
+    public Grid(int maxX, int maxY) {
+        objects = new ArrayList<GridObject>();
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.minX = 0;
+        this.minY = 0;
+    }
+
+    public void addMaxX(int num) { 
         this.maxX += num;
     }
 
-    public void setGridY(int num){
+    public void addMaxY(int num) {
         this.maxY += num;
     }
-    //sampe sini
+
+    public void addMinX(int num) {
+        this.minX -= num;
+    }
+
+    public void addMinY(int num) {
+        this.minY -= num;
+    }
 
     public void addObject(GridObject object) throws PositionOccupiedException, PositionOutOfBoundsException {
         try {
@@ -34,7 +52,7 @@ public class Grid {
     }
 
     public void validPosition(GridObject object) throws PositionOccupiedException, PositionOutOfBoundsException {
-        if (object.getMaximumX() > maxX || object.getMaximumY() > maxY || object.getMinimumX() < 0 || object.getMinimumY() < 0) { //deleted =
+        if (object.getMaximumX() > maxX || object.getMaximumY() > maxY || object.getMinimumX() < minX || object.getMinimumY() < minY) { //deleted =
             throw new PositionOutOfBoundsException("Out of Bounds");
         } else {
             for (GridObject otherObject : objects) {
@@ -43,6 +61,10 @@ public class Grid {
                 }
             }
         }
+    }
+
+    public List<GridObject> getObjects() {
+        return objects;
     }
 
 }

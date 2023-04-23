@@ -1,9 +1,29 @@
 import java.util.*;
 public class House extends GridObject{
-    private Grid grid;
-    private List<Room> rooms; 
+
+    private Grid houseGrid;
+    /* private Grid grid */
+    /* private List<Room> rooms;  */
+
+    private Sim owner;
 
     //konstruktor
+    public House(Point p, Sim owner) {
+
+        super(p,1,1);
+        this.owner = owner;
+
+        houseGrid = new Grid(5,5,5,5);
+        try {
+            houseGrid.addObject(new Room(new Point(0,0)));
+        } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        
+
+    }
+
+    /*
     public House (Point p, Grid grid){
         super(p, 6, 6);
         this.grid = grid;
@@ -17,7 +37,42 @@ public class House extends GridObject{
             e.printStackTrace();
         }
     }
+    */
 
+    public void upgradeHouse(Room refRoom, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException{
+
+        int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY() - 1; 
+        int y = up ? refRoom.getMaximumY() : refRoom.getMinimumY() - 1;
+
+        Point p = new Point(x,y);
+        Room newRoom = new Room(p);
+
+        boolean add = false;
+
+        if (!owner.getInHouse()) {
+            throw new SimNotInHouseException("Sim is not in the house!");
+        }
+
+        do {
+            try {
+                houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
+                add = true;
+            } catch (PositionOccupiedException e) {
+                throw new NeighborFoundException("This direction is already occupied!");
+            } catch (PositionOutOfBoundsException e) {
+                houseGrid.addMaxX(1);
+                houseGrid.addMaxY(1);
+                houseGrid.addMinX(1);
+                houseGrid.addMinY(1);
+            }
+        } while (!add);
+        
+        owner.setUang(-1500);
+
+    }
+
+
+    /*
     public void upgradeHouse(Room newRoom, Sim sim, String dir) throws SimNotInHouseException, NoNeighborFoundException{
         // sementara 
         Room neighbor = null;
@@ -122,19 +177,28 @@ public class House extends GridObject{
         }
         return neighbor;
     }
+    */
 
+    /*
     public List<Room> getRoomList() {
         return rooms;
     }
-
-    public Grid getGrid(){
-        return grid;
+    */
+    
+    public Grid getHouseGrid(){
+        return houseGrid;
     }
 
 }
 
 class NoNeighborFoundException extends Exception{
     public NoNeighborFoundException(String messageString){
+        super(messageString);
+    }
+}
+
+class NeighborFoundException extends Exception{
+    public NeighborFoundException(String messageString){
         super(messageString);
     }
 }
