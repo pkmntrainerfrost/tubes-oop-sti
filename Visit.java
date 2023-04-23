@@ -1,7 +1,6 @@
 import java.lang.Math;
 
 public class Visit extends Action {
-    // belum based on jarak
     private int duration;
 
     public Visit(Point pointAwal, Point pointAkhir, Sim sim){
