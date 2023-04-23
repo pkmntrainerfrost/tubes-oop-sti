@@ -1,21 +1,14 @@
 public abstract class Action {
-    
-    private int duration;
     private Sim sim;
 
     // constructor
-    public Action(int duration, Sim sim) {
-        this.duration = duration;
+    public Action(Sim sim) {
         this.sim = sim;
     }
 
     public abstract void acted();
 
     // getter
-    public int getDuration(){
-        return duration;
-    }
-
     public Sim getSim(){
         return sim;
     }
@@ -23,6 +16,7 @@ public abstract class Action {
     // setter
 }
 
+/*
 class Work extends Action{
 
     public Work(int duration, Sim sim) {
@@ -72,3 +66,4 @@ class Eat extends Action{
         }
     }
 }
+*/
