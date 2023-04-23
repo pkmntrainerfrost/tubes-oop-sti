@@ -1,48 +1,46 @@
 import java.util.*;
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class Room extends GridObject {
-
-    // Atribut yang digunakan untuk menyimpan objek-objek yang berada di dalam room
+    
+    // Attribute objectGrid untuk menyimpan grid object di dalam room
     private Grid objectGrid;
 
-    // Atribut yang digunakan untuk menyimpan nama dari room
+    // Attribute name untuk menyimpan nama room
     private String name;
 
-    // Atribut yang digunakan untuk menyimpan status selesainya room
+    // Attribute finished untuk menyimpan status selesai atau belumnya room
     private boolean finished;
 
-    // Konstruktor room dengan parameter titik awal, nama, dan status selesainya room
+    // Konstruktor dengan parameter point, name, dan finished
     public Room(Point point, String name, boolean finished) {
-        // Memanggil konstruktor dari kelas induk (GridObject) dengan ukuran 6x6, karena room selalu memiliki ukuran 6x6
+        // Memanggil konstruktor dari kelas induk
         super(point, 6, 6);
-
-        // Membuat objek Grid dengan ukuran 6x6 untuk menyimpan objek-objek yang berada di dalam room
+        // Membuat objectGrid baru
         objectGrid = new Grid(6, 6);
-
-        // Mengatur nilai atribut name dengan parameter name yang diberikan
+        // Mengisi atribut name dan finished
         this.name = name;
-
-        // Mengatur nilai atribut finished dengan parameter finished yang diberikan
-        finished = false;
+        this.finished = finished;
     }
 
-    // Metode untuk mengatur status selesainya room
+    // Setter untuk attribute finished
     public void setFinished(boolean finished) {
         this.finished = finished;
     }
 
-    // Metode untuk mendapatkan objek-objek yang berada di dalam room
+    // Getter untuk semua object pada objectGrid
     public List<GridObject> getObjects() {
         return objectGrid.getObjects();
     }
 
-    // Metode untuk memindahkan Sim ke ruangan lain di rumah
+    // Method untuk memindahkan sim ke room baru
     public void moveRoom(Sim sim, Room newRoom) {
-        // Memeriksa apakah Sim sedang berada di dalam rumah ini
+        // Cek apakah sim saat ini berada di dalam room ini
         if (sim.getCurrentRoom() == this) {
-            // Memindahkan Sim ke ruangan baru
+            // Memindahkan sim ke room baru
             sim.setCurrentRoom(newRoom);
             System.out.println("Sim berhasil berpindah ke " + newRoom.getName());
         } else {
@@ -50,68 +48,53 @@ public class Room extends GridObject {
         }
     }
 
-    // Metode untuk mengedit barang yang ada di dalam room
+    // Method untuk mengedit room
     public void editRoom() {
         Scanner input = new Scanner(System.in);
-        // Memeriksa apakah Sim sedang berada di dalam ruangan ini
+        // Cek apakah sim yang sedang aktif saat ini berada di dalam room ini
         if (Sim.getCurrentSim().getCurrentRoom() == this) {
             System.out.println("Pilih opsi:");
             System.out.println("1. Pembelian barang baru");
             System.out.println("2. Pemindahan barang");
-
+            
             int option = input.nextInt();
             switch (option) {
+                // Case 1: Menambahkan item baru ke objectGrid
                 case 1:
-                    // Meminta input barang yang ingin dibeli
                     System.out.println("Masukkan nama barang:");
                     String itemName = input.next();
                     System.out.println("Masukkan harga barang:");
                     double itemPrice = input.nextDouble();
-
-                    // Membuat objek Item baru
                     Item newItem = new Item(itemName, itemPrice);
-
-                    // Menambahkan objek Item baru ke dalam objekGrid
                     objectGrid.addObject(newItem);
                     System.out.println("Barang " + itemName + " berhasil ditambahkan ke dalam ruangan " + name);
                     break;
+                // Case 2: Memindahkan item ke room atau inventory sim
                 case 2:
-                    // Meminta input barang yang ingin dipindahkan
                     System.out.println("Masukkan nama barang yang ingin dipindahkan:");
                     String itemToMove = input.next();
-
-                    // Mencari objek Item yang ingin dipindahkan
                     GridObject item = objectGrid.findObjectByName(itemToMove);
-
-                    // Memeriksa apakah objek Item ditemukan
                     if (item == null) {
                         System.out.println("Barang " + itemToMove + " tidak ditemukan di dalam ruangan " + name);
                     } else {
-                        // Memindahkan objek Item ke ruangan lain atau ke inventory Sim
                         System.out.println("Pilih opsi:");
                         System.out.println("1. Pindahkan ke ruangan lain");
                         System.out.println("2. Pindahkan ke inventory Sim");
                         int moveOption = input.nextInt();
-
+                        // Case 1: Memindahkan item ke room lain
                         if (moveOption == 1) {
-                            // Meminta input ruangan tujuan
                             System.out.println("Masukkan nama ruangan tujuan:");
                             String destinationRoomName = input.next();
-
-                            // Mencari ruangan tujuan
                             Room destinationRoom = Sim.getCurrentSim().getHouse().findRoomByName(destinationRoomName);
-
-                            // Memeriksa apakah ruangan tujuan ditemukan
                             if (destinationRoom == null) {
                                 System.out.println("Ruangan " + destinationRoomName + " tidak ditemukan di dalam rumah.");
                             } else {
-                                // Memindahkan objek Item ke ruangan tujuan
                                 objectGrid.removeObject(item);
                                 destinationRoom.getObjectGrid().addObject(item);
                                 System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke ruangan " + destinationRoomName);
                             }
+                        // case 2: memindahkan item ke inventory sim
                         } else if (moveOption == 2) {
-                            // Memindahkan objek Item ke inventory Sim
                             Sim.getCurrentSim().getInventory().addItem((Item)item);
                             objectGrid.removeObject(item);
                             System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke inventory Sim");
@@ -122,4 +105,4 @@ public class Room extends GridObject {
             }
         }
     }
-}         
+}
