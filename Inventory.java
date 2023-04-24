@@ -8,13 +8,13 @@ public class Inventory {
     }
 
     // Menambahkan objek ke inventory
-    public void addItem(String itemName, String category, int quantity) {
-        if (items.containsKey(itemName)) {
-            InventoryItem currentItem = items.get(itemName);
+    public void addItem(Items item, int quantity) {
+        if (items.containsKey(item.getItemName())) {
+            InventoryItem currentItem = items.get(item.getItemName());
             currentItem.setQuantity(currentItem.getQuantity() + quantity);
         } else {
-            InventoryItem newItem = new InventoryItem(itemName, category, quantity);
-            items.put(itemName, newItem);
+            InventoryItem newItem = new InventoryItem(item, quantity);
+            items.put(item.getItemName(), newItem);
         }
         clearZeroQuantityItems();
     }
@@ -55,34 +55,5 @@ public class Inventory {
             System.out.println(item.getName() + " | " + item.getCategory() + " | " + item.getQuantity());
         }
         System.out.println("====================================");
-    }
-    
-    // Inner class untuk merepresentasikan item dalam inventory
-    private static class InventoryItem {
-        private String name;
-        private String category;
-        private int quantity;
-
-        public InventoryItem(String name, String category, int quantity) {
-            this.name = name;
-            this.category = category;
-            this.quantity = quantity;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getCategory() {
-            return category;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(int quantity) {
-            this.quantity = quantity;
-        }
     }
 }

@@ -75,12 +75,10 @@ public class Sim {
         this.status = status;
     }
 
-    public Inventory getInventory() {
+    public Inventory getSimInventory() {
         return this.inventory;
     }
-    public void addItemToInventory(String item, String category, int quantity) {
-        this.inventory.addItem(item, category, quantity);
-    }
+
     public void setInHouse(boolean isInHouse){
         this.inHouse = isInHouse;
     }
@@ -104,13 +102,14 @@ public class Sim {
     }
 
     public void displayCurrentLocation() throws SimNotInGameException {
-    if (getInHouse()) {
-        System.out.println("Current Location: Rumah");
-    } else {
-        try {
-            System.out.println("Current Location: " + getInventory().getCurrentRoom().getRoomName());
-        } catch (Exception e) {
-            throw new SimNotInGameException("Sim is not in any room!");
+        if (getInHouse()) {
+            System.out.println("Current Location: Rumah");
+        } else {
+            try {
+                System.out.println("Current Location: " + getSimInventory().getCurrentRoom().getRoomName());
+            } catch (Exception e) {
+                throw new SimNotInGameException("Sim is not in any room!");
+            }
         }
     }
 }

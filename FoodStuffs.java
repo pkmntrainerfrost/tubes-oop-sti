@@ -36,4 +36,10 @@ public class FoodStuffs implements Items {
     public void setFoodStuffFullness(int foodStuffFullness) {
         this.foodStuffFullness = foodStuffFullness;
     }
+
+    @Override
+    public String getCategory() {
+        // TODO Auto-generated method stub
+        return "Food Stuffs";
+    }
 }

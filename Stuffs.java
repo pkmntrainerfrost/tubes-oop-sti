@@ -59,4 +59,10 @@ public class Stuffs extends GridObject implements Items {
     public void setStuffAction(Action stuffAction) {
         this.stuffAction = stuffAction;
     }
+
+    @Override
+    public String getCategory() {
+        // TODO Auto-generated method stub
+        return "Stuffs";
+    }
 }

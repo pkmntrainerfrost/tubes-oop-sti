@@ -39,4 +39,10 @@ public class Foods implements Items {
     public void setGroupOfFoodStuff(List<FoodStuffs> groupOfFoodStuff) {
         this.groupOfFoodStuff = groupOfFoodStuff;
     }
+
+    @Override
+    public String getCategory() {
+        // TODO Auto-generated method stub
+        return "Foods";
+    }
 }
