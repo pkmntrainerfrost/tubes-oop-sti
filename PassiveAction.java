@@ -53,9 +53,7 @@ class addItemToRoom extends PassiveAction{
         if (stuff.getCategory().equals("Stuffs")){
             if (room.getAvailableSpace() > (stuff.getStuffLength() * stuff.getStuffWidth() + room.getLength()) || room.getAvailableSpace() > (stuff.getStuffLength() * stuff.getStuffWidth() + room.getHeight())){
                 room.getItemListInRoom().add(stuff);
-                getSim().getSimInventory().removeItem(stuff.getItemName(), 1) {
-
-                }
+                getSim().getSimInventory().removeItem(stuff.getItemName(), 1);
             }
         }
     }

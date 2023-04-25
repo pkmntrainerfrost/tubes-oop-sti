@@ -47,7 +47,7 @@ public class Room extends GridObject {
     public int getAvailableSpace(){
         int space = getHeight()*getLength();
         for(Stuffs item: stuffList){
-            space -= item.
+            //space -= item.
         }
     }
 
