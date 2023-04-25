@@ -28,6 +28,11 @@ public class Room extends GridObject {
         this.finished = finished;
     }
 
+    // Getter untuk nama ruangan
+    public String getRoomName() {
+        return this.name;
+    }
+
     // Setter untuk attribute finished
     public void setFinished(boolean finished) {
         this.finished = finished;
@@ -41,6 +46,17 @@ public class Room extends GridObject {
     // Getter untuk list items dalam room
     public List<Stuffs> getItemListInRoom(){
         return this.stuffList;
+    }
+
+    // display list items dalam room
+    public void displayItemsInRoom(){
+        List<Stuffs> listItems;
+        listItems = getItemListInRoom();
+
+        for (Stuffs stuff : listItems) {
+            System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
+            System.out.println(stuff.getItemName());
+        }
     }
 
 // belom selesai
