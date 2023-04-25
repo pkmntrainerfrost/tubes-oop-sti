@@ -1,7 +1,14 @@
-public abstract class Action {
+public abstract class Action implements Runnable {
+
     private Sim sim;
+    private int duration;
 
     // constructor
+    public Action(Sim sim, int duration) {
+        this.sim = sim;
+        this.duration = duration;
+    }
+
     public Action(Sim sim) {
         this.sim = sim;
     }
@@ -9,8 +16,16 @@ public abstract class Action {
     public abstract void acted();
 
     // getter
-    public Sim getSim(){
+    public Sim getSim() {
         return sim;
+    }
+    
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     // setter

@@ -1,12 +1,8 @@
 public class Cook extends Action {
-    private int duration;
-    public Cook(int duration, Sim sim){
-        super(sim);
-        this.duration = duration;
-    }
 
-    public int getDuration() {
-        return duration;
+    public Cook(Sim sim){
+        super(sim);
+        setDuration(1.5 * 1); // SEMENTARA
     }
 
     @Override

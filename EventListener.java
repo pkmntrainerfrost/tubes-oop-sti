@@ -1,3 +1,3 @@
-public interface TimeListener {
+public interface EventListener {
     void update(String eventType);
 }

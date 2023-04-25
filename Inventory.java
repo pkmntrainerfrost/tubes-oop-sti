@@ -1,5 +1,42 @@
 import java.util.*;
 
+public class Invntory {
+
+    private Map<Item,Int> items;
+
+    public Inventory() {
+        items = new HashMap<>();
+    }
+
+    public void addItem(Item item, int quantity) throws InvalidQuantityException {
+        if (items.containsKey(item)) {
+            //
+        } else {
+            items.put(item, quantity);
+        }
+        clearZeroQuantityItems();
+    }
+
+    public void removeItem(String itemName, int quantity) throws InvalidQuantityException {
+        if (items. currentItemcontainsKey(itemName)) {
+            if ( > quantity) {
+                //
+            } else if () {
+                items.remove(itemName);
+            }
+        }
+        clearZeroQuantityItems();
+    }
+
+}
+
+class InvalidQuantityException extends Exception {
+    public InvalidQuantityException(String messageString) {
+        super(messageString);
+    }
+}
+
+/*
 public class Inventory {
     private Map<String, InventoryItem> items; // Map untuk menyimpan objek dalam inventory
 
@@ -86,3 +123,4 @@ public class Inventory {
         }
     }
 }
+*/

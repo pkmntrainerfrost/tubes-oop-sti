@@ -5,6 +5,7 @@ public class EventManager {
     private Map<String, List<EventListener>> listeners = new HashMap<>();
 
     public EventManager(String... eventTypes) {
+        listenerCount = 0;
         for (String eventType : eventTypes) {
             listeners.put(eventType, new ArrayList<>());
         }

@@ -1,15 +1,9 @@
 public class Eat extends Action{
     private String makanan;
-    private int duration;
 
     public Eat(String makanan, int duration, Sim sim) {
-        super(sim);
+        super(sim,duration);
         this.makanan = makanan;
-        this.duration = duration;
-    }
-
-    public int getDuration() {
-        return duration;
     }
 
     public String getMakanan() {

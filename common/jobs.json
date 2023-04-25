@@ -1,0 +1,44 @@
+{
+"jobs": [
+    {
+      "name": "Badut Sulap",
+      "salary": 15
+    },
+    {
+      "name": "Koki",
+      "salary": 30
+    },
+    {
+      "name": "Polisi",
+      "salary": 35
+    },
+    {
+      "name": "Programmer",
+      "salary": 45
+    },
+    {
+      "name": "Dokter",
+      "salary": 50
+    },
+    {
+      "name": "Idol",
+      "salary": 60
+    },
+    {
+      "name": "Guru",
+      "salary": 25
+    },
+    {
+      "name": "Dosen",
+      "salary": 35
+    },
+    {
+      "name": "Pengusaha",
+      "salary": 70
+    },
+    {
+      "name": "CEO",
+      "salary": 80
+    }
+  ]
+}

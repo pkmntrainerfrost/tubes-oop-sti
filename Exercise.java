@@ -1,12 +1,6 @@
 public class Exercise extends Action {
-    private int duration;
     public Exercise(int duration, Sim sim) {
-        super(sim);
-        this.duration = duration;
-    }
-
-    public int getDuration() {
-        return duration;
+        super(sim, duration);
     }
 
     @Override
