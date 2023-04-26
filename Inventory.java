@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Inventory {
 
-    private Map<Item,Int> items;
+    private Map<Item,Integer> items;
 
     public Inventory() {
         items = new HashMap<>();

@@ -51,14 +51,3 @@ class Eat extends Action{
     public Eat(int duration, Sim sim) {
         super(duration, sim);
     }
-
-    @Override
-    public void acted() {
-        int time = getDuration()/240; // 4 menit equals to 240 secs
-        for (int i = 0; i < time; i++){
-            getSim().setKesehatan(getSim().getKesehatan()+20);
-            getSim().setMood(getSim().getMood()+30);
-        }
-    }
-}
-*/
