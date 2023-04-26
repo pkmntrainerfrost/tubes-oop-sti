@@ -7,14 +7,15 @@ public class Clock implements Runnable {
 
     private boolean running;
 
-    private EventManager clockEventManager;
+    private ActionMediator actionMediator;
 
     private static Clock instance = new Clock();
 
     private Clock() {
-        clockEventManager = new EventManager("clockUpdate");
         seconds = 0;
         days = 0;
+        running = false;
+        actionMediator = ActionMediator.getInstance();
     }
 
     public run() {
@@ -29,13 +30,11 @@ public class Clock implements Runnable {
     public synchronized void startClock() {
         if (!running) {
             running = true;
-            clockEventManager.notify("clockRunningUpdate");
         }
     }
 
     public synchronized void stopClock() {
         running = false;
-        clockEventManager.notify("clockRunningUpdate");
     }
 
     public synchronized void updateTime() {
@@ -53,14 +52,6 @@ public class Clock implements Runnable {
 
     public synchronized boolean getRunning() {
         return this.running;
-    }
-
-    public synchronized void incrementActiveActionCount() {
-        activeActionCount++;
-    }
-
-    public synchronized void decrementActiveActionCount() {
-        activeActionCount--;
     }
 
     public void setTime(int seconds) {

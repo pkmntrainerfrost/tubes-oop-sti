@@ -5,6 +5,7 @@ public class Game {
     private Map<String, Job> jobMap;
     private Map<String, Item> itemMap;
 
+    private Clock clock;
     private World world;
 
     private static Game instance = new Game();

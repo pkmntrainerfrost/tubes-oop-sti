@@ -1,32 +1,12 @@
-public abstract class Action implements Runnable {
-
-    private Sim sim;
-    private int duration;
+public interface Action extends Runnable {
 
     // constructor
-    public Action(Sim sim, int duration) {
-        this.sim = sim;
-        this.duration = duration;
-    }
+    public abstract void act();
 
-    public Action(Sim sim) {
-        this.sim = sim;
-    }
-
-    public abstract void acted();
+    public abstract void finish();
 
     // getter
-    public Sim getSim() {
-        return sim;
-    }
-    
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+    public Sim getSim();
 
     // setter
 }
