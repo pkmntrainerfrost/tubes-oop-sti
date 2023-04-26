@@ -20,8 +20,11 @@ public class World {
     public World() {
         houseGrid = new Grid(64,64);
         simList = new ArrayList<>();
-        actionList = new ActionList<>();
+        actionList = new ArrayList<>();
         actionMediator = actionMediator.getInstance();
+        System.out.println("Write your character's name: ");
+        String name = sc.nextLine();
+        currentSim = new Sim(name);
     }
 
     public static World getInstance() {
