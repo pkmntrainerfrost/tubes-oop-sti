@@ -1,4 +1,4 @@
-public abstract class Food implements Item {
+public abstract class Food implements Items {
 
     private String name;
     private boolean buyable;

@@ -1,4 +1,4 @@
-public class Work extends ActiveAction {
+public class Work extends SimActiveAction {
 
     public Work(Sim sim, int duration) {
         super(sim, duration);

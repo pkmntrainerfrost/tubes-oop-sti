@@ -104,7 +104,7 @@ public class Room extends GridObject {
                     String itemName = input.next();
                     System.out.println("Masukkan harga barang:");
                     double itemPrice = input.nextDouble();
-                    Items newItem = new Items(itemName, itemPrice);
+                    Items newItem = new Items(itemName);
                     objectGrid.addObject(newItem);
                     System.out.println("Barang " + itemName + " berhasil ditambahkan ke dalam ruangan " + name);
                     break;
@@ -134,7 +134,7 @@ public class Room extends GridObject {
                             }
                         // case 2: memindahkan item ke inventory sim
                         } else if (moveOption == 2) {
-                            Sim.getCurrentSim().getInventory().addItem((Item)item);
+                            Sim.getCurrentSim().getInventory().addItem((Items)item);
                             objectGrid.removeObject(item);
                             System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke inventory Sim");
                         } else {
