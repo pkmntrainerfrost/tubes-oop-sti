@@ -1,4 +1,4 @@
-public class Sing extends ActiveAction {
+public class Sing extends SimActiveAction {
 
     public Sing(Sim sim, int duration) {
         super(sim, duration);
