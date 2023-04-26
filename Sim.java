@@ -7,7 +7,7 @@ public class Sim {
     private int kekenyangan=80;
     private int mood=80;
     private int kesehatan=80;
-    private int uang=100;
+    private int uang=10000;
     private String status="";
     private Inventory inventory;
     private boolean inHouse;
