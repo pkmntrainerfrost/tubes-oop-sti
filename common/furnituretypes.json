@@ -1,0 +1,11 @@
+{
+    "furniture": [
+        {
+            "name": "Kasur",
+            "price": 10,
+            "length": 1,
+            "height": 2,
+            "action": "sleep"
+        }
+    ]
+}

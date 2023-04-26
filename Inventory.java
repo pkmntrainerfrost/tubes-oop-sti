@@ -1,6 +1,43 @@
 import java.util.*;
 
 public class Inventory {
+
+    private Map<Item,Int> items;
+
+    public Inventory() {
+        items = new HashMap<>();
+    }
+
+    public void addItem(Item item, int quantity) throws InvalidQuantityException {
+        if (items.containsKey(item)) {
+            //
+        } else {
+            items.put(item, quantity);
+        }
+        clearZeroQuantityItems();
+    }
+
+    public void removeItem(String itemName, int quantity) throws InvalidQuantityException {
+        if (items. currentItemcontainsKey(itemName)) {
+            if ( > quantity) {
+                //
+            } else if () {
+                items.remove(itemName);
+            }
+        }
+        clearZeroQuantityItems();
+    }
+
+}
+
+class InvalidQuantityException extends Exception {
+    public InvalidQuantityException(String messageString) {
+        super(messageString);
+    }
+}
+
+/*
+public class Inventory {
     private Map<String, InventoryItem> items; // Map untuk menyimpan objek dalam inventory
 
     public Inventory() {
@@ -56,8 +93,43 @@ public class Inventory {
         }
         System.out.println("====================================");
     }
+<<<<<<< HEAD
 
     public Object getCurrentRoom() {
         return null;
     }
 }
+=======
+    
+    // Inner class untuk merepresentasikan item dalam inventory
+    private static class InventoryItem {
+        private String name;
+        private String category;
+        private int quantity;
+
+        public InventoryItem(String name, String category, int quantity) {
+            this.name = name;
+            this.category = category;
+            this.quantity = quantity;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+    }
+}
+*/
+}
+>>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584

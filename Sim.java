@@ -7,15 +7,20 @@ public class Sim {
     private int kekenyangan=80;
     private int mood=80;
     private int kesehatan=80;
-    private int uang=100;
+    private int uang=10000;
     private String status="";
     private Inventory inventory;
     private boolean inHouse;
+    private Room currentRoom;
 
     private static final String[] Jobs = {"Badut Sulap", "Koki", "Polisi", "Programmer", "Dokter", "Guru", "Penulis", "Musisi"};
     private static final Random RANDOM = new Random();
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Sim> Sims = new ArrayList<>();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584
 
     public Sim(String name) {
         this.name = name;
@@ -84,6 +89,22 @@ public class Sim {
     public void setInHouse(boolean isInHouse){
         this.inHouse = isInHouse;
     }
+<<<<<<< HEAD
+=======
+
+    public void setCurrentRoom(Room currentRoom){
+        this.currentRoom = currentRoom;
+    }
+
+    public Room getCurrentRoom(){
+        return this.currentRoom;
+    }
+
+    public static ArrayList<Sim> getSims(){
+        return Sims;
+    }
+
+>>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584
     public static void addSim() {
         System.out.print("Masukkan nama Sim baru: ");
         String name = scanner.nextLine();
@@ -91,7 +112,11 @@ public class Sim {
         Sims.add(Sim);
         System.out.println("Sim baru berhasil ditambahkan!");
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584
     public static void changeSim() {
         System.out.println("Daftar Sim yang tersedia:");
         for (int i = 0; i < Sims.size(); i++) {
@@ -105,6 +130,7 @@ public class Sim {
             System.out.println("Anda sekarang bermain sebagai Sim " + Sim.name);
         } else {
             System.out.println("Pilihan tidak valid!");
+<<<<<<< HEAD
         }
     }
 }
@@ -122,6 +148,38 @@ public void displaySimInfo() throws SimNotInGameException{
         } catch (Exception e) {
             // TODO: handle exception
             throw new SimNotInGameException("Sim is not in the house!");
+=======
+        }
+    }
+
+    public void displaySimInfo() throws SimNotInGameException{
+        if (getInHouse()){
+            try {
+                System.out.println("Sim Information:");
+                System.out.println("====================================");
+                System.out.println("Nama Sim: " + getName());
+                System.out.println("Pekerjaan Sim: " + getjob());
+                System.out.println("Kesehatan Sim: " + getKesehatan());
+                System.out.println("Kekenyangan Sim: " + getKekenyangan());
+                System.out.println("Mood Sim: " + getMood());
+                System.out.println("Uang Sim: " + getUang());
+            } catch (Exception e) {
+                // TODO: handle exception
+                throw new SimNotInGameException("Sim is not in the house!");
+            }
+        }
+    }
+
+    public void displayCurrentLocation() throws SimNotInGameException {
+        if (getInHouse()) {
+            System.out.println("Current Location: Rumah");
+        } else {
+            try {
+                System.out.println("Current Location: " + getCurrentRoom().getRoomName());
+            } catch (Exception e) {
+                throw new SimNotInGameException("Sim is not in any room!");
+            }
+>>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584
         }
     }
 }
