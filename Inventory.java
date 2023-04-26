@@ -56,4 +56,8 @@ public class Inventory {
         }
         System.out.println("====================================");
     }
+
+    public Object getCurrentRoom() {
+        return null;
+    }
 }
