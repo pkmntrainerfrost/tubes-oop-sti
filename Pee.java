@@ -1,13 +1,7 @@
 public class Pee extends Action {
-    private int duration;
 
     public Pee(Sim sim){
-        super(sim);
-        this.duration = duration;
-    }
-
-    public int getDuration() {
-        return duration;
+        super(sim,10);
     }
 
     @Override

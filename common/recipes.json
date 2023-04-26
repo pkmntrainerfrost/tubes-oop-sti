@@ -1,0 +1,18 @@
+{
+    "recipes": [
+        {
+          "name": "Hot Dog",
+          "fullness": 10,
+          "ingredients": [
+            {
+                "name": "Roti",
+                "quantity": 1
+            }
+            {
+                "name": "Sosis",
+                "quantity": 1
+            }
+          ]
+        }
+      ]
+    }

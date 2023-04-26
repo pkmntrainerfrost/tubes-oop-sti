@@ -1,17 +1,12 @@
-public abstract class Action {
-    private Sim sim;
+public interface Action extends Runnable {
 
     // constructor
-    public Action(Sim sim) {
-        this.sim = sim;
-    }
+    public abstract void act();
 
-    public abstract void acted();
+    public abstract void finish();
 
     // getter
-    public Sim getSim(){
-        return sim;
-    }
+    public Sim getSim();
 
     // setter
 }
