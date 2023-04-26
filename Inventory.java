@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Invntory {
+public class Inventory {
 
     private Map<Item,Int> items;
 
