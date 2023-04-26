@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Invntory {
+public class Inventory {
 
     private Map<Item,Int> items;
 
@@ -93,6 +93,13 @@ public class Inventory {
         }
         System.out.println("====================================");
     }
+<<<<<<< HEAD
+
+    public Object getCurrentRoom() {
+        return null;
+    }
+}
+=======
     
     // Inner class untuk merepresentasikan item dalam inventory
     private static class InventoryItem {
@@ -125,3 +132,4 @@ public class Inventory {
 }
 */
 }
+>>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584

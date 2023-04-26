@@ -3,7 +3,7 @@ import java.util.*;
 public class Sim {
 
     private String name;
-    private String job;
+    private Jobs job;
     private int kekenyangan=80;
     private int mood=80;
     private int kesehatan=80;
@@ -14,20 +14,33 @@ public class Sim {
     private boolean inHouse;
     private Room currentRoom;
 
-    private static final String[] Jobs = {"Badut Sulap", "Koki", "Polisi", "Programmer", "Dokter", "Guru", "Penulis", "Musisi"};
-    private static final Random RANDOM = new Random();
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Sim> Sims = new ArrayList<>();
 
     public Sim(String name) {
         this.name = name;
-        this.job = JobGenerator();
+        int randomJob = (int) (Math.random() * 5) + 1;
+        switch (randomJob) {
+            case 1:
+                this.job = new BadutSulap();
+                break;
+            case 2:
+                this.job = new Koki();
+                break;
+            case 3:
+                this.job = new Polisi();
+                break;
+            case 4:
+                this.job = new Programmer();
+                break;
+            case 5:
+                this.job = new Dokter();
+                break;
+            default:
+                break;
+        }
         this.inventory = new Inventory();
         this.inHouse = true;
-    }
-    public String JobGenerator() {
-        int index = RANDOM.nextInt(Jobs.length);
-        return Jobs[index];
     }
     public String PindahJob(){
         return Job.getJobChoices();
@@ -35,7 +48,7 @@ public class Sim {
     public String getName() {
         return this.name;
     }
-    public String getjob() {
+    public Jobs getjob() {
         return this.job;
     }
     public int getKekenyangan() {
@@ -78,7 +91,9 @@ public class Sim {
     public void setUang(int uang) {
         this.uang = uang;
     }
-
+    public Jobs getPekerjaan() {
+        return this.job;
+    }
     public void setStatus(String status) {
         this.status = status;
     }
@@ -86,7 +101,9 @@ public class Sim {
     public Inventory getSimInventory() {
         return this.inventory;
     }
-
+    public void setPekerjaan(Jobs job) {
+        this.job = job;
+    }
     public void setInHouse(boolean isInHouse){
         this.inHouse = isInHouse;
     }
@@ -99,6 +116,10 @@ public class Sim {
         return this.currentRoom;
     }
 
+    public static ArrayList<Sim> getSims(){
+        return Sims;
+    }
+
     public static void addSim() {
         System.out.print("Masukkan nama Sim baru: ");
         String name = scanner.nextLine();
@@ -106,7 +127,6 @@ public class Sim {
         Sims.add(Sim);
         System.out.println("Sim baru berhasil ditambahkan!");
     }
-    
     public static void changeSim() {
         System.out.println("Daftar Sim yang tersedia:");
         for (int i = 0; i < Sims.size(); i++) {
@@ -154,8 +174,25 @@ public class Sim {
     }
 }
 
+public void displayCurrentLocation() throws SimNotInGameException {
+    if (getInHouse()) {
+        System.out.println("Current Location: Rumah");
+    } else {
+        try {
+            System.out.println("Current Location: " + getSimInventory().getCurrentRoom().getRoomName());
+        } catch (Exception e) {
+            throw new SimNotInGameException("Sim is not in any room!");
+        }
+    }
+}
 class SimNotInGameException extends Exception {
     public SimNotInGameException(String errorMessage) {
         super(errorMessage);
     }
-}
+}}
+
+
+
+
+
+
