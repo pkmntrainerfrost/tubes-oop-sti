@@ -41,5 +41,4 @@ public class World {
     public EventManager getEvents() {
         return events;
     }
-
 }

@@ -94,6 +94,10 @@ public class Sim {
         return this.currentRoom;
     }
 
+    public static ArrayList<Sim> getSims(){
+        return Sims;
+    }
+
     public static void addSim() {
         System.out.print("Masukkan nama Sim baru: ");
         String name = scanner.nextLine();
@@ -101,7 +105,7 @@ public class Sim {
         Sims.add(Sim);
         System.out.println("Sim baru berhasil ditambahkan!");
     }
-    
+
     public static void changeSim() {
         System.out.println("Daftar Sim yang tersedia:");
         for (int i = 0; i < Sims.size(); i++) {
