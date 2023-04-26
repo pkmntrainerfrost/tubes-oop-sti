@@ -1,4 +1,4 @@
-public interface Action extends Runnable {
+public interface SimAction extends Runnable {
 
     // constructor
     public abstract void act();

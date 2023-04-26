@@ -1,14 +1,14 @@
-public abstract class ActiveAction implements Action {
+public abstract class SimActiveAction implements SimAction {
     
     private Sim sim;
     private int duration;
 
-    public ActiveAction(Sim sim, int duration) {
+    public SimActiveAction(Sim sim, int duration) {
         this.sim = sim;
         this.duration = duration;
     }
 
-    public ActiveAction(Sim sim) {
+    public SimActiveAction(Sim sim) {
         this.sim = sim;
     }
 
@@ -24,7 +24,7 @@ public abstract class ActiveAction implements Action {
         int endTime = Clock.getInstance().getSeconds() + duration;
         int currentTime = Clock.getInstance().getSeconds();
 
-        ActionMediator.getInstance().addAction(this);
+        SimActionMediator.getInstance().addAction(this);
 
         while (currentTime < endTime) {
             currentTime = Clock.getInstance().getSeconds();

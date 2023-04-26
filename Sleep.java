@@ -1,15 +1,16 @@
-public class Sleep extends Action {
-    private int duration;
+public class Sleep extends SimActiveAction {
 
-    public Sleep(Sim sim){
-        super(sim);
-        this.duration = duration;
+    public Sleep(Sim sim, int duration){
+        super(sim,duration);
     }
 
-    public int getDuration() {
-        return duration;
+    public void finish() {
+        int time = getDuration()/240;
+        getSim().setMood(getSim().getMood() + time * 30);
+        getSim().setKesehatan(getSim().getKesehatan() + time * 20);
     }
 
+    /*
     @Override
     public void acted() {
         int time = getDuration()/240;
@@ -18,4 +19,5 @@ public class Sleep extends Action {
             getSim().setMood(getSim().getKesehatan()+20);
         }
     }
+    */
 }

@@ -1,25 +1,25 @@
-public class Eat extends Action{
-    private Items itemMakanan;
-    private int duration;
+public class Eat extends ActiveAction {
 
-    public Eat(Items itemMakanan, int duration, Sim sim) {
-        super(sim);
+    private Food itemMakanan;
+
+    public Eat(Sim sim, Food itemMakanan) {
+        super(sim,30);
         this.itemMakanan = itemMakanan;
-        this.duration = duration;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public Items getItemMakanan() {
+    public Food getItemMakanan() {
         return itemMakanan;
     }
 
-    public void setItemMakanan(Items itemMakanan) {
+    public void setItemMakanan(Food itemMakanan) {
         this.itemMakanan = itemMakanan;
     }
 
+    public void finish() {
+        getSim().setKekenyangan(getSim().getKekenyangan() + itemMakanan.getFullness());
+    }
+
+    /*
     @Override
     public void acted() {
         int time = getDuration()/30;
@@ -59,4 +59,5 @@ public class Eat extends Action{
             }
         }
     }
+    */
 }
