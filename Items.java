@@ -6,5 +6,4 @@ public interface Items {
     public void setBuyable(boolean buyable);
     public int getPrice();
     public void setPrice(int price);
-    public void setName(String name);
 }

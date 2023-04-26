@@ -2,7 +2,7 @@ public class Cook extends SimActiveAction {
 
     public Cook(Sim sim){
         super(sim);
-        setDuration(1.5 * 1); // SEMENTARA
+        setDuration((int)1.5 * 1); // SEMENTARA
     }
 
     @Override

@@ -4,7 +4,7 @@ public class BuangSampah extends SimActiveAction {
     }
 
     @Override
-    public void acted() {
+    public void finish() {
         int time = getDuration() / 10;
         for (int i = 0; i < time; i++) {
             getSim().setMood(getSim().getMood() + 5);

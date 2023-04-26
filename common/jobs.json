@@ -5,11 +5,11 @@
       "salary": 15
     },
     {
-      "name": "Koki",
+      "name": "Chef",
       "salary": 30
     },
     {
-      "name": "Polisi",
+      "name": "Police",
       "salary": 35
     },
     {
@@ -17,7 +17,7 @@
       "salary": 45
     },
     {
-      "name": "Dokter",
+      "name": "Doctor",
       "salary": 50
     },
     {

@@ -5,7 +5,9 @@ public class Sing extends SimActiveAction {
     }
 
     public void finish() {
-        getSim().setMood(getSim().getMood() + 5);
+        int time = getDuration()/60;
+        getSim().setMood(getSim().getMood() + time * 5);
+        getSim().setKekenyangan(getSim().getKekenyangan() - time * 5);
     }
 
 }

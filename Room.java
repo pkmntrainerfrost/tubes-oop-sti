@@ -75,6 +75,10 @@ public class Room extends GridObject {
         return space;
     }
 
+    public Grid getObjectGrid(){
+        return this.objectGrid;
+    }
+
     // Method untuk memindahkan sim ke room baru
     public void moveRoom(Sim sim, Room newRoom) {
         // Cek apakah sim saat ini berada di dalam room ini
@@ -88,60 +92,5 @@ public class Room extends GridObject {
     }
 
     // Method untuk mengedit room
-    public void editRoom() {
-        Scanner input = new Scanner(System.in);
-        // Cek apakah sim yang sedang aktif saat ini berada di dalam room ini
-        if (Sim.getCurrentSim().getCurrentRoom() == this) {
-            System.out.println("Pilih opsi:");
-            System.out.println("1. Pembelian barang baru");
-            System.out.println("2. Pemindahan barang");
-            
-            int option = input.nextInt();
-            switch (option) {
-                // Case 1: Menambahkan item baru ke objectGrid
-                case 1:
-                    System.out.println("Masukkan nama barang:");
-                    String itemName = input.next();
-                    System.out.println("Masukkan harga barang:");
-                    double itemPrice = input.nextDouble();
-                    Items newItem = new Items(itemName);
-                    objectGrid.addObject(newItem);
-                    System.out.println("Barang " + itemName + " berhasil ditambahkan ke dalam ruangan " + name);
-                    break;
-                // Case 2: Memindahkan item ke room atau inventory sim
-                case 2:
-                    System.out.println("Masukkan nama barang yang ingin dipindahkan:");
-                    String itemToMove = input.next();
-                    GridObject item = objectGrid.findObjectByName(itemToMove);
-                    if (item == null) {
-                        System.out.println("Barang " + itemToMove + " tidak ditemukan di dalam ruangan " + name);
-                    } else {
-                        System.out.println("Pilih opsi:");
-                        System.out.println("1. Pindahkan ke ruangan lain");
-                        System.out.println("2. Pindahkan ke inventory Sim");
-                        int moveOption = input.nextInt();
-                        // Case 1: Memindahkan item ke room lain
-                        if (moveOption == 1) {
-                            System.out.println("Masukkan nama ruangan tujuan:");
-                            String destinationRoomName = input.next();
-                            Room destinationRoom = Sim.getCurrentSim().getHouse().findRoomByName(destinationRoomName);
-                            if (destinationRoom == null) {
-                                System.out.println("Ruangan " + destinationRoomName + " tidak ditemukan di dalam rumah.");
-                            } else {
-                                objectGrid.removeObject(item);
-                                destinationRoom.getObjectGrid().addObject(item);
-                                System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke ruangan " + destinationRoomName);
-                            }
-                        // case 2: memindahkan item ke inventory sim
-                        } else if (moveOption == 2) {
-                            Sim.getCurrentSim().getInventory().addItem((Items)item);
-                            objectGrid.removeObject(item);
-                            System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke inventory Sim");
-                        } else {
-                            System.out.println("Opsi yang dimasukkan tidak valid");
-                        }
-                    }
-            }
-        }
-    }
+
 }

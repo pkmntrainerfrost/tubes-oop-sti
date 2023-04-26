@@ -1,12 +1,12 @@
-public class Programmer implements Jobs{
+public class Police implements Jobs {
     private String namajob;
     private int gaji;
-    public Programmer() {
-        this.namajob = "Programmer";
-        this.gaji = 60;
+    public Police() {
+        this.namajob = "Police";
+        this.gaji = 35;
     }
     public String getJobName(){
-        return namajob;
+        return namajob = "Police";
     }
     public int getGaji(){
         return gaji;

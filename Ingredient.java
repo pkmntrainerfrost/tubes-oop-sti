@@ -1,14 +1,14 @@
-public class Ingredient extends Food implements Items {
+public class Ingredient extends Food {
 
     public Ingredient(String name, int fullness, int price) {
-        super(name, fullness);
+        super(name, fullness, price);
         this.setPrice(price);
         this.setBuyable(true);
     }
 
     @Override
     public String getItemName() {
-        return this.name;
+        return this.getName();
     }
 
     @Override

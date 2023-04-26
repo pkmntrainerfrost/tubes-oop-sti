@@ -5,7 +5,9 @@ public class Dance extends SimActiveAction {
     }
 
     public void finish() {
-        getSim().setMood(getSim().getMood() + 3);
+        int time = getDuration()/60;
+        getSim().setMood(getSim().getMood() + time * 6);
+        getSim().setKekenyangan(getSim().getKekenyangan() - time * 6);
     }
 
 }

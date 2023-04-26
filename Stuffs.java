@@ -1,27 +1,42 @@
-public class Stuffs extends GridObject implements Items {
+public abstract class Stuffs extends GridObject implements Items {
     private String stuffName;
     private int stuffLength;
     private int stuffWidth;
     private int stuffPrice;
-    private Action stuffAction;
+    private boolean buyable;
 
     // constructor
-    public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Action stuffAction, Point point) {
+    public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Point point) {
         super(point, stuffLength, stuffWidth);
         this.stuffName = stuffName;
-        this.stuffLength = stuffLength;
-        this.stuffWidth = stuffWidth;
         this.stuffPrice = stuffPrice;
-        this.stuffAction = stuffAction;
+        this.buyable = true;
     }
 
     // override
+    @Override
     public String getItemName() {
-        return stuffName;
+        return name;
     }
 
-    public void setItemName(String stuffName) {
-        this.stuffName = stuffName;
+    public void setItemName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean getBuyable() {
+        return buyable;
+    }
+
+    public void setBuyable(boolean buyable) {
+        this.buyable = buyable;
     }
 
     // getter
@@ -38,10 +53,6 @@ public class Stuffs extends GridObject implements Items {
         return stuffPrice;
     }
 
-    public Action getStuffAction() {
-        return stuffAction;
-    }
-
     // setter
 
     public void setStuffLength(int stuffLength) {
@@ -54,10 +65,6 @@ public class Stuffs extends GridObject implements Items {
 
     public void setStuffPrice(int stuffPrice) {
         this.stuffPrice = stuffPrice;
-    }
-
-    public void setStuffAction(Action stuffAction) {
-        this.stuffAction = stuffAction;
     }
 
     @Override

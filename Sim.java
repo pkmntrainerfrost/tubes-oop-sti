@@ -13,6 +13,8 @@ public class Sim {
     private Inventory inventory;
     private boolean inHouse;
     private Room currentRoom;
+    private static final Random RANDOM = new Random();
+    private static final Jobs[] jobChoices = {new MagicClown(), new Chef(), new Police(), new Programmer(), new Doctor()};
 
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Sim> Sims = new ArrayList<>();
@@ -22,28 +24,32 @@ public class Sim {
         int randomJob = (int) (Math.random() * 5) + 1;
         switch (randomJob) {
             case 1:
-                this.job = new BadutSulap();
+                this.job = new MagicClown();
                 break;
             case 2:
-                this.job = new Koki();
+                this.job = new Chef();
                 break;
             case 3:
-                this.job = new Polisi();
+                this.job = new Police();
                 break;
             case 4:
                 this.job = new Programmer();
                 break;
             case 5:
-                this.job = new Dokter();
+                this.job = new Doctor();
                 break;
             default:
                 break;
         }
-        this.inventory = new Inventory();
+        //this.inventory = new Inventory();
         this.inHouse = true;
     }
-    public String PindahJob(){
-        return Job.getJobChoices();
+    public Jobs getJobChoices() {
+        int index = RANDOM.nextInt(jobChoices.length);
+        return jobChoices[index];
+    }
+    public Jobs PindahJob(){
+        return getJobChoices();
     }
     public String getName() {
         return this.name;
@@ -72,22 +78,18 @@ public class Sim {
     public int getWorkSeconds() {
         return this.workSeconds;
     }
-
     public void setName(String name) {
         this.name = name;
     }
     public void setKekenyangan(int kekenyangan) {
         this.kekenyangan = kekenyangan;
     }
-
     public void setMood(int mood) {
         this.mood = mood;
     }
-
     public void setKesehatan(int kesehatan) {
         this.kesehatan = kesehatan;
     }
-
     public void setUang(int uang) {
         this.uang = uang;
     }
@@ -97,7 +99,6 @@ public class Sim {
     public void setStatus(String status) {
         this.status = status;
     }
-
     public Inventory getSimInventory() {
         return this.inventory;
     }
@@ -107,19 +108,17 @@ public class Sim {
     public void setInHouse(boolean isInHouse){
         this.inHouse = isInHouse;
     }
-
     public void setCurrentRoom(Room currentRoom){
         this.currentRoom = currentRoom;
     }
-
     public Room getCurrentRoom(){
         return this.currentRoom;
     }
-
     public static ArrayList<Sim> getSims(){
         return Sims;
     }
 
+    // aksi tambah Sim
     public static void addSim() {
         System.out.print("Masukkan nama Sim baru: ");
         String name = scanner.nextLine();
@@ -127,6 +126,8 @@ public class Sim {
         Sims.add(Sim);
         System.out.println("Sim baru berhasil ditambahkan!");
     }
+
+    // aksi ubah Sim
     public static void changeSim() {
         System.out.println("Daftar Sim yang tersedia:");
         for (int i = 0; i < Sims.size(); i++) {
@@ -160,7 +161,6 @@ public class Sim {
             }
         }
     }
-
     public void displayCurrentLocation() throws SimNotInGameException {
         if (getInHouse()) {
             System.out.println("Current Location: Rumah");
@@ -175,6 +175,71 @@ public class Sim {
 
     public void setWorkSeconds(int workSeconds){
         this.workSeconds = workSeconds;
+    }
+
+    // aksi melihat inventory
+    public void seeInventory() {
+        System.out.println("Berikut merupakan inventory yang dimiliki oleh :" + getName());
+        // getSimInventory().displayInventory(); // ini kelas inventorynya belum di fix yah, jadi tunggu dulu
+    }
+
+    public void editRoom(Room room) {
+        Scanner input = new Scanner(System.in);
+        // Cek apakah sim yang sedang aktif saat ini berada di dalam room ini
+        if (this.getCurrentRoom() == room) {
+            System.out.println("Pilih opsi:");
+            System.out.println("1. Pembelian barang baru");
+            System.out.println("2. Pemindahan barang");
+            System.out.println("3. Memasang barang");
+            
+            int option = input.nextInt();
+            switch (option) {
+                // Case 1: Menambahkan item baru ke objectGrid
+                case 1:
+                    System.out.print("Masukkan nama barang:");
+                    String itemName = input.next();
+                    System.out.print("Masukkan harga barang:");
+                    double itemPrice = input.nextDouble();
+                    //ganti jadi masukin ke inventory
+                    // Stuffs newItem = new Stuffs(itemName, newItem.getStuffLength());
+                    room.getObjectGrid().addObject(newItem);
+                    System.out.println("Barang " + itemName + " berhasil ditambahkan ke dalam inventory sim " + getName());
+                    break;
+                // Case 2: Memindahkan item ke room atau inventory sim
+                case 2:
+                    System.out.print("Masukkan nama barang yang ingin dipindahkan:");
+                    String itemToMove = input.next();
+                    GridObject item = objectGrid.findObjectByName(itemToMove);
+                    if (item == null) {
+                        System.out.println("Barang " + itemToMove + " tidak ditemukan di dalam ruangan " + name);
+                    } else {
+                        System.out.println("Pilih opsi:");
+                        System.out.println("1. Pindahkan ke ruangan lain");
+                        System.out.println("2. Pindahkan ke inventory Sim");
+                        int moveOption = input.nextInt();
+                        // Case 1: Memindahkan item ke room lain
+                        if (moveOption == 1) {
+                            System.out.println("Masukkan nama ruangan tujuan:");
+                            String destinationRoomName = input.next();
+                            Room destinationRoom = Sim.getCurrentSim().getHouse().findRoomByName(destinationRoomName);
+                            if (destinationRoom == null) {
+                                System.out.println("Ruangan " + destinationRoomName + " tidak ditemukan di dalam rumah.");
+                            } else {
+                                objectGrid.removeObject(item);
+                                destinationRoom.getObjectGrid().addObject(item);
+                                System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke ruangan " + destinationRoomName);
+                            }
+                        // case 2: memindahkan item ke inventory sim
+                        } else if (moveOption == 2) {
+                            Sim.getCurrentSim().getInventory().addItem((Items)item);
+                            objectGrid.removeObject(item);
+                            System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke inventory Sim");
+                        } else {
+                            System.out.println("Opsi yang dimasukkan tidak valid");
+                        }
+                    }
+            }
+        }
     }
 }
 

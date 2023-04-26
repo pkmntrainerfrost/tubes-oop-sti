@@ -3,22 +3,20 @@ import java.util.*;
 public class World {
 
     // Implementasi World menggunakan Design Pattern Singleton
-
     private List<Sim> simList;
     private List<SimAction> actionList;
-
+    private List<House> houseList;
     private Grid houseGrid;
-
     private SimActionMediator actionMediator;
-
     private static World instance = new World();
-
     private Scanner sc = new Scanner(System.in);
+    private Sim currentSim;
 
     public World() {
         houseGrid = new Grid(64,64);
         simList = new ArrayList<>();
         actionList = new ArrayList<>();
+        houseList = new ArrayList<>();
         actionMediator = actionMediator.getInstance();
         System.out.println("Write your character's name: ");
         String name = sc.nextLine();
@@ -35,6 +33,10 @@ public class World {
 
     public List<SimAction> getActionList() {
         return actionList;
+    }
+
+    public void addHouseToWorld(House house){
+        houseList.add(house);
     }
 
     public void addSim() {
