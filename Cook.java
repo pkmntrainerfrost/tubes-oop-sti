@@ -1,4 +1,4 @@
-public class Cook extends ActiveAction {
+public class Cook extends SimActiveAction {
 
     public Cook(Sim sim){
         super(sim);
@@ -6,7 +6,7 @@ public class Cook extends ActiveAction {
     }
 
     @Override
-    public void acted() {
+    public void finish() {
         int time = getDuration();
         for (int i = 0; i < time; i++){
             getSim().setMood(getSim().getMood()+10);

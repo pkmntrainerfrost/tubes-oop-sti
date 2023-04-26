@@ -7,7 +7,7 @@ public class Work extends SimActiveAction {
     public void finish() {
         this.getSim().setWorkSeconds(this.getSim().getWorkSeconds() + this.getDuration());
         if (this.getSim().getWorkSeconds() >= 240) {
-
+        
         }
     }
     

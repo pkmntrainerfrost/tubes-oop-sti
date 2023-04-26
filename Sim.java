@@ -172,6 +172,10 @@ public class Sim {
             }
         }
     }
+
+    public void setWorkSeconds(int workSeconds){
+        this.workSeconds = workSeconds;
+    }
 }
 
 class SimNotInGameException extends Exception {
