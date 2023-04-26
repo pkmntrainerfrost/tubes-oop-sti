@@ -107,24 +107,193 @@ public class Sim {
             System.out.println("Pilihan tidak valid!");
         }
     }
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    
+}
+public void displaySimInfo() throws SimNotInGameException{
+    if (getInHouse()){
+        try {
+            System.out.println("Sim Information:");
+            System.out.println("====================================");
+            System.out.println("Nama Sim: " + getName());
+            System.out.println("Pekerjaan Sim: " + getjob());
+            System.out.println("Kesehatan Sim: " + getKesehatan());
+            System.out.println("Kekenyangan Sim: " + getKekenyangan());
+            System.out.println("Mood Sim: " + getMood());
+            System.out.println("Uang Sim: " + getUang());
+        } catch (Exception e) {
+            // TODO: handle exception
+            throw new SimNotInGameException("Sim is not in the house!");
+        }
+    }
 }
 
+public void displayCurrentLocation() throws SimNotInGameException {
+    if (getInHouse()) {
+        System.out.println("Current Location: Rumah");
+    } else {
+        try {
+            System.out.println("Current Location: " + getSimInventory().getCurrentRoom().getRoomName());
+        } catch (Exception e) {
+            throw new SimNotInGameException("Sim is not in any room!");
+        }
+    }
+}
 class SimNotInGameException extends Exception {
     public SimNotInGameException(String errorMessage) {
         super(errorMessage);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
