@@ -6,6 +6,7 @@ public class House extends GridObject{
     /* private List<Room> rooms;  */
 
     private Sim owner;
+    private Room mainRoom;
 
     //konstruktor
     public House(Point p, Sim owner) {
@@ -13,9 +14,10 @@ public class House extends GridObject{
         super(p,1,1);
         this.owner = owner;
 
-        houseGrid = new Grid(5,5,5,5);
+        houseGrid = new Grid(10,10,0,0);
         try {
-            houseGrid.addObject(new Room(new Point(0,0),"placeholder",true));
+            this.mainRoom = new Room(new Point(0,0),"placeholder",true);
+            houseGrid.addObject(mainRoom);
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -39,13 +41,17 @@ public class House extends GridObject{
     }
     */
 
+    public Room getMainRoom(){
+        return this.mainRoom;
+    }
+
     public void upgradeHouse(Room refRoom, String name, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException, SimMiskinException {
         
-        int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY() - 1; 
-        int y = up ? refRoom.getMaximumY() : refRoom.getMinimumY() - 1;
+        int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY(); 
+        int y = up ? refRoom.getMaximumY() : refRoom.getMinimumY();
 
         Point p = new Point(x,y);
-        Room newRoom = new Room(p,name,false);
+        Room newRoom = new Room(p,name,true);
 
         boolean add = false;
 
@@ -54,15 +60,15 @@ public class House extends GridObject{
         }
 
         if (owner.getUang() < 1500) {
-            throw new SimMiskinException("Sim is miskin!");
+            throw new SimMiskinException("The money is not enough!");
         }
 
         do {
             try {
                 houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
                 owner.setUang(-1500);
-                HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
-                World.getInstance().getEvents().subscribe("timeincrement", upgrade);
+                // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
+                // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
             } catch (PositionOccupiedException e) {
                 throw new NeighborFoundException("This direction is already occupied!");
             } catch (PositionOutOfBoundsException e) {
