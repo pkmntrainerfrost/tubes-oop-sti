@@ -1,50 +1,56 @@
 public class Eat extends Action{
-    private String makanan;
+    private Items itemMakanan;
+    private int duration;
 
-    public Eat(String makanan, int duration, Sim sim) {
-        super(sim,duration);
-        this.makanan = makanan;
+    public Eat(Items itemMakanan, int duration, Sim sim) {
+        super(sim);
+        this.itemMakanan = itemMakanan;
+        this.duration = duration;
     }
 
-    public String getMakanan() {
-        return makanan;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setMakanan(String makanan) {
-        this.makanan = makanan;
+    public Items getItemMakanan() {
+        return itemMakanan;
+    }
+
+    public void setItemMakanan(Items itemMakanan) {
+        this.itemMakanan = itemMakanan;
     }
 
     @Override
     public void acted() {
         int time = getDuration()/30;
-        int itemQuantity = getSim().getInventory().getItemQuantity(makanan);
+        int itemQuantity = getSim().getSimInventory().getItemQuantity(getItemMakanan().getItemName());
         
         for (int i = 0; i < time; i++) {
             if (itemQuantity >= 1) {
-                if (getMakanan().equals("Nasi")) {
+                if (getItemMakanan().getItemName().equals("Nasi")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+5);
-                    getSim().getInventory().removeItem("Nasi", 1);
-                } else if (getMakanan().equals("Kentang")) {
+                    getSim().getSimInventory().removeItem("Nasi", 1);
+                } else if (getItemMakanan().getItemName().equals("Kentang")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+4);
-                    getSim().getInventory().removeItem("Kentang", 1);
-                } else if (getMakanan().equals("Ayam")) {
+                    getSim().getSimInventory().removeItem("Kentang", 1);
+                } else if (getItemMakanan().getItemName().equals("Ayam")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+8);
-                    getSim().getInventory().removeItem("Ayam", 1);
-                } else if (getMakanan().equals("Sapi")) {
+                    getSim().getSimInventory().removeItem("Ayam", 1);
+                } else if (getItemMakanan().getItemName().equals("Sapi")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+15);
-                    getSim().getInventory().removeItem("Sapi", 1);
-                } else if (getMakanan().equals("Wortel")) {
+                    getSim().getSimInventory().removeItem("Sapi", 1);
+                } else if (getItemMakanan().getItemName().equals("Wortel")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+2);
-                    getSim().getInventory().removeItem("Wortel", 1);
-                } else if (getMakanan().equals("Bayam")) {
+                    getSim().getSimInventory().removeItem("Wortel", 1);
+                } else if (getItemMakanan().getItemName().equals("Bayam")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+2);
-                    getSim().getInventory().removeItem("Bayam", 1);
-                } else if (getMakanan().equals("Kacang")) {
+                    getSim().getSimInventory().removeItem("Bayam", 1);
+                } else if (getItemMakanan().getItemName().equals("Kacang")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+2);
-                    getSim().getInventory().removeItem("Kacang", 1);
-                } else if (getMakanan().equals("Susu")) {
+                    getSim().getSimInventory().removeItem("Kacang", 1);
+                } else if (getItemMakanan().getItemName().equals("Susu")) {
                     getSim().setKekenyangan(getSim().getKekenyangan()+1);
-                    getSim().getInventory().removeItem("Susu", 1);
+                    getSim().getSimInventory().removeItem("Susu", 1);
                 } else {
                     System.out.println("Makanan tidak ada di list");
                 }

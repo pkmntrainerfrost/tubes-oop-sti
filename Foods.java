@@ -7,7 +7,7 @@ public class Foods implements Items {
     private int foodFullness;
     private String foodName;
 
-    private Foods(int foodFullness, String foodName) {
+    public Foods(int foodFullness, String foodName) {
         this.foodFullness = foodFullness;
         this.foodName = foodName;
         this.groupOfFoodStuff = new ArrayList<FoodStuffs>();
@@ -38,5 +38,11 @@ public class Foods implements Items {
     
     public void setGroupOfFoodStuff(List<FoodStuffs> groupOfFoodStuff) {
         this.groupOfFoodStuff = groupOfFoodStuff;
+    }
+
+    @Override
+    public String getCategory() {
+        // TODO Auto-generated method stub
+        return "Foods";
     }
 }

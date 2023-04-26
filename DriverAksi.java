@@ -6,73 +6,43 @@ public class DriverAksi {
     public static void main(String args[]) throws Exception {
 
         // kasusnya ada 2 sim
-        Sim andi = new Sim("andi");
-        Sim budi = new Sim("budi");
+        Sim sim1 = new Sim("sim1");
+        Sim sim2 = new Sim("sim2");
 
         // scanner
         Scanner scan = new Scanner(System.in);
 
-        // tampilan awal khusus andi
-        andi.setInHouse(true);
+        // tampilan awal khusus sim1
+        sim1.setInHouse(true);
         System.out.println();
-        andi.displaySimInfo();
-        System.out.println();
-
-        andi.addItemToInventory("Nasi", "Foods", 20);
-        andi.addItemToInventory("Ayam", "Foods", 15);
-        andi.addItemToInventory("Wortel", "Foods", 1);
-
-        System.out.println("INVENTORY ANDI");
-        andi.getInventory().displayInventory();
+        sim1.displaySimInfo();
         System.out.println();
 
-        // tampilan awal khusus budi
-        budi.setInHouse(true);
+        Items nasi = new Foods(5, "Nasi");
+        Items ayam = new Foods(8, "Ayam");
+        Items wortel = new Foods(2, "Wortel");
+
+        sim1.getSimInventory().addItem(nasi, 20);
+        sim1.getSimInventory().addItem(ayam, 15);
+        sim1.getSimInventory().addItem(wortel, 1);
+
+        System.out.println("INVENTORY SIM1");
+        sim1.getSimInventory().displayInventory();
         System.out.println();
-        budi.displaySimInfo();
+       
+        // test aksi makanan beserta inventory
+        Eat eatSim1 = new Eat(wortel, 30, sim1);
+
+        // SIM1
+        sim1.setInHouse(true);
         System.out.println();
-
-        budi.addItemToInventory("Wortel", "Foods", 1);
-
-        System.out.println("INVENTORY BUDI");
-        budi.getInventory().displayInventory();
-        System.out.println();
-
-        // scanner dan test aksi makanan beserta inventory
-        System.out.println("Masukkan makanan yang ingin dimakan: ");
-        String scanMakanan = scan.next();
-        Eat eatAndi = new Eat(scanMakanan, 30, andi);
-        Eat eatBudi = new Eat(scanMakanan, 30, budi);
-
-        Point pointAwal = new Point(0,0);
-        Point pointAkhir = new Point(1,1);
-
-        Visit visitAndi = new Visit(pointAwal, pointAkhir, andi);
-
-        // ANDI
-        andi.setInHouse(true);
-        System.out.println();
-        eatAndi.acted();
-        visitAndi.acted();
-        andi.displaySimInfo();
+        eatSim1.acted();
+        sim1.displaySimInfo();
         System.out.println();
 
         // inventory ANDI
-        System.out.println("INVENTORY ANDI");
-        andi.getInventory().displayInventory();
+        System.out.println("INVENTORY SIM1");
+        sim1.getSimInventory().displayInventory();
         System.out.println();
-
-        // BUDI
-        budi.setInHouse(true);
-        System.out.println();
-        budi.displaySimInfo();
-        System.out.println();
-
-        // inventory BUDI
-        System.out.println("INVENTORY BUDI");
-        budi.getInventory().displayInventory();
-        System.out.println();
-        
-
     }
 }

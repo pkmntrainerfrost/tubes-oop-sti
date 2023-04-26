@@ -1,10 +1,12 @@
+import java.util.EventListener;
+
 public abstract class PassiveAction extends Action implements EventListener {    
 
     private int timePassed = 0;
     private int startTime = World.getInstance().getSeconds();
 
-    public PassiveAction(int duration, Sim sim) {
-        super(duration,sim);
+    public PassiveAction(Sim sim) {
+        super(sim);
     }
 
     public abstract void acted();
@@ -32,4 +34,29 @@ class HouseUpgrade extends PassiveAction {
         room.setFinished(true);
     }
 
+}
+
+// belom kelar
+class addItemToRoom extends PassiveAction{
+    private Room room;
+    private Stuffs stuff;
+
+    public addItemToRoom(Sim sim, Room room, Stuffs stuff) {
+        super(sim);
+        //TODO Auto-generated constructor stub
+        this.stuff = stuff;
+        this.room = room;
+    }
+
+    @Override
+    public void acted() {
+        if (stuff.getCategory().equals("Stuffs")){
+            if (room.getAvailableSpace() > (stuff.getStuffLength() * stuff.getStuffWidth() + room.getLength()) || room.getAvailableSpace() > (stuff.getStuffLength() * stuff.getStuffWidth() + room.getHeight())){
+                room.getItemListInRoom().add(stuff);
+                getSim().getSimInventory().removeItem(stuff.getItemName(), 1);
+            }
+        }
+    }
+
+    
 }

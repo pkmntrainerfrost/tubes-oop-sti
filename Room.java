@@ -15,6 +15,8 @@ public class Room extends GridObject {
     // Attribute finished untuk menyimpan status selesai atau belumnya room
     private boolean finished;
 
+    private List<Stuffs> stuffList;
+
     // Konstruktor dengan parameter point, name, dan finished
     public Room(Point point, String name, boolean finished) {
         // Memanggil konstruktor dari kelas induk
@@ -26,6 +28,11 @@ public class Room extends GridObject {
         this.finished = finished;
     }
 
+    // Getter untuk nama ruangan
+    public String getRoomName() {
+        return this.name;
+    }
+
     // Setter untuk attribute finished
     public void setFinished(boolean finished) {
         this.finished = finished;
@@ -34,6 +41,30 @@ public class Room extends GridObject {
     // Getter untuk semua object pada objectGrid
     public List<GridObject> getObjects() {
         return objectGrid.getObjects();
+    }
+
+    // Getter untuk list items dalam room
+    public List<Stuffs> getItemListInRoom(){
+        return this.stuffList;
+    }
+
+    // display list items dalam room
+    public void displayItemsInRoom(){
+        List<Stuffs> listItems;
+        listItems = getItemListInRoom();
+
+        for (Stuffs stuff : listItems) {
+            System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
+            System.out.println(stuff.getItemName());
+        }
+    }
+
+// belom selesai
+    public int getAvailableSpace(){
+        int space = getHeight()*getLength();
+        for(Stuffs item: stuffList){
+            //space -= item.
+        }
     }
 
     // Method untuk memindahkan sim ke room baru

@@ -45,13 +45,13 @@ public class Inventory {
     }
 
     // Menambahkan objek ke inventory
-    public void addItem(String itemName, String category, int quantity) {
-        if (items.containsKey(itemName)) {
-            InventoryItem currentItem = items.get(itemName);
+    public void addItem(Items item, int quantity) {
+        if (items.containsKey(item.getItemName())) {
+            InventoryItem currentItem = items.get(item.getItemName());
             currentItem.setQuantity(currentItem.getQuantity() + quantity);
         } else {
-            InventoryItem newItem = new InventoryItem(itemName, category, quantity);
-            items.put(itemName, newItem);
+            InventoryItem newItem = new InventoryItem(item, quantity);
+            items.put(item.getItemName(), newItem);
         }
         clearZeroQuantityItems();
     }
@@ -124,3 +124,4 @@ public class Inventory {
     }
 }
 */
+}
