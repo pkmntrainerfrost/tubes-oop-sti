@@ -174,22 +174,11 @@ public class Sim {
     }
 }
 
-public void displayCurrentLocation() throws SimNotInGameException {
-    if (getInHouse()) {
-        System.out.println("Current Location: Rumah");
-    } else {
-        try {
-            System.out.println("Current Location: " + getSimInventory().getCurrentRoom().getRoomName());
-        } catch (Exception e) {
-            throw new SimNotInGameException("Sim is not in any room!");
-        }
-    }
-}
 class SimNotInGameException extends Exception {
     public SimNotInGameException(String errorMessage) {
         super(errorMessage);
     }
-}}
+}
 
 
 
