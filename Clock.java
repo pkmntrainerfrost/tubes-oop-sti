@@ -18,10 +18,10 @@ public class Clock implements Runnable {
         actionMediator = ActionMediator.getInstance();
     }
 
-    public run() {
+    public void run() {
         while (true) {
             if (running) {
-                delay(1000);
+                Thread.sleep(1000);
                 updateTime();
             }
         }
@@ -63,7 +63,7 @@ public class Clock implements Runnable {
         instance = new Clock();
     }
 
-    public Clock getInstance() {
+    public static Clock getInstance() {
         return instance;
     }
     

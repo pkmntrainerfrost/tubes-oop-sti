@@ -47,7 +47,7 @@ public class House extends GridObject{
     public void upgradeHouse(Room refRoom, String name, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException, SimMiskinException {
         
         int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY() - 1; 
-        int y = up ? refRoom.getMaximumY() : refRoom.getMinimumY() - 1;
+        int y = up ? refRoom.getMaximumY(): refRoom.getMinimumY() - 1;
 
         Point p = new Point(x,y);
         Room newRoom = new Room(p,name,true);

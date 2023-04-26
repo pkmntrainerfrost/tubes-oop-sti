@@ -1,4 +1,4 @@
-public class Cook extends Action {
+public class Cook extends ActiveAction {
 
     public Cook(Sim sim){
         super(sim);

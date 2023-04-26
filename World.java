@@ -16,8 +16,8 @@ public class World {
     private World() {
         houseGrid = new Grid(64,64);
         simList = new ArrayList<>();
-        actionList = new ActionList<>();
-        actionMediator = actionMediator.getInstance();
+        actionList = new ArrayList<>();
+        actionMediator = ActionMediator.getInstance();
     }
 
     public static World getInstance() {
@@ -25,7 +25,7 @@ public class World {
     }
 
     public void resetWorld() {
-        instance = newWorld;
+        instance = new World();
     }
 
     public List<Action> getActionList() {

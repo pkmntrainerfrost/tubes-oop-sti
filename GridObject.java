@@ -61,6 +61,6 @@ public abstract class GridObject {
         if (this.getMaximumX() <= object.getMinimumX() || this.getMinimumX() >= object.getMaximumX()){
             flag = false;
         }
-        return flag;
+        return (this.getMinimumX() >= object.getMinimumX() && this.getMinimumX() <= object.getMaximumX()) || (this.getMinimumY() >= object.getMinimumY() && this.getMinimumY() <= this.getMaximumY());;
     }
 }

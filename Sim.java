@@ -8,6 +8,7 @@ public class Sim {
     private int mood=80;
     private int kesehatan=80;
     private int uang=10000;
+    private int workSeconds;
     private String status="";
     private Inventory inventory;
     private boolean inHouse;
@@ -55,6 +56,10 @@ public class Sim {
     public boolean getInHouse(){
         return this.inHouse;
     }
+    public int getWorkSeconds() {
+        return this.workSeconds;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
