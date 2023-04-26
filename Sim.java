@@ -7,13 +7,16 @@ public class Sim {
     private int kekenyangan=80;
     private int mood=80;
     private int kesehatan=80;
-    private int uang=100;
+    private int uang=10000;
     private String status="";
     private Inventory inventory;
     private boolean inHouse;
+    private Room currentRoom;
 
     private static final String[] Jobs = {"Badut Sulap", "Koki", "Polisi", "Programmer", "Dokter", "Guru", "Penulis", "Musisi"};
     private static final Random RANDOM = new Random();
+    private static final Scanner scanner = new Scanner(System.in);
+    private static ArrayList<Sim> Sims = new ArrayList<>();
 
     public Sim(String name) {
         this.name = name;
@@ -83,6 +86,38 @@ public class Sim {
         this.inHouse = isInHouse;
     }
 
+    public void setCurrentRoom(Room currentRoom){
+        this.currentRoom = currentRoom;
+    }
+
+    public Room getCurrentRoom(){
+        return this.currentRoom;
+    }
+
+    public static void addSim() {
+        System.out.print("Masukkan nama Sim baru: ");
+        String name = scanner.nextLine();
+        Sim Sim = new Sim(name);
+        Sims.add(Sim);
+        System.out.println("Sim baru berhasil ditambahkan!");
+    }
+    
+    public static void changeSim() {
+        System.out.println("Daftar Sim yang tersedia:");
+        for (int i = 0; i < Sims.size(); i++) {
+            System.out.println((i+1) + ". " + Sims.get(i).name);
+        }
+        System.out.print("Pilih nomor Sim yang ingin dimainkan: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume newline character
+        if (choice > 0 && choice <= Sims.size()) {
+            Sim Sim = Sims.get(choice-1);
+            System.out.println("Anda sekarang bermain sebagai Sim " + Sim.name);
+        } else {
+            System.out.println("Pilihan tidak valid!");
+        }
+    }
+
     public void displaySimInfo() throws SimNotInGameException{
         if (getInHouse()){
             try {
@@ -106,7 +141,7 @@ public class Sim {
             System.out.println("Current Location: Rumah");
         } else {
             try {
-                System.out.println("Current Location: " + getSimInventory().getCurrentRoom().getRoomName());
+                System.out.println("Current Location: " + getCurrentRoom().getRoomName());
             } catch (Exception e) {
                 throw new SimNotInGameException("Sim is not in any room!");
             }

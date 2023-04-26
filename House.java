@@ -7,6 +7,8 @@ public class House extends GridObject{
 
     private Sim owner;
 
+    private Room mainRoom;
+
     //konstruktor
     public House(Point p, Sim owner) {
 
@@ -15,12 +17,15 @@ public class House extends GridObject{
 
         houseGrid = new Grid(5,5,5,5);
         try {
-            houseGrid.addObject(new Room(new Point(0,0),"placeholder",true));
+            this.mainRoom = new Room(new Point(0,0),"placeholder",true);
+            houseGrid.addObject(mainRoom);
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
-        
+    }
 
+    public Room getMainRoom(){
+        return this.mainRoom;
     }
 
     /*
@@ -45,7 +50,7 @@ public class House extends GridObject{
         int y = up ? refRoom.getMaximumY() : refRoom.getMinimumY() - 1;
 
         Point p = new Point(x,y);
-        Room newRoom = new Room(p,name,false);
+        Room newRoom = new Room(p,name,true);
 
         boolean add = false;
 
@@ -61,8 +66,8 @@ public class House extends GridObject{
             try {
                 houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
                 owner.setUang(-1500);
-                HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
-                World.getInstance().getEvents().subscribe("timeincrement", upgrade);
+                // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
+                // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
             } catch (PositionOccupiedException e) {
                 throw new NeighborFoundException("This direction is already occupied!");
             } catch (PositionOutOfBoundsException e) {
