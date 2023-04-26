@@ -22,7 +22,7 @@ public class Room extends GridObject {
         // Memanggil konstruktor dari kelas induk
         super(point, 6, 6);
         // Membuat objectGrid baru
-        objectGrid = new Grid(6, 6);
+        objectGrid = new Grid(6+point.getX(), 6+point.getY(), point.getX(), point.getY());
         // Mengisi atribut name dan finished
         this.name = name;
         this.finished = finished;
