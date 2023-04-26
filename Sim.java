@@ -18,6 +18,7 @@ public class Sim {
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Sim> Sims = new ArrayList<>();
 
+
     public Sim(String name) {
         this.name = name;
         this.job = JobGenerator();
