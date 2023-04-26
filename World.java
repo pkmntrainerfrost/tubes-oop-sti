@@ -20,18 +20,15 @@ public class World {
     public World() {
         houseGrid = new Grid(64,64);
         simList = new ArrayList<>();
-        actionList = new ArrayList<>();
-        actionMediator = ActionMediator.getInstance();
-        System.out.println("Choose your sim name");
-        String simName = sc.nextLine();
-        currentSim = new Sim(simName);
+        actionList = new ActionList<>();
+        actionMediator = actionMediator.getInstance();
     }
 
     public static World getInstance() {
         return instance;
     }
 
-    public void resetWorld(World newWorld) {
+    public void resetWorld() {
         instance = newWorld;
     }
 

@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.swing.Action;
-
 public class ActionMediator {
 
     /* Menggunakan design pattern singleton + modifier mediator (aslinya interface) */
@@ -12,8 +10,8 @@ public class ActionMediator {
     private static ActionMediator instance = new ActionMediator();
 
     private ActionMediator() {
-        world = World.getInstance;
-        clock = Clock.getInstance;
+        world = World.getInstance();
+        clock = Clock.getInstance();
     }
 
     public static ActionMediator getInstance() {
