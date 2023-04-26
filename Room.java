@@ -60,11 +60,19 @@ public class Room extends GridObject {
     }
 
 // belom selesai
+// gini gasi gatau si aing kalo salah ganti lagi aja
+// itu gatau bener instanceof object atau kaga
     public int getAvailableSpace(){
         int space = getHeight()*getLength();
         for(Stuffs item: stuffList){
-            //space -= item.
+            if(item instanceof Item){
+                space -= 1;
+            } else if(item instanceof object){
+                object object = (object) item;
+                space -= object.getWidth() * object.getLength();
+            }
         }
+        return space;
     }
 
     // Method untuk memindahkan sim ke room baru
