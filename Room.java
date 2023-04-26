@@ -65,11 +65,11 @@ public class Room extends GridObject {
     public int getAvailableSpace(){
         int space = getHeight()*getLength();
         for(Stuffs item: stuffList){
-            if(item instanceof Items){
+            if(item instanceof Item){
                 space -= 1;
-            } else if(item instanceof GridObject){
-                GridObject object = (GridObject) item;
-                space -= object.getHeight() * object.getLength();
+            } else if(item instanceof object){
+                object object = (object) item;
+                space -= object.getWidth() * object.getLength();
             }
         }
         return space;
@@ -81,7 +81,7 @@ public class Room extends GridObject {
         if (sim.getCurrentRoom() == this) {
             // Memindahkan sim ke room baru
             sim.setCurrentRoom(newRoom);
-            System.out.println("Sim berhasil berpindah ke " + newRoom.getRoomName());
+            System.out.println("Sim berhasil berpindah ke " + newRoom.getName());
         } else {
             System.out.println("Sim tidak berada di dalam rumah ini!");
         }
@@ -91,7 +91,7 @@ public class Room extends GridObject {
     public void editRoom() {
         Scanner input = new Scanner(System.in);
         // Cek apakah sim yang sedang aktif saat ini berada di dalam room ini
-        if (sim.getCurrentSim().getCurrentRoom() == this) {
+        if (Sim.getCurrentSim().getCurrentRoom() == this) {
             System.out.println("Pilih opsi:");
             System.out.println("1. Pembelian barang baru");
             System.out.println("2. Pemindahan barang");
