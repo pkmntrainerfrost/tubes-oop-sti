@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class Recipe extends Food implements Item {
+public class Recipe extends Food {
     
-    private Map<Item,Int> ingredients = new HashMap<>();
+    private Map<InventoryItem,Integer> ingredients = new HashMap<>();
 
-    public Recipe(String name, Map<Item,Int> Ingredients) {
-        super(name);
+    public Recipe(String name, Map<InventoryItem,Integer> Ingredients) {
+        super(name, );
         this.ingredients = ingredients;
         this.setBuyable(false);
         this.setPrice(0);

@@ -1,21 +1,18 @@
-public class Stuffs extends GridObject implements Items {
+public abstract class Stuffs extends GridObject implements Items {
     private String stuffName;
     private int stuffLength;
     private int stuffWidth;
     private int stuffPrice;
-    private Action stuffAction;
+    private boolean buyable = true;
 
     // constructor
-    public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Action stuffAction, Point point) {
+    public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Point point) {
         super(point, stuffLength, stuffWidth);
         this.stuffName = stuffName;
-        this.stuffLength = stuffLength;
-        this.stuffWidth = stuffWidth;
         this.stuffPrice = stuffPrice;
-        this.stuffAction = stuffAction;
     }
 
-    // override
+    @Override
     public String getItemName() {
         return stuffName;
     }
@@ -24,8 +21,27 @@ public class Stuffs extends GridObject implements Items {
         this.stuffName = stuffName;
     }
 
-    // getter
+    public int getPrice() {
+        return stuffPrice;
+    }
 
+    public void setPrice(int stuffPrice) {
+        this.stuffPrice = stuffPrice;
+    }
+
+    public boolean getBuyable() {
+        return buyable;
+    }
+
+    public void setBuyable(boolean buyable) {
+        this.buyable = buyable;
+    }
+
+    public String getCategory() {
+        return "Stuffs";
+    }
+
+    /* getter */
     public int getStuffLength() {
         return stuffLength;
     }
@@ -38,12 +54,7 @@ public class Stuffs extends GridObject implements Items {
         return stuffPrice;
     }
 
-    public Action getStuffAction() {
-        return stuffAction;
-    }
-
-    // setter
-
+    /* setter */
     public void setStuffLength(int stuffLength) {
         this.stuffLength = stuffLength;
     }
@@ -54,15 +65,5 @@ public class Stuffs extends GridObject implements Items {
 
     public void setStuffPrice(int stuffPrice) {
         this.stuffPrice = stuffPrice;
-    }
-
-    public void setStuffAction(Action stuffAction) {
-        this.stuffAction = stuffAction;
-    }
-
-    @Override
-    public String getCategory() {
-        // TODO Auto-generated method stub
-        return "Stuffs";
     }
 }

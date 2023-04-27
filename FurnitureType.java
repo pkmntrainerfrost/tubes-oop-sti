@@ -1,4 +1,4 @@
-public class FurnitureType implements Item {
+public class FurnitureType implements Items {
     
     public String name;
     public int length;

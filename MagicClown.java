@@ -1,8 +1,8 @@
-public class Koki implements Jobs {
+public class MagicClown implements Jobs {
     private String namajob;
     private int gaji;
-    public Koki() {
-        this.namajob = "Koki";
+    public MagicClown() {
+        this.namajob = "MagicClown";
         this.gaji = 15;
     }
     public String getJobName(){
@@ -10,5 +10,8 @@ public class Koki implements Jobs {
     }
     public int getGaji(){
         return gaji;
+    }
+    public void addGaji(int gaji){
+        this.gaji += gaji;
     }
 }

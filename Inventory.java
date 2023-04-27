@@ -36,7 +36,7 @@ class InvalidQuantityException extends Exception {
     }
 }
 
-/*
+
 public class Inventory {
     private Map<String, InventoryItem> items; // Map untuk menyimpan objek dalam inventory
 

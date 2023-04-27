@@ -1,29 +1,30 @@
-public abstract class Food implements Item {
-
-    private String name;
-    private boolean buyable;
-    private int price;
-    private int fullness;
+public abstract class Food implements Items {
+    private String foodName;
+    private int foodFullness;
+    private int foodPrice;
+    private boolean buyable = true;
     
-    public Food(String name, int fullness) {
-        this.name = name;
-        this.fullness = fullness;
+    public Food(String foodName, int foodFullness, int foodPrice) {
+        this.foodName = foodName;
+        this.foodFullness = foodFullness;
+        this.foodPrice = foodPrice;
+    }
+    
+    @Override
+    public String getItemName() {
+        return foodName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String foodName) {
+        this.foodName = foodName;
     }
 
     public int getPrice() {
-        return price;
+        return foodPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice(int foodPrice) {
+        this.foodPrice = foodPrice;
     }
 
     public boolean getBuyable() {
@@ -35,11 +36,14 @@ public abstract class Food implements Item {
     }
 
     public int getFullness() {
-        return fullness;
+        return foodFullness;
     }
 
-    public void setFullness(int fullness) {
-        this.fullness = fullness;
+    public void setFullness(int foodFullness) {
+        this.foodFullness = foodFullness;
     }
 
+    public String getCategory() {
+        return "Food";
+    }
 }

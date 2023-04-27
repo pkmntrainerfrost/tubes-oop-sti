@@ -1,8 +1,8 @@
-public class Dokter implements Jobs {
+public class Doctor implements Jobs {
     private String namajob;
     private int gaji;
-    public Dokter() {
-        this.namajob = "Dokter";
+    public Doctor() {
+        this.namajob = "Doctor";
         this.gaji = 50;
     }
     public String getJobName(){
@@ -10,5 +10,8 @@ public class Dokter implements Jobs {
     }
     public int getGaji(){
         return gaji;
+    }
+    public void addGaji(int gaji){
+        this.gaji += gaji;
     }
 }

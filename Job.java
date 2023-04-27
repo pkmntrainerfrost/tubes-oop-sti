@@ -28,7 +28,7 @@ public class Job {
     }
 
     public static Job generateRandomJob(List<Job> jobList) {
-        return jobList.get(Random.nextInt(jobList.size()));
+        return jobList.get(Random.nextInt(jobList.length()));
     }
 
 }
@@ -59,10 +59,3 @@ public class Job {
     public void setSalary(int salary) {
         this.salary = salary;
     }
-
-    public static String getJobChoices() {
-        int index = RANDOM.nextInt(jobChoices.length);
-        return jobChoices[index];
-    }
-}
-*/

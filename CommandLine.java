@@ -28,7 +28,7 @@ public class CommandLine extends Exception{
         System.out.println("12. list object");
         System.out.println("13. go to object");
         System.out.println("14. action");
-        str = input.nextLine();
+        str = sc.nextLine();
         return str;
     }
 
