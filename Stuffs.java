@@ -3,32 +3,30 @@ public abstract class Stuffs extends GridObject implements Items {
     private int stuffLength;
     private int stuffWidth;
     private int stuffPrice;
-    private boolean buyable;
+    private boolean buyable = true;
 
     // constructor
     public Stuffs(String stuffName, int stuffLength, int stuffWidth, int stuffPrice, Point point) {
         super(point, stuffLength, stuffWidth);
         this.stuffName = stuffName;
         this.stuffPrice = stuffPrice;
-        this.buyable = true;
     }
 
-    // override
     @Override
     public String getItemName() {
-        return name;
+        return stuffName;
     }
 
-    public void setItemName(String name) {
-        this.name = name;
+    public void setItemName(String stuffName) {
+        this.stuffName = stuffName;
     }
 
     public int getPrice() {
-        return price;
+        return stuffPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice(int stuffPrice) {
+        this.stuffPrice = stuffPrice;
     }
 
     public boolean getBuyable() {
@@ -39,8 +37,11 @@ public abstract class Stuffs extends GridObject implements Items {
         this.buyable = buyable;
     }
 
-    // getter
+    public String getCategory() {
+        return "Stuffs";
+    }
 
+    /* getter */
     public int getStuffLength() {
         return stuffLength;
     }
@@ -53,8 +54,7 @@ public abstract class Stuffs extends GridObject implements Items {
         return stuffPrice;
     }
 
-    // setter
-
+    /* setter */
     public void setStuffLength(int stuffLength) {
         this.stuffLength = stuffLength;
     }
@@ -65,11 +65,5 @@ public abstract class Stuffs extends GridObject implements Items {
 
     public void setStuffPrice(int stuffPrice) {
         this.stuffPrice = stuffPrice;
-    }
-
-    @Override
-    public String getCategory() {
-        // TODO Auto-generated method stub
-        return "Stuffs";
     }
 }

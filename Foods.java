@@ -1,61 +1,34 @@
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Foods implements Items {
-    private List<FoodStuffs> groupOfFoodStuff;
-    private int foodFullness;
-    private String foodName;
-    private boolean buyable;
-    private int price;
+    private List<Food> groupOfFood;
+    private int foodsFullness;
+    private String foodsName;
+    private int foodsPrice = 0;
+    private boolean buyable = false;
 
-    public Foods(int foodFullness, String foodName) {
-        this.foodFullness = foodFullness;
-        this.foodName = foodName;
-        this.groupOfFoodStuff = new ArrayList<FoodStuffs>();
-        this.buyable = false;
-        this.price = 0;
-    }
-
-    // override
-    public String getItemName() {
-        return foodName;
-    }
-
-    public void setItemName(String foodName) {
-        this.foodName = foodName;
-    }
-
-    // getter
-    public int getFoodFullness() {
-        return foodFullness;
-    }
-    
-    public List<FoodStuffs> getGroupOfFoodStuff() {
-        return groupOfFoodStuff;
-    }
-
-    // setter
-    public void setFoodFullness(int foodFullness) {
-        this.foodFullness = foodFullness;
-    }
-    
-    public void setGroupOfFoodStuff(List<FoodStuffs> groupOfFoodStuff) {
-        this.groupOfFoodStuff = groupOfFoodStuff;
+    public Foods(String foodsName, int foodsFullness) {
+        this.foodsName = foodsName;
+        this.foodsFullness = foodsFullness;
+        this.groupOfFood = new ArrayList<Food>();
     }
 
     @Override
-    public String getCategory() {
-        // TODO Auto-generated method stub
-        return "Foods";
+    public String getItemName() {
+        return foodsName;
+    }
+
+    public void setItemName(String foodsName) {
+        this.foodsName = foodsName;
     }
 
     public int getPrice() {
-        return price;
+        return foodsPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = 0;
+    public void setPrice(int foodsPrice) {
+        this.foodsPrice = foodsPrice;
     }
 
     public boolean getBuyable() {
@@ -66,11 +39,25 @@ public class Foods implements Items {
         this.buyable = buyable;
     }
 
-    public int getFullness() {
-        return foodFullness;
+    public String getCategory() {
+        return "Foods";
     }
 
-    public void setFullness(int fullness) {
-        this.foodFullness = fullness;
+    /* getter */
+    public int getFoodFullness() {
+        return foodsFullness;
+    }
+    
+    public List<Food> getGroupOfFood() {
+        return groupOfFood;
+    }
+
+    /* setter */
+    public void setFoodFullness(int foodsFullness) {
+        this.foodsFullness = foodsFullness;
+    }
+    
+    public void setGroupOfFoodStuff(List<Food> groupOfFood) {
+        this.groupOfFood = groupOfFood;
     }
 }
