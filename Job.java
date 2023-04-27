@@ -28,7 +28,7 @@ public class Job {
     }
 
     public static Job generateRandomJob(List<Job> jobList) {
-        return jobList.get(Random.nextInt(jobList.length()));
+        return jobList.get(Random.nextInt(jobList.size()));
     }
 
 }

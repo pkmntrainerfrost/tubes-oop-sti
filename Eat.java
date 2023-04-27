@@ -1,4 +1,4 @@
-public class Eat extends ActiveAction {
+public class Eat extends SimActiveAction {
 
     private Food itemMakanan;
 
