@@ -2,13 +2,13 @@ import java.util.*;
 
 public class Inventory {
 
-    private Map<Item,Integer> items;
+    private Map<Items,Integer> items;
 
     public Inventory() {
         items = new HashMap<>();
     }
 
-    public void addItem(Item item, int quantity) throws InvalidQuantityException {
+    public void addItem(Items item, int quantity) throws InvalidQuantityException {
         if (items.containsKey(item)) {
             //
         } else {
@@ -18,7 +18,7 @@ public class Inventory {
     }
 
     public void removeItem(String itemName, int quantity) throws InvalidQuantityException {
-        if (items. currentItemcontainsKey(itemName)) {
+        if (items.currentItemcontainsKey(itemName)) {
             if ( > quantity) {
                 //
             } else if () {

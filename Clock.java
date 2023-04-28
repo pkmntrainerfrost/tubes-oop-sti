@@ -4,25 +4,25 @@ public class Clock implements Runnable {
 
     private int seconds;
     private int days;
-
     private boolean running;
-
-    private ActionMediator actionMediator;
-
+    private SimActionMediator actionMediator;
     private static Clock instance = new Clock();
 
     private Clock() {
         seconds = 0;
         days = 0;
         running = false;
-        actionMediator = ActionMediator.getInstance();
+        actionMediator = actionMediator.getInstance();
     }
 
     public void run() {
         while (true) {
             if (running) {
-                Thread.sleep(1000);
-                updateTime();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

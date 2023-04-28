@@ -1,68 +1,62 @@
 public class FurnitureType implements Items {
-    
-    public String name;
-    public int length;
-    public int height;
-    public int price;
-    public Action action;
+    public String furnitureName;
+    public int furnitureLength;
+    public int furnitureWidth;
+    public int furniturePrice;
+    public SimActiveAction furnitureAction;
     public boolean isBuyable = true;
 
-    public FurnitureType(String name, int length, int height, int price, Action action) {
-        this.name = name;
-        this.length = length;
-        this.height = height;
-        this.price = price;
-        this.action = action;
+    public FurnitureType(String furnitureName, int furnitureLength, int furnitureWidth, int furniturePrice, SimActiveAction furnitureAction) {
+        this.furnitureName = furnitureName;
+        this.furnitureLength = furnitureLength;
+        this.furnitureWidth = furnitureWidth;
+        this.furniturePrice = furniturePrice;
+        this.furnitureAction = furnitureAction;
     }
 
     @Override
     public String getItemName() {
-        return name;
+        return furnitureName;
     }
 
-    @Override
     public void setItemName(String name) {
-        this.name = name;
+        this.furnitureName = name;
     }
 
-    @Override
     public int getPrice() {
-        return price;
+        return furniturePrice;
     }
 
-    @Override
     public void setPrice(int price) {
-        this.price = price;
+        this.furniturePrice = price;
     }
 
-    @Override
     public boolean getBuyable() {
         return isBuyable;
     }
 
-    @Override
     public void setBuyable(boolean isBuyable) {
         this.isBuyable = isBuyable;
     }
 
-    @Override
     public String getCategory() {
         return "Furniture";
     }
 
-    public int getLength() {
-        return this.length;
+    /* getter */
+    public int getFurnitureLength() {
+        return this.furnitureLength;
     }    
 
-    public int getHeight() {
-        return this.height;
+    public int getFurnitureWidth () {
+        return this.furnitureWidth;
     }    
 
-    public void setLength(int num){
-        this.length += num;
+    public void setFurnitureLength(int newFurnitureLength){
+        this.furnitureLength += newFurnitureLength;
     }
 
-    public void setHeight(int num){
-        this.height += num;
+    public void setFurnitureWidth (int newFurnitureWidth){
+        this.furnitureWidth += newFurnitureWidth;
     }
 }

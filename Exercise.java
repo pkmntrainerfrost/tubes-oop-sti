@@ -3,12 +3,11 @@ public class Exercise extends SimActiveAction {
         super(sim, duration);
     }
 
+    @Override
     public void finish() {
         int time = getDuration()/20;
-        for (int i = 0; i < time; i++){
-            getSim().setKesehatan(getSim().getKesehatan()+5);
-            getSim().setKekenyangan(getSim().getKekenyangan()-5);
-            getSim().setMood(getSim().getMood()+10);
-        }
+        getSim().setKesehatan(getSim().getKesehatan() + (time * 5));
+        getSim().setKekenyangan(getSim().getKekenyangan() - (time * 5));
+        getSim().setMood(getSim().getMood() + (time * 10));
     }
 }

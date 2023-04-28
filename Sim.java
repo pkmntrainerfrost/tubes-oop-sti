@@ -171,7 +171,6 @@ public class Sim {
             System.out.println("Current Location: " + getCurrentRoom().getRoomName());
         }
     }    
-    
 
     public void setWorkSeconds(int workSeconds){
         this.workSeconds = workSeconds;
