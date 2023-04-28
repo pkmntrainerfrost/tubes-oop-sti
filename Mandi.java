@@ -4,6 +4,7 @@ public class Mandi extends SimActiveAction {
         super(sim, duration);
     }
 
+    @Override
     public void finish() {
         int time = getDuration()/240;
         getSim().setMood(getSim().getMood() + time * 10);

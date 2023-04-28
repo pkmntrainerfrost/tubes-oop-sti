@@ -8,9 +8,11 @@ public class Foods implements Items {
     private int foodsPrice = 0;
     private boolean buyable = false;
 
-    public Foods(String foodsName, int foodsFullness) {
+    public Foods(String foodsName, int foodsFullness, int foodsPrice, boolean buyable) {
         this.foodsName = foodsName;
         this.foodsFullness = foodsFullness;
+        this.foodsPrice = foodsPrice;
+        this.buyable = buyable;
         this.groupOfFood = new ArrayList<Food>();
     }
 

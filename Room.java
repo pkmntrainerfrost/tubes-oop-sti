@@ -91,6 +91,4 @@ public class Room extends GridObject {
         }
     }
 
-    // Method untuk mengedit room
-
 }

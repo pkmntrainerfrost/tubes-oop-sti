@@ -28,7 +28,8 @@ public class Job {
     }
 
     public static Job generateRandomJob(List<Job> jobList) {
-        return jobList.get(Random.nextInt(jobList.length()));
+        Random random = new Random();
+        return jobList.get(random.nextInt(jobList.size()));
     }
 
 }
@@ -59,3 +60,4 @@ public class Job {
     public void setSalary(int salary) {
         this.salary = salary;
     }
+*/

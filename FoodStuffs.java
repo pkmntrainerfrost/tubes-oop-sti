@@ -28,6 +28,14 @@ public class FoodStuffs implements Items {
         return foodStuffFullness;
     }
 
+    public int getPrice() {
+        return foodStuffPrice;
+    }
+
+    public boolean getBuyable() {
+        return true;
+    }
+
     // setter
     public void setFoodStuffPrice(int foodStuffPrice) {
         this.foodStuffPrice = foodStuffPrice;
@@ -35,6 +43,14 @@ public class FoodStuffs implements Items {
 
     public void setFoodStuffFullness(int foodStuffFullness) {
         this.foodStuffFullness = foodStuffFullness;
+    }
+
+    public void setPrice(int price) {
+        this.foodStuffPrice = price;
+    }
+
+    public void setBuyable(boolean buyable) {
+
     }
 
     @Override

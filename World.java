@@ -11,6 +11,7 @@ public class World {
     private static World instance = new World();
     private Scanner sc = new Scanner(System.in);
     private Sim currentSim;
+    private int seconds;
 
     public World() {
         houseGrid = new Grid(64,64);
@@ -28,7 +29,7 @@ public class World {
     }
 
     public void resetWorld() {
-        instance = newWorld;
+        instance = new World(); // Menginstansiasi ulang instance agar bernilai baru
     }
 
     public List<SimAction> getActionList() {
@@ -61,5 +62,13 @@ public class World {
         } else {
             System.out.println("Pilihan tidak valid!");
         }
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public EventManager getEvents() {
+        return events;
     }
 }

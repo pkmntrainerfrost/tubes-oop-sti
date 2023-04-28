@@ -5,8 +5,9 @@ public class FurnitureType implements Items {
     public int height;
     public int price;
     public Action action;
+    public boolean isBuyable = true;
 
-    public Furniture(String name, int length, int height, int price, Action action) {
+    public FurnitureType(String name, int length, int height, int price, Action action) {
         this.name = name;
         this.length = length;
         this.height = height;
@@ -14,20 +15,39 @@ public class FurnitureType implements Items {
         this.action = action;
     }
 
-    public String getName() {
+    @Override
+    public String getItemName() {
         return name;
     }
 
-    public void setName(String name) {
+    @Override
+    public void setItemName(String name) {
         this.name = name;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean getBuyable() {
+        return isBuyable;
+    }
+
+    @Override
+    public void setBuyable(boolean isBuyable) {
+        this.isBuyable = isBuyable;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Furniture";
     }
 
     public int getLength() {
@@ -42,8 +62,7 @@ public class FurnitureType implements Items {
         this.length += num;
     }
 
-    public void getWidth(int num){
+    public void setHeight(int num){
         this.height += num;
     }
-
 }

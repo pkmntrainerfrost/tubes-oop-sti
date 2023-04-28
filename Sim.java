@@ -165,13 +165,13 @@ public class Sim {
         if (getInHouse()) {
             System.out.println("Current Location: Rumah");
         } else {
-            try {
-                System.out.println("Current Location: " + getCurrentRoom().getRoomName());
-            } catch (Exception e) {
-                throw new SimNotInGameException("Sim is not in any room!");
+            if (getCurrentRoom() == null) {
+                throw new SimNotInGameException("Sim is not in a room!");
             }
+            System.out.println("Current Location: " + getCurrentRoom().getRoomName());
         }
-    }
+    }    
+    
 
     public void setWorkSeconds(int workSeconds){
         this.workSeconds = workSeconds;
@@ -183,31 +183,44 @@ public class Sim {
         // getSimInventory().displayInventory(); // ini kelas inventorynya belum di fix yah, jadi tunggu dulu
     }
 
+
+
     public void editRoom(Room room) {
         Scanner input = new Scanner(System.in);
-        // Cek apakah sim yang sedang aktif saat ini berada di dalam room ini
+
+        // Check if the sim is currently in this room
         if (this.getCurrentRoom() == room) {
             System.out.println("Pilih opsi:");
             System.out.println("1. Pembelian barang baru");
             System.out.println("2. Pemindahan barang");
             System.out.println("3. Memasang barang");
-            
+
             int option = input.nextInt();
             switch (option) {
-                // Case 1: Menambahkan item baru ke objectGrid
+                // Case 1: Purchase new non-food item and add to sim's inventory
                 case 1:
-                    System.out.print("Masukkan nama barang:");
+                    System.out.print("Masukkan nama barang: ");
                     String itemName = input.next();
-                    System.out.print("Masukkan harga barang:");
+                    System.out.print("Masukkan harga barang: ");
                     double itemPrice = input.nextDouble();
-                    //ganti jadi masukin ke inventory
-                    // Stuffs newItem = new Stuffs(itemName, newItem.getStuffLength());
-                    room.getObjectGrid().addObject(newItem);
-                    System.out.println("Barang " + itemName + " berhasil ditambahkan ke dalam inventory sim " + getName());
+
+                    // Check if item is a non-food item
+                    if (!(itemName.equals("makanan") || itemName.equals("minuman"))) {
+                        try {
+                            // Purchase item and add to inventory
+                            Sim.getCurrentSim().getInventory().addItem(new Items(itemName, itemPrice), 1);
+                            System.out.println("Barang " + itemName + " berhasil dibeli dan ditambahkan ke inventory sim " + getName());
+                        } catch (InvalidQuantityException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Maaf, barang " + itemName + " tidak bisa dibeli");
+                    }
                     break;
-                // Case 2: Memindahkan item ke room atau inventory sim
+
+                // Case 2: Move item to another room or sim's inventory
                 case 2:
-                    System.out.print("Masukkan nama barang yang ingin dipindahkan:");
+                    System.out.print("Masukkan nama barang yang ingin dipindahkan: ");
                     String itemToMove = input.next();
                     GridObject item = objectGrid.findObjectByName(itemToMove);
                     if (item == null) {
@@ -217,9 +230,9 @@ public class Sim {
                         System.out.println("1. Pindahkan ke ruangan lain");
                         System.out.println("2. Pindahkan ke inventory Sim");
                         int moveOption = input.nextInt();
-                        // Case 1: Memindahkan item ke room lain
+                        // Case 1: Move item to another room
                         if (moveOption == 1) {
-                            System.out.println("Masukkan nama ruangan tujuan:");
+                            System.out.println("Masukkan nama ruangan tujuan: ");
                             String destinationRoomName = input.next();
                             Room destinationRoom = Sim.getCurrentSim().getHouse().findRoomByName(destinationRoomName);
                             if (destinationRoom == null) {
@@ -229,19 +242,41 @@ public class Sim {
                                 destinationRoom.getObjectGrid().addObject(item);
                                 System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke ruangan " + destinationRoomName);
                             }
-                        // case 2: memindahkan item ke inventory sim
+                        // case 2: Move item to sim's inventory
                         } else if (moveOption == 2) {
-                            Sim.getCurrentSim().getInventory().addItem((Items)item);
+                            Sim.getCurrentSim().getInventory().addItem((Items)item, 1);
                             objectGrid.removeObject(item);
                             System.out.println("Barang " + itemToMove + " berhasil dipindahkan ke inventory Sim");
                         } else {
                             System.out.println("Opsi yang dimasukkan tidak valid");
                         }
                     }
+                    break;
+
+                // Case 3: Place item in room
+                case 3:
+                    System.out.print("Masukkan nama barang yang ingin dipasang: ");
+                    String itemToPlace = input.next();
+                    InventoryItem inventoryItem = null;
+                    for (InventoryItem item : inventory) {
+                        if (item.getName().equals(itemToPlace)) {
+                            inventoryItem = item;
+                            break;
+                        }
+                    }
+                    if (inventoryItem == null) {
+                        System.out.println("Item tidak ada di dalam inventory");
+                    } else {
+                        inventory.remove(inventoryItem);
+                        currentRoom.addItem(inventoryItem);
+                        System.out.println("Item " + inventoryItem.getName() + " telah dipasang di ruangan " + currentRoom.getName());
+                    }
+                    break;
             }
         }
     }
 }
+            
 
 class SimNotInGameException extends Exception {
     public SimNotInGameException(String errorMessage) {
