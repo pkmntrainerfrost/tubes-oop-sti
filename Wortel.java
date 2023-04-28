@@ -1,5 +1,5 @@
 public class Wortel extends Food {
     public Wortel() {
-        super("Wortel", 2, 3);
+        super("Wortel", 3, 2);
     }
 }

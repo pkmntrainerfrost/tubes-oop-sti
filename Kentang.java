@@ -1,5 +1,5 @@
 public class Kentang extends Food {
     public Kentang() {
-        super("Kentang", 4, 3);
+        super("Kentang", 3, 4);
     }
 }

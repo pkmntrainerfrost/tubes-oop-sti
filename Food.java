@@ -4,10 +4,10 @@ public abstract class Food implements Items {
     private int foodPrice;
     private boolean buyable = true;
     
-    public Food(String foodName, int foodFullness, int foodPrice) {
+    public Food(String foodName, int foodPrice, int foodFullness) {
         this.foodName = foodName;
-        this.foodFullness = foodFullness;
         this.foodPrice = foodPrice;
+        this.foodFullness = foodFullness;
     }
     
     @Override

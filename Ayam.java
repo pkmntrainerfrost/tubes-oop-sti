@@ -1,5 +1,5 @@
 public class Ayam extends Food {
     public Ayam() {
-        super("Ayam", 10, 10);
+        super("Ayam", 10, 8);
     }
 }
