@@ -200,7 +200,7 @@ public class Sim {
         System.out.println("3. Pasang barang");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // consume new line character after calling nextInt()
+        scanner.nextLine(); 
 
         switch (choice) {
             case 1:
@@ -212,7 +212,7 @@ public class Sim {
 
                 System.out.print("Pilih barang yang ingin dibeli (masukkan nomor): ");
                 int itemNumber = scanner.nextInt();
-                scanner.nextLine(); // consume new line character after calling nextInt()
+                scanner.nextLine(); 
 
                 if (itemNumber < 1 || itemNumber > availableItems.length) {
                     System.out.println("Nomor barang tidak valid.");
@@ -237,7 +237,7 @@ public class Sim {
                 System.out.println("2. Pindahkan barang ke inventory");
 
                 int moveChoice = scanner.nextInt();
-                scanner.nextLine(); // consume new line character after calling nextInt()
+                scanner.nextLine(); 
 
                 if (moveChoice < 1 || moveChoice > 2) {
                     System.out.println("Pilihan tidak valid.");
@@ -258,7 +258,7 @@ public class Sim {
 
                     System.out.print("Pilih ruangan tujuan (masukkan nomor): ");
                     int roomNumber = scanner.nextInt();
-                    scanner.nextLine(); // consume new line character after calling nextInt()
+                    scanner.nextLine(); 
 
                     if (roomNumber < 1 || roomNumber > rooms.length - 1) {
                         System.out.println("Nomor ruangan tidak valid.");
@@ -303,27 +303,27 @@ public class Sim {
                 break;
             case 3:
                 System.out.print("Masukkan nama barang yang ingin dipasang: ");
-                String itemNameToInstall = scanner.nextLine();
+                String itemNameTobuy = scanner.nextLine();
 
-                Items itemToInstall = inventory.getItem(itemNameToInstall);
+                Items itemTobuy = inventory.getItem(itemNameTobuy);
 
-                if (itemToInstall == null) {
+                if (itemTobuy == null) {
                     System.out.println("Barang tidak ditemukan dalam inventory.");
                     return;
                 }
 
-                if (!(itemToInstall instanceof InstallableItem)) {
+                if (!(itemTobuy instanceof Stuffs)) {
                     System.out.println("Barang tidak dapat dipasang.");
                     return;
                 }
 
-                InstallableItem installableItem = (InstallableItem) itemToInstall;
+                Stuffs buyableItem = (Stuffs) itemTobuy;
 
                 try {
-                    currentRoom.installItem(installableItem);
-                    inventory.removeItem(itemNameToInstall, 1);
-                    System.out.println("Barang " + itemNameToInstall + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
-                } catch (ItemNotInstallableException e) {
+                    currentRoom.buyItem(buyableItem);
+                    inventory.removeItem(itemNameTobuy, 1);
+                    System.out.println("Barang " + itemNameTobuy + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
+                } catch (ItemNotInInventoryException e) {
                     System.out.println("Barang tidak dapat dipasang.");
                 }
 
