@@ -18,6 +18,9 @@ public class Sim {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Sim> Sims = new ArrayList<>();
+    private Room[] getRooms() {
+        return null;
+    }
 
     public Sim(String name) {
         this.name = name;
@@ -219,13 +222,13 @@ public class Sim {
                 Items selectedItem = availableItems[itemNumber - 1];
                 int totalPrice = selectedItem.getPrice();
 
-                if (getMoney() < totalPrice) {
+                if (getUang() < totalPrice) {
                     System.out.println("Uang Anda tidak cukup untuk membeli barang ini.");
                     return;
                 }
 
                 inventory.addItem(selectedItem, 1);
-                setMoney(getMoney() - totalPrice);
+                setUang(getUang() - totalPrice);
                 System.out.println("Barang " + selectedItem.getItemName() + " berhasil dibeli dan dimasukkan ke inventory.");
 
                 break;
@@ -330,14 +333,7 @@ public class Sim {
                 break;
         }
     }
-    private Room[] getRooms() {
-        return null;
-    }
-    private void setMoney(int i) {
-    }
-    private int getMoney() {
-        return 0;
-    }
+
 }
 
 class SimNotInGameException extends Exception {
