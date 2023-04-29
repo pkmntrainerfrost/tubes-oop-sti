@@ -8,6 +8,10 @@ public class Eat extends SimActiveAction {
         this.finished = false;
     }
 
+    public Eat(Sim sim) {
+        super(sim);
+    }
+
     public Food getItemMakanan() {
         return itemMakanan;
     }

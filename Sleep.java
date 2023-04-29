@@ -2,6 +2,9 @@ public class Sleep extends SimActiveAction {
     public Sleep(Sim sim, int duration){
         super(sim,duration);
     }
+    public Sleep(Sim sim) {
+        super(sim);
+    }
 
     @Override
     public void finish() {
