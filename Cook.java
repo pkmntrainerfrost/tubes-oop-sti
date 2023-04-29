@@ -7,7 +7,6 @@ public class Cook extends SimActiveAction {
 
     @Override
     public void finish() {
-        int time = getDuration();
         getSim().setMood(getSim().getMood()+10);
     }
 }

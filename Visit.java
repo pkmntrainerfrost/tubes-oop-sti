@@ -15,18 +15,15 @@ public class Visit extends SimActiveAction {
         return duration;
     }
 
-    @Override
-    public void act() {
-        int time = (getDuration() * 60)/30;
-        for (int i = 0; i < time; i++){
-            getSim().setMood(getSim().getMood()+10);
-            getSim().setKekenyangan(getSim().getKekenyangan()-10);
-        }
+    public boolean getStatusFinish() {
+        return finished;
     }
 
     @Override
     public void finish() {
-        // TODO Auto-generated method stub
+        int time = (getDuration() * 60)/30;
+        getSim().setMood(getSim().getMood() + (time * 10));
+        getSim().setKekenyangan(getSim().getKekenyangan() - (time* 10));
         finished = true;
     }
 }
