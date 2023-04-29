@@ -91,4 +91,25 @@ public class Room extends GridObject {
         }
     }
 
+    public Object getItem(String itemName) {
+        return null;
+    }
+
+    public int getItemQuantity(String itemName) {
+        return 0;
+    }
+
+    public Items removeItem(String itemName, int i) {
+        return null;
+    }
+
+    public void addItem(Items itemToMove, int i) {
+    }
+
+    public void installItem(InstallableItem item) throws ItemNotInstallableException {
+        if (!item.canInstall(this)) {
+            throw new ItemNotInstallableException("Item " + item.getName() + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
+        }
+        item.install(this);
+    }
 }

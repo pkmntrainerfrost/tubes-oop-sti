@@ -6,4 +6,7 @@ public interface Items {
     public int getPrice();
     public void setPrice(int itemPrice);
     public String getCategory();
+    public static Items[] values() {
+        return null;
+    }
 }

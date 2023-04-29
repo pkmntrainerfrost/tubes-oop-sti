@@ -182,8 +182,173 @@ public class Sim {
         // getSimInventory().displayInventory(); // ini kelas inventorynya belum di fix yah, jadi tunggu dulu
     }
 
+    public void editRoom() throws ItemNotInInventoryException, InvalidQuantityException {
+        if (currentRoom == null) {
+            System.out.println("Anda tidak berada dalam ruangan saat ini.");
+            return;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        Inventory inventory = getSimInventory();
+
+        System.out.println("Menu Edit Room:");
+        System.out.println("1. Beli barang baru");
+        System.out.println("2. Pindah barang");
+        System.out.println("3. Pasang barang");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume new line character after calling nextInt()
+
+        switch (choice) {
+            case 1:
+                System.out.println("Daftar barang yang tersedia:");
+                Items[] availableItems = Items.values();
+                for (int i = 0; i < availableItems.length; i++) {
+                    System.out.println((i + 1) + ". " + availableItems[i].getItemName() + " (" + availableItems[i].getPrice() + ")");
+                }
+
+                System.out.print("Pilih barang yang ingin dibeli (masukkan nomor): ");
+                int itemNumber = scanner.nextInt();
+                scanner.nextLine(); // consume new line character after calling nextInt()
+
+                if (itemNumber < 1 || itemNumber > availableItems.length) {
+                    System.out.println("Nomor barang tidak valid.");
+                    return;
+                }
+
+                Items selectedItem = availableItems[itemNumber - 1];
+                int totalPrice = selectedItem.getPrice();
+
+                if (getMoney() < totalPrice) {
+                    System.out.println("Uang Anda tidak cukup untuk membeli barang ini.");
+                    return;
+                }
+
+                inventory.addItem(selectedItem, 1);
+                setMoney(getMoney() - totalPrice);
+                System.out.println("Barang " + selectedItem.getItemName() + " berhasil dibeli dan dimasukkan ke inventory.");
+
+                break;
+            case 2:
+                System.out.println("1. Pindahkan barang ke ruangan lain");
+                System.out.println("2. Pindahkan barang ke inventory");
+
+                int moveChoice = scanner.nextInt();
+                scanner.nextLine(); // consume new line character after calling nextInt()
+
+                if (moveChoice < 1 || moveChoice > 2) {
+                    System.out.println("Pilihan tidak valid.");
+                    return;
+                }
+
+                System.out.print("Masukkan nama barang yang ingin dipindahkan: ");
+                String itemName = scanner.nextLine();
+
+                if (moveChoice == 1) {
+                    Room[] rooms = getRooms();
+                    System.out.println("Daftar ruangan yang tersedia:");
+                    for (int i = 0; i < rooms.length; i++) {
+                        if (!rooms[i].equals(currentRoom)) {
+                            System.out.println((i + 1) + ". " + rooms[i].getRoomName());
+                        }
+                    }
+
+                    System.out.print("Pilih ruangan tujuan (masukkan nomor): ");
+                    int roomNumber = scanner.nextInt();
+                    scanner.nextLine(); // consume new line character after calling nextInt()
+
+                    if (roomNumber < 1 || roomNumber > rooms.length - 1) {
+                        System.out.println("Nomor ruangan tidak valid.");
+                        return;
+                    }
+
+                    Room destinationRoom = rooms[roomNumber - 1];
+
+                    if (currentRoom.getItem(itemName) == null) {
+                        System.out.println("Barang tidak ditemukan dalam ruangan ini.");
+                        return;
+                    }
+
+                    int quantity = currentRoom.getItemQuantity(itemName);
+                    if (quantity < 1) {
+                        System.out.println("Jumlah barang tidak mencukupi.");
+                        return;
+                    }
+                    Items itemToMove = currentRoom.removeItem(itemName, 1);
+                    destinationRoom.addItem(itemToMove, 1);
+
+                    System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + destinationRoom.getRoomName() + ".");
+                } else {
+                    if (inventory.getItem(itemName) == null) {
+                        System.out.println("Barang tidak ditemukan dalam inventory.");
+                        return;
+                    }
+
+                    int quantity = inventory.getItemQuantity(itemName);
+
+                    if (quantity < 1) {
+                        System.out.println("Jumlah barang tidak mencukupi.");
+                        return;
+                    }
+
+                    Items itemToMove = inventory.removeItem(itemName, 1);
+                    currentRoom.addItem(itemToMove, 1);
+
+                    System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
+                }
+
+                break;
+            case 3:
+                System.out.print("Masukkan nama barang yang ingin dipasang: ");
+                String itemNameToInstall = scanner.nextLine();
+
+                Items itemToInstall = inventory.getItem(itemNameToInstall);
+
+                if (itemToInstall == null) {
+                    System.out.println("Barang tidak ditemukan dalam inventory.");
+                    return;
+                }
+
+                if (!(itemToInstall instanceof InstallableItem)) {
+                    System.out.println("Barang tidak dapat dipasang.");
+                    return;
+                }
+
+                InstallableItem installableItem = (InstallableItem) itemToInstall;
+
+                try {
+                    currentRoom.installItem(installableItem);
+                    inventory.removeItem(itemNameToInstall, 1);
+                    System.out.println("Barang " + itemNameToInstall + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
+                } catch (ItemNotInstallableException e) {
+                    System.out.println("Barang tidak dapat dipasang.");
+                }
+
+                break;
+            default:
+                System.out.println("Pilihan tidak valid.");
+                break;
+        }
+    }
+    private Room[] getRooms() {
+        return null;
+    }
+    private void setMoney(int i) {
+    }
+    private int getMoney() {
+        return 0;
+    }
+}
+
+class SimNotInGameException extends Exception {
+    public SimNotInGameException(String errorMessage) {
+        super(errorMessage);
+    }
+}
 
 
+
+/*
     public void editRoom(Room room) {
         Scanner input = new Scanner(System.in);
 
@@ -274,17 +439,7 @@ public class Sim {
             }
         }
     }
-}
-            
-
-class SimNotInGameException extends Exception {
-    public SimNotInGameException(String errorMessage) {
-        super(errorMessage);
-    }
-}
-
-
-
-
+*/
+      
 
 
