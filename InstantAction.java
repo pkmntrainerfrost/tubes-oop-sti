@@ -1,3 +1,3 @@
-public abstract class InstantAction implements Action {
+public abstract class InstantAction implements SimAction {
     
 }

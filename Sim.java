@@ -13,6 +13,7 @@ public class Sim {
     private Inventory inventory;
     private boolean inHouse;
     private Room currentRoom;
+    private Point simPosition;
     private static final Random RANDOM = new Random();
     private static final Jobs[] jobChoices = {new MagicClown(), new Chef(), new Police(), new Programmer(), new Doctor()};
 
@@ -117,6 +118,12 @@ public class Sim {
     public Room getCurrentRoom(){
         return this.currentRoom;
     }
+    public Point getCurrentPosition(){
+        return simPosition;
+    }
+    public void setCurrentPosition(Point simPosition){
+        this.simPosition = simPosition;
+    }
     public static ArrayList<Sim> getSims(){
         return Sims;
     }
@@ -183,6 +190,11 @@ public class Sim {
     public void seeInventory() {
         System.out.println("Berikut merupakan inventory yang dimiliki oleh :" + getName());
         // getSimInventory().displayInventory(); // ini kelas inventorynya belum di fix yah, jadi tunggu dulu
+    }
+
+    // aksi go to object
+    public void goToObject(Sim sim, FurnitureObject furniture){
+        sim.setCurrentPosition(furniture.getPoint());
     }
 
     public void editRoom() throws ItemNotInInventoryException, InvalidQuantityException {
