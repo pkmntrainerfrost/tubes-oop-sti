@@ -15,7 +15,7 @@ public class Room extends GridObject {
     // Attribute finished untuk menyimpan status selesai atau belumnya room
     private boolean finished;
 
-    private List<Stuffs> stuffList;
+    private List<FurnitureObject> furnitureList;
 
     // Konstruktor dengan parameter point, name, dan finished
     public Room(Point point, String name, boolean finished) {
@@ -44,18 +44,18 @@ public class Room extends GridObject {
     }
 
     // Getter untuk list items dalam room
-    public List<Stuffs> getItemListInRoom(){
-        return this.stuffList;
+    public List<FurnitureObject> getItemListInRoom(){
+        return this.furnitureList;
     }
 
     // display list items dalam room
     public void displayItemsInRoom(){
-        List<Stuffs> listItems;
+        List<FurnitureObject> listItems;
         listItems = getItemListInRoom();
 
-        for (Stuffs stuff : listItems) {
+        for (FurnitureObject furniture : listItems) {
             System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
-            System.out.println(stuff.getItemName());
+            System.out.println(furniture.getFurniture().getItemName());
         }
     }
 
@@ -64,7 +64,7 @@ public class Room extends GridObject {
 // itu gatau bener instanceof object atau kaga
     public int getAvailableSpace(){
         int space = getHeight()*getLength();
-        for(Stuffs item: stuffList){
+        for(FurnitureObject item: furnitureList){
             if(item instanceof Items){
                 space -= 1;
             } else if(item instanceof GridObject){

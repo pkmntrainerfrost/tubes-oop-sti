@@ -6,4 +6,8 @@ public class FurnitureObject extends GridObject {
         super(point,furniture.getFurnitureLength(),furniture.getFurnitureWidth());
     }
 
+    public FurnitureType getFurniture(){
+        return furniture;
+    }
+
 }

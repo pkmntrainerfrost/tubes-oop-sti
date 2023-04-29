@@ -2,7 +2,7 @@ public interface GameBuilder {
     
     public void loadJobs();
 
-    public void loadStuffs();
+    public void loadFurniture();
 
     public void loadWorld();
 
