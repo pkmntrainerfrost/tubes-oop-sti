@@ -91,7 +91,16 @@ public class Room extends GridObject {
         }
     }
 
-    public Stuffs getItem(String itemName) {
+    public FurnitureObject getItem(String itemName) {
+        return null;
+    }
+
+    public String findFurnitureName(String furnitureName) {
+        for (FurnitureObject furniture : furnitureList) {
+            if (furniture.getFurniture().getItemName().equals(furnitureName)) {
+                return furniture.getFurniture().getItemName();
+            }
+        }
         return null;
     }
 
@@ -106,11 +115,11 @@ public class Room extends GridObject {
     public void addItem(Items itemToMove, int i) {
     }
 
-    public void buyItem(Stuffs buyableItem) throws ItemNotInInventoryException {
-        if (!buyableItem.getBuyable()) {
+    public void buyItem(FurnitureObject buyableItem) throws ItemNotInInventoryException {
+        if (!buyableItem.getFurniture().getBuyable()) {
             throw new ItemNotInInventoryException("Item " + buyableItem + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
         }
-        buyableItem.getBuyable();
+        buyableItem.getFurniture().getBuyable();
         
     }
     

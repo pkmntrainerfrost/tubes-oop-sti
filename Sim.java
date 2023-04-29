@@ -193,8 +193,28 @@ public class Sim {
     }
 
     // aksi go to object
-    public void goToObject(Sim sim, FurnitureObject furniture){
-        sim.setCurrentPosition(furniture.getPoint());
+    public void goToObject(String simName, String furnitureName){
+        if (simName.equals(this.getName())){
+            if (furnitureName.equals(getCurrentRoom().findFurnitureName(furnitureName))) {
+                setCurrentPosition(getCurrentRoom().getItem(furnitureName).getPoint());
+                System.out.println("Sim " + simName + " telah berhasil pindah!");
+            } else {
+                System.out.println("Maaf nama objek tidak ada di ruangan saat ini");
+            }
+        } else {
+            System.out.println("Maaf nama sim tidak sesuai dengan sim yang ada");
+        }
+    }
+
+    // display Go To Object
+    public void displayGoToObject() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukkan nama Sim yang ingin menuju posisi Objek: ");
+        String namaSim = scanner.next();
+        System.out.print("Masukkan nama Objek yang ingin dituju: ");
+        String namaObjek = scanner.next();
+
+        this.goToObject(namaSim, namaObjek);
     }
 
     public void editRoom() throws ItemNotInInventoryException, InvalidQuantityException {
@@ -329,7 +349,7 @@ public class Sim {
                     return;
                 }
 
-                Stuffs buyableItem = (Stuffs) itemTobuy;
+                FurnitureObject buyableItem = (FurnitureObject) itemTobuy;
 
                 try {
                     currentRoom.buyItem(buyableItem);

@@ -1,3 +1,4 @@
+// ini gajadi diganti pakai furnitureType dan furnitureObject aja
 public abstract class Stuffs extends GridObject implements Items {
     private String stuffName;
     private int stuffLength;
