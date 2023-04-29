@@ -108,7 +108,7 @@ public class Room extends GridObject {
 
     public void installItem(InstallableItem item) throws ItemNotInstallableException {
         if (!item.canInstall(this)) {
-            throw new ItemNotInstallableException("Item " + item.getName() + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
+            throw new ItemNotInstallableException("Item " + item.getItemName() + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
         }
         item.install(this);
     }

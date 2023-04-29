@@ -12,6 +12,7 @@ public class World {
     private Scanner sc = new Scanner(System.in);
     private Sim currentSim;
     private int seconds;
+    private EventManager events;
 
     public World() {
         houseGrid = new Grid(64,64);
