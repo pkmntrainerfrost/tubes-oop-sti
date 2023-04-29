@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Foods implements Items {
+public abstract class Foods implements Items {
     private List<Food> groupOfFood;
     private int foodsFullness;
     private String foodsName;
