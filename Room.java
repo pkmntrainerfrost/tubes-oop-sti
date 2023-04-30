@@ -1,7 +1,4 @@
 import java.util.*;
-
-import java.util.ArrayList;
-
 import java.util.List;
 
 public class Room extends GridObject {
@@ -16,7 +13,7 @@ public class Room extends GridObject {
     private boolean finished;
 
     private List<FurnitureObject> furnitureList;
-
+    private Map<String,RoomItem> items; 
     // Konstruktor dengan parameter point, name, dan finished
     public Room(Point point, String name, boolean finished) {
         // Memanggil konstruktor dari kelas induk
@@ -26,6 +23,7 @@ public class Room extends GridObject {
         // Mengisi atribut name dan finished
         this.name = name;
         this.finished = finished;
+        items = new HashMap<>();
     }
 
     // Getter untuk nama ruangan
@@ -107,14 +105,36 @@ public class Room extends GridObject {
     public int getItemQuantity(String itemName) {
         return 0;
     }
+    
 
-    //masih belum dibuat ya ini
-    public void removeItem(Items itemName, int i) {
-
+    //menambah objek ke room
+    public void addItem(Items itemToMove, int quantity) {
+        if (items.containsKey(itemToMove.getItemName())) {
+            RoomItem currentItem = items.get(itemToMove.getItemName());
+            currentItem.setQuantity(currentItem.getQuantity() + quantity);
+        } else {
+            RoomItem newItem = new RoomItem(itemToMove, quantity);
+            items.put(itemToMove.getItemName(), newItem);
+        }
+        clearZeroQuantityItems();
     }
 
-    //masih belum dibuat ya ini
-    public void addItem(Items itemToMove, int i) {
+    // Menghapus objek dari Room
+    public void removeItem(Items itemToMove, int quantity) {
+        if (items.containsKey(itemToMove)) {
+            RoomItem currentItem = items.get(itemToMove);
+            if (currentItem.getQuantity() > quantity) {
+                currentItem.setQuantity(currentItem.getQuantity() - quantity);
+            } else {
+                items.remove(itemToMove);
+            }
+        }
+        clearZeroQuantityItems();
+    }
+
+    // Menghapus objek dari inventory jika jumlahnya 0
+    public void clearZeroQuantityItems() {
+        items.entrySet().removeIf(entry -> entry.getValue().getQuantity() == 0);
     }
 
     public void buyItem(FurnitureObject buyableItem) throws ItemNotInInventoryException {
@@ -124,5 +144,6 @@ public class Room extends GridObject {
         buyableItem.getFurniture().getBuyable();
         
     }
-    
 }
+
+
