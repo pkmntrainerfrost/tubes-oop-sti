@@ -4,6 +4,10 @@ public class Mandi extends SimActiveAction {
         super(sim, duration);
     }
 
+    public Mandi(Sim sim) {
+        super(sim);
+    }
+
     @Override
     public void finish() {
         int time = getDuration()/240;
