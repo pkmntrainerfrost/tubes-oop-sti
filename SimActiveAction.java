@@ -2,6 +2,7 @@ public abstract class SimActiveAction implements SimAction {
     private Sim sim;
     private int duration;
 
+
     public SimActiveAction(Sim sim, int duration) {
         this.sim = sim;
         this.duration = duration;

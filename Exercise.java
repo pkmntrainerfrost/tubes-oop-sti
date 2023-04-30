@@ -2,6 +2,9 @@ public class Exercise extends SimActiveAction {
     public Exercise(int duration, Sim sim) {
         super(sim, duration);
     }
+    public Exercise(Sim sim) {
+        super(sim);
+    }
 
     @Override
     public void finish() {

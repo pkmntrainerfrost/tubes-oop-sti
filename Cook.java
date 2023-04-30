@@ -7,6 +7,8 @@ public class Cook extends SimActiveAction {
 
     @Override
     public void finish() {
-        getSim().setMood(getSim().getMood()+10);
+        if (getSim().getCurrentRoom().getItemListInRoom().contains("Kompor Gas") || getSim().getCurrentRoom().getItemListInRoom().contains("Kompor Listrik") ){
+            getSim().setMood(getSim().getMood()+10);
+        }
     }
 }
