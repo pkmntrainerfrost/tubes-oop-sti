@@ -7,7 +7,7 @@ public class Sim {
     private int kekenyangan=80;
     private int mood=80;
     private int kesehatan=80;
-    private int uang=10000;
+    private int uang=100;
     private int workSeconds;
     private String status="";
     private Inventory inventory;
@@ -45,7 +45,7 @@ public class Sim {
             default:
                 break;
         }
-        //this.inventory = new Inventory();
+        this.inventory = new Inventory();
         this.inHouse = true;
     }
     public Jobs getJobChoices() {
@@ -187,6 +187,7 @@ public class Sim {
     }
 
     // aksi melihat inventory
+    // ini buat apa?? udah ada display inventory terus cuma nambah text atasnya??
     public void seeInventory() {
         System.out.println("Berikut merupakan inventory yang dimiliki oleh :" + getName());
         // getSimInventory().displayInventory(); // ini kelas inventorynya belum di fix yah, jadi tunggu dulu
@@ -217,7 +218,7 @@ public class Sim {
         this.goToObject(namaSim, namaObjek);
     }
 
-    public void editRoom() throws ItemNotInInventoryException, InvalidQuantityException {
+    public void editRoom() throws ItemNotInInventoryException, InvalidQuantityException, SimMiskinException {
         if (currentRoom == null) {
             System.out.println("Anda tidak berada dalam ruangan saat ini.");
             return;
@@ -230,10 +231,11 @@ public class Sim {
         System.out.println("1. Beli barang baru");
         System.out.println("2. Pindah barang");
         System.out.println("3. Pasang barang");
+        System.out.println("Masukkan angka dari aksi yang ingin dilakukan: ");
 
         int choice = scanner.nextInt();
         scanner.nextLine(); 
-
+        //masih belum selesai ya ini
         switch (choice) {
             case 1:
                 System.out.println("Daftar barang yang tersedia:");
@@ -309,7 +311,8 @@ public class Sim {
                         System.out.println("Jumlah barang tidak mencukupi.");
                         return;
                     }
-                    Items itemToMove = currentRoom.removeItem(itemName, 1);
+                    Items itemToMove = getSimInventory().getItem(itemName);
+                    currentRoom.removeItem(itemToMove, 1); //ini ak sesuaiin soalnya di room ga konsisten pake type items atau string utk namanya doang, jd kupake items ya
                     destinationRoom.addItem(itemToMove, 1);
 
                     System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + destinationRoom.getRoomName() + ".");
@@ -325,9 +328,9 @@ public class Sim {
                         System.out.println("Jumlah barang tidak mencukupi.");
                         return;
                     }
-
-                    Items itemToMove = inventory.removeItem(itemName, 1);
-                    currentRoom.addItem(itemToMove, 1);
+                    inventory.removeItem(itemName, 1);
+                    Items itemToMove = getSimInventory().getItem(itemName);
+                    currentRoom.removeItem(itemToMove, 1);
 
                     System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
                 }

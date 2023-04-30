@@ -1,15 +1,16 @@
 import java.util.*;
 
 public class Inventory {
-    private Map<String, InventoryItem> items; // Map untuk menyimpan objek dalam inventory
+    private Map<String,InventoryItem> items; 
 
     public Inventory() {
         items = new HashMap<>();
     }
-
     public Items getItem(String itemName) {
         return null;
     }
+
+    Scanner sc = new Scanner(System.in);
 
     // Menambahkan objek ke inventory
     public void addItem(Items item, int quantity) {
@@ -24,7 +25,7 @@ public class Inventory {
     }
 
     // Menghapus objek dari inventory
-    public Items removeItem(String itemName, int quantity) {
+    public void removeItem(String itemName, int quantity) {
         if (items.containsKey(itemName)) {
             InventoryItem currentItem = items.get(itemName);
             if (currentItem.getQuantity() > quantity) {
@@ -34,7 +35,6 @@ public class Inventory {
             }
         }
         clearZeroQuantityItems();
-        return null;
     }
 
     // Mendapatkan jumlah objek dalam inventory
@@ -43,6 +43,43 @@ public class Inventory {
             return items.get(itemName).getQuantity();
         } else {
             return 0;
+        }
+    }
+
+    public boolean hasItem(String itemName, int quantity) {
+        if (items.containsKey(itemName)) {
+            int currentQuantity = items.get(itemName).getQuantity();
+            return currentQuantity >= quantity;
+        } else {
+            return false;
+        }
+    }
+
+    // Menjual barang di inventory 
+    public void sellItem(String itemName, int quantity, int pricePerItem, Sim sim) throws SimMiskinException {
+        if (items.containsKey(itemName)) {
+            InventoryItem currentItem = items.get(itemName);
+            int currentQuantity = currentItem.getQuantity();
+            if (currentQuantity >= quantity) {
+                int totalPrice = pricePerItem * quantity;
+                System.out.println("Total Price: " + totalPrice);
+                System.out.println("Proceed to sell? [Y/N]");
+                String choice = sc.nextLine();
+                if (choice.equals("Y")){
+                    if (sim.getUang() >= totalPrice){
+                        sim.setUang(totalPrice);
+                        removeItem(itemName, quantity);
+                        System.out.println(quantity + " " + itemName + " has been sold");
+                    }
+                    else{
+                        throw new SimMiskinException("You dont have enough money!");
+                    }
+                }
+            } else {
+                System.out.println("There is not enough " + itemName + " in your inventory");
+            }
+        } else {
+            System.out.println("There is no " + itemName + " in your inventory");
         }
     }
 
@@ -108,13 +145,11 @@ public class Inventory {
 }
 */
 /*
-<<<<<<< HEAD
 
     public Object getCurrentRoom() {
         return null;
     }
 }
-=======
     
     // Inner class untuk merepresentasikan item dalam inventory
     private static class InventoryItem {
@@ -148,6 +183,5 @@ public class Inventory {
 
 }
 
->>>>>>> 5451c7fa7bb1704ab8e2babe2077427fd7409584
 
 */

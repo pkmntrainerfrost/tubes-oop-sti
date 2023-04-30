@@ -1,18 +1,82 @@
 {
     "recipes": [
         {
-          "name": "Hot Dog",
-          "fullness": 10,
+          "name": "Nasi Ayam",
+          "fullness": 16,
           "ingredients": [
             {
-                "name": "Roti",
+                "name": "Nasi",
                 "quantity": 1
-            }
+            },
             {
-                "name": "Sosis",
+                "name": "Ayam",
                 "quantity": 1
             }
           ]
+        },
+        {
+          "name": "Nasi Kari",
+          "fullness": 30,
+          "ingredients": [
+            {
+                "name": "Nasi",
+                "quantity": 1
+            },
+            {
+                "name": "Kentang",
+                "quantity": 1
+            },
+            {
+              "name": "Wortel",
+              "quantity": 1              
+            },
+            {
+              "name": "Sapi",
+              "quantity": 1              
+            }
+          ]
+        },
+        {
+          "name": "Susu Kacang",
+          "fullness": 5,
+          "ingredients": [
+            {
+                "name": "Susu",
+                "quantity": 1
+            },
+            {
+                "name": "Kacang",
+                "quantity": 1
+            }
+          ]   
+        },
+        {
+          "name": "Tumis Sayur",
+          "fullness": 5,
+          "ingredients": [
+            {
+                "name": "Wortel",
+                "quantity": 1
+            },
+            {
+                "name": "Bayam",
+                "quantity": 1
+            }
+          ]   
+        },
+        {
+          "name": "Bistik",
+          "fullness": 22,
+          "ingredients": [
+            {
+                "name": "Kentang",
+                "quantity": 1
+            },
+            {
+                "name": "Sapi",
+                "quantity": 1
+            }
+          ] 
         }
       ]
     }

@@ -108,10 +108,12 @@ public class Room extends GridObject {
         return 0;
     }
 
-    public Items removeItem(String itemName, int i) {
-        return null;
+    //masih belum dibuat ya ini
+    public void removeItem(Items itemName, int i) {
+
     }
 
+    //masih belum dibuat ya ini
     public void addItem(Items itemToMove, int i) {
     }
 
