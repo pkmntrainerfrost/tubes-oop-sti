@@ -311,9 +311,9 @@ public class Sim {
                         System.out.println("Jumlah barang tidak mencukupi.");
                         return;
                     }
-                    Items itemToMove = getSimInventory().getItem(itemName);
-                    currentRoom.removeItem(itemToMove, 1); //ini ak sesuaiin soalnya di room ga konsisten pake type items atau string utk namanya doang, jd kupake items ya
-                    destinationRoom.addItem(itemToMove, 1);
+                    Items items = getSimInventory().getItem(itemName);
+                    currentRoom.removeItem(itemName, 1); //ini ak sesuaiin soalnya di room ga konsisten pake type items atau string utk namanya doang, jd kupake items ya
+                    destinationRoom.addItem(items, 1); //ini ak ngikut addItem sm removeItem inventory, ga ngerti juga kenapa addItem pake item tapi removeItem pake itemName
 
                     System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + destinationRoom.getRoomName() + ".");
                 } else {
@@ -329,8 +329,8 @@ public class Sim {
                         return;
                     }
                     inventory.removeItem(itemName, 1);
-                    Items itemToMove = getSimInventory().getItem(itemName);
-                    currentRoom.removeItem(itemToMove, 1);
+                    Items items = getSimInventory().getItem(itemName);
+                    currentRoom.removeItem(itemName, 1);
 
                     System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
                 }

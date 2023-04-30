@@ -108,25 +108,25 @@ public class Room extends GridObject {
     
 
     //menambah objek ke room
-    public void addItem(Items itemToMove, int quantity) {
-        if (items.containsKey(itemToMove.getItemName())) {
-            RoomItem currentItem = items.get(itemToMove.getItemName());
+    public void addItem(Items item, int quantity) {
+        if (items.containsKey(item.getItemName())) {
+            RoomItem currentItem = items.get(item.getItemName());
             currentItem.setQuantity(currentItem.getQuantity() + quantity);
         } else {
-            RoomItem newItem = new RoomItem(itemToMove, quantity);
-            items.put(itemToMove.getItemName(), newItem);
+            RoomItem newItem = new RoomItem(item, quantity);
+            items.put(item.getItemName(), newItem);
         }
         clearZeroQuantityItems();
     }
 
     // Menghapus objek dari Room
-    public void removeItem(Items itemToMove, int quantity) {
-        if (items.containsKey(itemToMove)) {
-            RoomItem currentItem = items.get(itemToMove);
+    public void removeItem(String itemName, int quantity) {
+        if (items.containsKey(itemName)) {
+            RoomItem currentItem = items.get(itemName);
             if (currentItem.getQuantity() > quantity) {
                 currentItem.setQuantity(currentItem.getQuantity() - quantity);
             } else {
-                items.remove(itemToMove);
+                items.remove(itemName);
             }
         }
         clearZeroQuantityItems();
