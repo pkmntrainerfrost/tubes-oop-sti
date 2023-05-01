@@ -9,11 +9,14 @@ public class House extends GridObject{
 
     private Room mainRoom;
 
+    private String name;
+
     //konstruktor
-    public House(Point p, Sim owner) {
+    public House(Point p, Sim owner, String name) {
 
         super(p,1,1);
         this.owner = owner;
+        this.name = name;
 
         try {
             houseGrid = new Grid(6,6,0,0);
@@ -191,6 +194,10 @@ public class House extends GridObject{
         return rooms;
     }
     */
+
+    public String getHouseName(){
+        return this.name;
+    }
     
     public Grid getHouseGrid(){
         return houseGrid;
@@ -199,6 +206,7 @@ public class House extends GridObject{
     public Room getMainRoom(){
         return mainRoom;
     }
+
 
 }
 

@@ -154,6 +154,14 @@ public class Sim {
         }
     }
 
+    public Point getSimPosition(){
+        return simPosition;
+    }
+
+    public void setSimPosition(Point point){
+        this.simPosition = point;
+    }
+
     public void displaySimInfo() throws SimNotInGameException{
         if (getInHouse()){
             try {

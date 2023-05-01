@@ -51,8 +51,8 @@
         },
         {
             "name": "Matras",
-            "length": 5,
-            "height": 3,
+            "length": 2,
+            "height": 1,
             "price": 10,
             "action": "Meditation"
         },
@@ -79,9 +79,9 @@
         },
         {
             "name": "Tong Sampah",
-            "length": 2,
-            "height": 3,
-            "price": 40,
+            "length": 1,
+            "height": 1,
+            "price": 3,
             "action": "ThrowRubbish"
         },
         {
@@ -90,6 +90,13 @@
             "height": 1,
             "price": 20,
             "action": "Bath"
+        },
+        {
+            "name": "Treadmill",
+            "length": 3,
+            "height": 2,
+            "price": 250,
+            "action": "Exercise"
         }
     ]
 }
