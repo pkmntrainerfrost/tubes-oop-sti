@@ -1,5 +1,5 @@
-public class NontonFilm extends SimActiveAction {
-    public NontonFilm(int duration, Sim sim) {
+public class WatchMovie extends SimActiveAction {
+    public WatchMovie(int duration, Sim sim) {
         super(sim, duration);
     }
 

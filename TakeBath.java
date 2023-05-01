@@ -1,10 +1,10 @@
-public class Mandi extends SimActiveAction {
+public class TakeBath extends SimActiveAction {
     
-    public Mandi(int duration, Sim sim) {
+    public TakeBath(int duration, Sim sim) {
         super(sim, duration);
     }
 
-    public Mandi(Sim sim) {
+    public TakeBath(Sim sim) {
         super(sim);
     }
 
