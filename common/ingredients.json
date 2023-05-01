@@ -1,0 +1,44 @@
+{
+    "ingredients": [
+        {
+          "name": "Ayam",
+          "fullness": 10,
+          "price": 8
+        },
+        {
+          "name": "Bayam",
+          "fullness": 3,
+          "price": 2
+        },
+        {
+          "name": "Wortel",
+          "fullness": 3,
+          "price": 2
+        },
+        {
+          "name": "Kacang",
+          "fullness": 3,
+          "price": 4
+        },
+        {
+          "name": "Kentang",
+          "fullness": 3,
+          "price": 4
+        },
+        {
+          "name": "Susu",
+          "fullness": 2,
+          "price": 1
+        },
+        {
+          "name": "Sapi",
+          "fullness": 12,
+          "price": 15
+        },
+        {
+          "name": "Nasi",
+          "fullness": 5,
+          "price": 5
+        }
+      ]
+}

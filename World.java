@@ -19,7 +19,7 @@ public class World {
         simList = new ArrayList<>();
         actionList = new ArrayList<>();
         houseList = new ArrayList<>();
-        actionMediator = actionMediator.getInstance();
+        actionMediator = SimActionMediator.getInstance();
         System.out.println("Write your character's name: ");
         String name = sc.nextLine();
         currentSim = new Sim(name);

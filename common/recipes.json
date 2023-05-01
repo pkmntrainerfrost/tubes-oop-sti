@@ -27,12 +27,12 @@
                 "quantity": 1
             },
             {
-              "name": "Wortel",
-              "quantity": 1              
+                "name": "Wortel",
+                "quantity": 1
             },
             {
-              "name": "Sapi",
-              "quantity": 1              
+                "name": "Sapi",
+                "quantity": 1
             }
           ]
         },
@@ -48,7 +48,7 @@
                 "name": "Kacang",
                 "quantity": 1
             }
-          ]   
+          ]
         },
         {
           "name": "Tumis Sayur",
@@ -62,7 +62,7 @@
                 "name": "Bayam",
                 "quantity": 1
             }
-          ]   
+          ]
         },
         {
           "name": "Bistik",
@@ -76,7 +76,7 @@
                 "name": "Sapi",
                 "quantity": 1
             }
-          ] 
+          ]
         }
       ]
-    }
+}
