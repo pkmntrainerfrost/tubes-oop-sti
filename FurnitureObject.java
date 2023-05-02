@@ -1,5 +1,7 @@
 public class FurnitureObject extends GridObject {
 
+    /* Decorator */
+
     private FurnitureType furniture;
 
     public FurnitureObject(Point point, FurnitureType furniture) {

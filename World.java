@@ -3,8 +3,6 @@ import java.util.*;
 public class World {
 
     // Implementasi World menggunakan Design Pattern Singleton
-    private List<Sim> simList;
-    private List<SimAction> actionList;
     private List<House> houseList;
     private Grid houseGrid;
     private SimActionMediator actionMediator;

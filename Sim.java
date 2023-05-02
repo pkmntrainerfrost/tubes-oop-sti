@@ -3,6 +3,100 @@ import java.util.*;
 public class Sim {
 
     private String name;
+
+    private Job job;
+
+    private int kekenyangan = 80;
+    private int mood = 80;
+    private int kesehatan = 80;
+    private int uang = 100;
+
+    private boolean busy = false;
+
+    private int workCycle = 0;
+    private int peeCycle = 0;
+    private int sleepCycle = 0;
+
+    private Inventory inventory = new Inventory();
+    private House currentHouse;
+    private Room currentRoom;
+    private Point currentPosition;
+
+    private Mediator mediator = Mediator.getInstance();
+
+    public Sim(String name) {
+
+        this.name = name;
+
+        mediator.addSim(this);
+        
+        Object[] jobArray = Game.getInstance().getJobMap().values().toArray();
+        this.job = (Job) jobArray[((int) (Math.random() * jobArray.length) + 1)];
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Job getjob() {
+        return job;
+    }
+
+    public int getKekenyangan() {
+        return kekenyangan;
+    }
+
+    public int getMood() {
+        return mood;
+    }
+
+    public int getUang() {
+        return uang;
+    }
+
+    public int getKesehatan(){
+        return kesehatan;
+    }
+
+    public boolean getBusy() {
+        return busy;
+    }
+
+    public int getWorkCycle() {
+        return workCycle;
+    }
+
+    public int getPeeCycle() {
+        return peeCycle;
+    }
+
+    public int getSleepCycle() {
+        return sleepCycle;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public House getCurrentHouse() {
+        return currentHouse;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public Point getCurrentPoistion() {
+        return currentPosition;
+    }
+    
+}
+
+/*
+public class Sim {
+
+    private String name;
     private Jobs job;
     private int kekenyangan=80;
     private int mood=80;
@@ -385,7 +479,7 @@ class SimNotInGameException extends Exception {
     }
 }
 
-
+*/
 
 /*
     public void editRoom(Room room) {

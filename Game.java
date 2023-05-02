@@ -5,9 +5,6 @@ public class Game {
     private Map<String, Job> jobMap;
     private Map<String, Items> itemMap;
 
-    private Clock clock;
-    private World world;
-
     private static Game instance = new Game();
 
     private Game(boolean load) {
@@ -15,20 +12,13 @@ public class Game {
         this.Game = gameBuilder.getGame();
     }
 
-    public Map<Job> getJobList() {
+    public Map<String, Job> getJobMap() {
         return jobMap;
     }
 
-    public void setJobList(List<Job> jobList) {
-        this.jobList = jobList;
+    public static Game getInstance() {
+        return instance;
     }
 
-    public List<Items> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<Items> itemList) {
-        this.itemList = itemList;
-    }
 
 }
