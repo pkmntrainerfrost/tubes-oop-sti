@@ -97,6 +97,13 @@
             "height": 2,
             "price": 250,
             "action": "Exercise"
+        },
+        {
+            "name": "Smart Television",
+            "length": 2,
+            "height": 1,
+            "price": 250,
+            "action": "WatchMovie"
         }
     ]
 }

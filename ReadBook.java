@@ -1,14 +1,14 @@
+import java.util.*;
+
 public class ReadBook extends SimActiveAction {
 
-    public ReadBook(Sim sim, int duration) {
-        super(sim, duration);
+    public void begin(Sim sim){
+        System.out.println("Masukkan durasi: ");
+        Scanner scan = new Scanner(System.in);
+        int duration = scan.nextInt();
     }
 
-    public ReadBook(Sim sim) {
-        super(sim);
-    }
-
-    public void finish() {
+    public void end(Sim sim) {
         if (getSim().getCurrentRoom().getItemListInRoom().contains("Rak buku")){
             int time = getDuration()/60;
             getSim().setMood(getSim().getMood() + time * 6);

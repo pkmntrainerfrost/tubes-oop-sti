@@ -1,13 +1,9 @@
 public class Drink extends SimActiveAction {
-    public Drink(int duration, Sim sim) {
-        super(sim, duration);
+    public void begin(){
+
     }
 
-    public Drink(Sim sim) {
-        super(sim);
-    }
-
-    public void finish() {
+    public void end() {
         if (getSim().getCurrentRoom().getItemListInRoom().contains("DrinkingGlass")){
             int time = getDuration()/2;
             getSim().setKesehatan(getSim().getKesehatan() + time * 2);

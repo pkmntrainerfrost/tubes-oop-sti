@@ -3,6 +3,8 @@ public abstract class SimActiveAction implements SimAction {
     private int duration;
     private int endTime;
 
+    public abstract void begin(Sim sim);
+    
     public void run(Sim sim) {
         act(sim);
         end(sim);

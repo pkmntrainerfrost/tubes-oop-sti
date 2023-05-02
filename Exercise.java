@@ -1,13 +1,10 @@
 public class Exercise extends SimActiveAction {
-    public Exercise(int duration, Sim sim) {
-        super(sim, duration);
-    }
-    public Exercise(Sim sim) {
-        super(sim);
+    public void begin(){
+
     }
 
     @Override
-    public void finish() {
+    public void end() {
         int time = getDuration()/20;
         getSim().setKesehatan(getSim().getKesehatan() + (time * 5));
         getSim().setKekenyangan(getSim().getKekenyangan() - (time * 5));

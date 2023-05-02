@@ -1,10 +1,6 @@
 public class Meditation extends SimActiveAction {
-    public Meditation(int duration, Sim sim) {
-        super(sim, duration);
-    }
+    public void begin(Sim sim){
 
-    public Meditation(Sim sim) {
-        super(sim);
     }
 
     public void finish() {

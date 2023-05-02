@@ -3,7 +3,6 @@ import java.util.*;
 public class Sim {
 
     private String name;
-
     private Job job;
 
     private int kekenyangan = 80;
@@ -25,16 +24,13 @@ public class Sim {
     private Mediator mediator = Mediator.getInstance();
 
     public Sim(String name) {
-
         this.name = name;
-
         mediator.addSim(this);
-        
         Object[] jobArray = Game.getInstance().getJobMap().values().toArray();
         this.job = (Job) jobArray[((int) (Math.random() * jobArray.length) + 1)];
-
     }
 
+    /* getter */
     public String getName() {
         return name;
     }
@@ -90,7 +86,6 @@ public class Sim {
     public Point getCurrentPoistion() {
         return currentPosition;
     }
-    
 }
 
 /*
