@@ -47,10 +47,11 @@ public abstract class GridObject {
     public void getWidth(int num){
         this.height += num;
     }
-//sampe sini
+    
+    //sampe sini
 
-//halo izin ganti source nya dari sini 
-//https://www.baeldung.com/java-check-if-two-rectangles-overlap
+    //halo izin ganti source nya dari sini 
+    //https://www.baeldung.com/java-check-if-two-rectangles-overlap
 
     public boolean overlap(GridObject object) {
         // return (this.getMinimumX() >= object.getMinimumX() && this.getMinimumX() <= object.getMaximumX()) || (this.getMinimumY() >= object.getMinimumY() && this.getMinimumY() <= this.getMaximumY());

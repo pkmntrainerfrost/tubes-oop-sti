@@ -1,4 +1,4 @@
-public abstract class FurnitureType implements Items {
+public class FurnitureType implements Item {
 
     public String furnitureName;
     public int furnitureLength;
