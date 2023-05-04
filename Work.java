@@ -1,10 +1,9 @@
 public class Work extends SimActiveAction {
 
-    public Work(Sim sim, int duration) {
-        super(sim, duration);
+    public void begin(Sim sim) {
+        
     }
     
-    @Override
     public void end(Sim sim) {
 
         getSim().getjob().getSalary();
@@ -27,5 +26,10 @@ public class Work extends SimActiveAction {
         }
         */
     }
-    
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'run'");
+    }
 }
