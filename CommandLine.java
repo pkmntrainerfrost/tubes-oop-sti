@@ -52,54 +52,55 @@ public class CommandLine extends Exception{
         listMenu.add("load");
         listMenu.add("help");
         listMenu.add("exit");
-        listMenu.add("view sim info");
-        listMenu.add("view current location");
-        listMenu.add("view inventory");
-        listMenu.add("add sim");
-        listMenu.add("change sim");
-        listMenu.add("list object");
-        listMenu.add("go to object");
+        listMenu.add("viewsiminfo");
+        listMenu.add("viewcurrentlocation");
+        listMenu.add("viewinventory");
+        listMenu.add("addsim");
+        listMenu.add("changesim");
+        listMenu.add("listobject");
+        listMenu.add("gotoobject");
         listMenu.add("action");
-        listMenu.add("upgrade house");
-        listMenu.add("move room");
-        listMenu.add("edit room");
-        listMenu.add("add sim");
-        listMenu.add("change sim");
+        listMenu.add("upgradehouse");
+        listMenu.add("moveroom");
+        listMenu.add("editroom");
+        listMenu.add("addsim");
+        listMenu.add("changesim");
     }
 
     public void makeTheActionMenu(){
-        listAction.add("Work");
-        listAction.add("Exercise");
-        listAction.add("Eat");
-        listAction.add("Sleep");
-        listAction.add("Cook");
-        listAction.add("Visit");
-        listAction.add("Pee");
-        listAction.add("Sing");
-        listAction.add("Meditation");
-        listAction.add("Read Book");
-        listAction.add("Watch Movie");
-        listAction.add("Drink");
-        listAction.add("Take Bath");
-        listAction.add("ThrowRubbish");
-        listAction.add("buy item");
-        listAction.add("move item");
-        listAction.add("sell item");
+        listAction.add("work");
+        listAction.add("exercise");
+        listAction.add("eat");
+        listAction.add("sleep");
+        listAction.add("cook");
+        listAction.add("visit");
+        listAction.add("pee");
+        listAction.add("sing");
+        listAction.add("meditation");
+        listAction.add("readbook");
+        listAction.add("watchmovie");
+        listAction.add("drink");
+        listAction.add("takebath");
+        listAction.add("throwrubbish");
+        listAction.add("buyitem");
+        listAction.add("moveitem");
+        listAction.add("sellitem");
     }
 
     public void listMenuInGame(){
         System.out.println("Choose and write out the word(s) of what you want to do!"); 
         System.out.println("Menu List: ");
-        System.out.println("-help");
-        System.out.println("-exit");
-        System.out.println("-view sim info");
-        System.out.println("-view current location");
-        System.out.println("-view inventory");
-        System.out.println("-add sim");
-        System.out.println("-change sim");
-        System.out.println("-list object");
-        System.out.println("-go to object");
-        System.out.println("-action");
+        System.out.println("1. start/load");
+        System.out.println("2. help");
+        System.out.println("3. exit");
+        System.out.println("4. view sim info");
+        System.out.println("5. view current location");
+        System.out.println("6. view inventory");
+        System.out.println("7. add sim");
+        System.out.println("8. change sim");
+        System.out.println("9. list object");
+        System.out.println("10. go to object");
+        System.out.println("11. action");
     }
 
     public void listMenuInHouse(){
@@ -161,33 +162,58 @@ public class CommandLine extends Exception{
     }
 
     public String commandName(String command){
-        if (listMenu.contains(command.toLowerCase()) || (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 14)){
-            return command.toLowerCase();
-        }else{
-            try {
-                throw new WrongInputException("The command is not valid!");
-            } catch (WrongInputException e) {
-                e.printStackTrace();
+        command = command.replaceAll(" ", "");
+        if (validateInputString(command)){
+            if (listMenu.contains(command.toLowerCase()) || (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 17)){
+                return command.toLowerCase();
+            }else{
+                System.out.println("Invalid command!");
             }
-            return command;
+        }else if (validateInputInteger(command)){
+            if (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 11){
+                return command;
+            }else{
+                System.out.println("Number out of range!");
+            }
+        }else{
+            System.out.println("The input is not valid!");
         }
+        return "";
     }
 
-    public boolean validateInputInteger(String input){
-        Integer inputInInteger = Integer.valueOf(input);
-        if (inputInInteger instanceof Integer){
-            return true;
-        }else{
-            try {
-                throw new WrongInputException("The input is not an integer!");
-            } catch (WrongInputException e) {
-                e.printStackTrace();
+    public String actionName(String action){ 
+        action = action.replaceAll(" ", "");
+        if (validateInputString(action)){
+            if (listAction.contains(action.toLowerCase()) || (Integer.valueOf(action) >= 1 && Integer.valueOf(action) <= 17)){
+                return action.toLowerCase();
+            }else{
+                System.out.println("Wrong input of action");
             }
+        }else if (validateInputInteger(action)){
+            if (Integer.valueOf(action) >= 1 && Integer.valueOf(action) <= 17){
+                return action;
+            }else{
+                System.out.println("Number out of range!");
+            }
+        }else{
+            System.out.println("The input is not valid!");
+        }
+        return "";
+    }
+
+    public static boolean validateInputInteger(String s) {
+        try { 
+            Integer.parseInt(s); 
+        } catch(NumberFormatException e) { 
+            return false; 
+        } catch(NullPointerException e) {
             return false;
         }
+        // only got here if we didn't return false
+        return true;
     }
 
-    public String validateInputString(String input) throws WrongInputException{
+    public boolean validateInputString(String input){
         char[] inputInChar = new char[input.length()];
         boolean flag = true;
         for (int i = 0; i < input.length(); i++){
@@ -198,15 +224,10 @@ public class CommandLine extends Exception{
                 flag = false;
             }
         }
-
-        if (flag){
-            return input;
-        }else{
-            throw new WrongInputException("Your input is not a string!");
-        }
+        return flag;
     }
 
-    public boolean validateRoomName(String input, House house) throws WrongInputException{
+    public boolean validateRoomName(String input, House house){
         boolean flag = true;
         for (int i = 0; i < house.getRoomList().size(); i++){
             if (house.getRoomList().get(i).getRoomName().equals(input)){
@@ -230,6 +251,7 @@ public class CommandLine extends Exception{
         }
         System.out.printf("\n");
     }
+
 }
 
 /*

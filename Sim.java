@@ -26,9 +26,10 @@ public class Sim {
     
     public Sim(String name) {
         this.name = name;
+        int salary = 80; //sementara
+        String[] jobArray = {"Police", "MagicClown", "Chef", "Police", "Programmer", "Doctor"};
+        this.job = new Job(jobArray[((int) (Math.random() * jobArray.length))], salary);
         mediator.addSim(this);
-        Object[] jobArray = Game.getInstance().getJobMap().values().toArray();
-        this.job = (Job) jobArray[((int) (Math.random() * jobArray.length) + 1)];
     }
 
     /* getter */
