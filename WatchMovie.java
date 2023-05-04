@@ -5,10 +5,10 @@ public class WatchMovie extends SimActiveAction {
 
     public void end(Sim sim) {
         if (getSim().getCurrentRoom().getItemListInRoom().contains("Smart Television")){
-            int time = 2;
-            getSim().setMood(getSim().getMood() + time * 5);
-            getSim().setKesehatan(getSim().getKesehatan() - time * 2);
-            getSim().setKekenyangan(getSim().getKekenyangan() - time * 2);
+            /* waktu yang dibutuhkan untuk watchmovie tidak dipermasalahkan */
+            getSim().setMood(getSim().getMood() + (10));                    // sim akan bertambah moodnya sebesar +10              
+            getSim().setKesehatan(getSim().getKesehatan() - (4));           // sim akan berkurang kesehatannya sebesar -4
+            getSim().setKekenyangan(getSim().getKekenyangan() - (4));       // sim akan berkurang kekenyangannya sebesar -4
         }
     }
 }

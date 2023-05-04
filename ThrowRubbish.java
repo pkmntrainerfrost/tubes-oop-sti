@@ -5,10 +5,9 @@ public class ThrowRubbish extends SimActiveAction {
 
     public void end(Sim sim) {
         if (getSim().getCurrentRoom().getItemListInRoom().contains("RubbishBin")){
-            int time = 2;
-            getSim().setMood()
-            getSim().setMood(getSim().getMood() + time * 5);
-            getSim().setKesehatan(getSim().getKesehatan() - time * 5);
+            /* waktu yang dibutuhkan untuk throwrubbish tidak dipermasalahkan */
+            getSim().setMood(getSim().getMood() + (5));             // sim akan bertambah moodnya sebesar +5
+            getSim().setKesehatan(getSim().getKesehatan() + (5));   // sim akan bertambah kesehatannya sebesar +5
         }
     }
 }
