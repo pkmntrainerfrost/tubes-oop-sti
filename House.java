@@ -3,7 +3,7 @@ public class House extends GridObject{
 
     private Grid houseGrid;
     /* private Grid grid */
-    /* private List<Room> rooms;  */
+    private ArrayList<Room> roomList;  
 
     private Sim owner;
 
@@ -20,8 +20,10 @@ public class House extends GridObject{
 
         try {
             houseGrid = new Grid(6,6,0,0);
+            roomList = new ArrayList<Room>();
             mainRoom = new Room(new Point(0,0),"placeholder",true);
             houseGrid.addObject(mainRoom);
+            System.out.println("house  created");
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -55,18 +57,19 @@ public class House extends GridObject{
 
         boolean add = false;
 
-        if (!owner.getInHouse()) {
+        if (owner.getCurrentHouse() != this) {
             throw new SimNotInHouseException("Sim is not in the house!");
         }
 
         if (owner.getUang() < 1500) {
-            throw new SimMiskinException("Sim is miskin!");
+            throw new SimMiskinException("Sim doesn't have enough money!");
         }
 
         do {
             try {
                 houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
                 owner.setUang(-1500);
+                rooms.add(newRoom);
                 // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
                 // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
             } catch (PositionOccupiedException e) {
@@ -189,11 +192,11 @@ public class House extends GridObject{
     }
     */
 
-    /*
-    public List<Room> getRoomList() {
-        return rooms;
+
+    public ArrayList<Room> getRoomList() {
+        return roomList;
     }
-    */
+
 
     public String getHouseName(){
         return this.name;

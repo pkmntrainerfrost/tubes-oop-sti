@@ -146,7 +146,7 @@ public class CommandLine extends Exception{
             return true;
         }else{
             try {
-                throw new WrongInputException("The input is not valid!");
+                throw new WrongInputException("The input is non number!");
             } catch (WrongInputException e) {
                 e.printStackTrace();
             }
@@ -154,19 +154,34 @@ public class CommandLine extends Exception{
         }
     }
 
-    public boolean validateInputString(String input){
+    public boolean validateInputString(String input) throws WrongInputException{
         char[] inputInChar = new char[input.length()];
+        boolean flag = true;
         for (int i = 0; i < input.length(); i++){
             inputInChar[i] = input.charAt(i);
         }
-        for (int i = 0; i < input.length();i++){
-            if (inputInChar[i] == '@'){
+        for (int i = 0; i < inputInChar.length; i++){
+            if (!Character.isLetter(inputInChar[i])){
+                flag = false;
+                throw new WrongInputException("Input contains non letter!");
+            }
         }
+        return flag;
+    }
+
+    public boolean validateRoomName(String input, House house) throws WrongInputException{
+        boolean flag = true;
+        for (int i = 0; i < house.getRoomList().size(); i++){
+            if (house.getRoomList().get(i).getRoomName().equals(input)){
+                flag = false;
+            }
+        }
+        return flag;
     }
 
     public void executeCommand(String command){
         if ((command.equals(listMenu.get(0)))){
-            do something
+            // do something
         }
     }
 }
