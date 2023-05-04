@@ -1,17 +1,19 @@
 public abstract class FurnitureType implements Items {
+
     public String furnitureName;
     public int furnitureLength;
     public int furnitureWidth;
     public int furniturePrice;
-    public SimActiveAction furnitureAction;
+    public String furnitureAction;
     public boolean isBuyable = true;
 
-    public FurnitureType(String furnitureName, int furnitureLength, int furnitureWidth, int furniturePrice, SimActiveAction furnitureAction) {
+    public FurnitureType(String furnitureName, int furnitureLength, int furnitureWidth, int furniturePrice, String furnitureAction) {
         this.furnitureName = furnitureName;
         this.furnitureLength = furnitureLength;
         this.furnitureWidth = furnitureWidth;
         this.furniturePrice = furniturePrice;
         this.furnitureAction = furnitureAction;
+        this.isBuyable = false;
     }
 
     @Override
@@ -50,7 +52,7 @@ public abstract class FurnitureType implements Items {
 
     public int getFurnitureWidth () {
         return this.furnitureWidth;
-    }    
+    }
 
     public void setFurnitureLength(int newFurnitureLength){
         this.furnitureLength += newFurnitureLength;
@@ -59,4 +61,13 @@ public abstract class FurnitureType implements Items {
     public void setFurnitureWidth (int newFurnitureWidth){
         this.furnitureWidth += newFurnitureWidth;
     }
+
+    public String getAction() {
+        return furnitureAction;
+    }
+
+    public void setAction(String action) {
+        this.furnitureAction = action;
+    }
+
 }

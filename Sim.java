@@ -3,6 +3,97 @@ import java.util.*;
 public class Sim {
 
     private String name;
+    private Job job;
+
+    private int kekenyangan = 80;
+    private int mood = 80;
+    private int kesehatan = 80;
+    private int uang = 100;
+
+    private boolean busy = false;
+
+    private int workCycle = 0;
+    private int peeCycle = 0;
+    private int sleepCycle = 0;
+
+    private Inventory inventory = new Inventory();
+    private House currentHouse;
+    private Room currentRoom;
+    private Point currentPosition;
+
+    private Mediator mediator = Mediator.getInstance();
+
+    
+    public Sim(String name) {
+        this.name = name;
+        int salary = 80; //sementara
+        String[] jobArray = {"Police", "MagicClown", "Chef", "Police", "Programmer", "Doctor"};
+        this.job = new Job(jobArray[((int) (Math.random() * jobArray.length))], salary);
+        mediator.addSim(this);
+    }
+
+    /* getter */
+    public String getName() {
+        return name;
+    }
+
+    public Job getjob() {
+        return job;
+    }
+
+    public int getKekenyangan() {
+        return kekenyangan;
+    }
+
+    public int getMood() {
+        return mood;
+    }
+
+    public int getUang() {
+        return uang;
+    }
+
+    public int getKesehatan(){
+        return kesehatan;
+    }
+
+    public boolean getBusy() {
+        return busy;
+    }
+
+    public int getWorkCycle() {
+        return workCycle;
+    }
+
+    public int getPeeCycle() {
+        return peeCycle;
+    }
+
+    public int getSleepCycle() {
+        return sleepCycle;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public House getCurrentHouse() {
+        return currentHouse;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public Point getCurrentPosition() {
+        return currentPosition;
+    }
+
+
+/*
+public class Sim {
+
+    private String name;
     private Jobs job;
     private int kekenyangan=80;
     private int mood=80;
@@ -82,6 +173,8 @@ public class Sim {
     public int getWorkSeconds() {
         return this.workSeconds;
     }
+
+*/
     public void setName(String name) {
         this.name = name;
     }
@@ -97,36 +190,39 @@ public class Sim {
     public void setUang(int uang) {
         this.uang = uang;
     }
-    public Jobs getPekerjaan() {
+    public Job getPekerjaan() {
         return this.job;
     }
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    // public void setStatus(String status) {
+    //     this.status = status;
+    // }
     public Inventory getSimInventory() {
         return this.inventory;
     }
-    public void setPekerjaan(Jobs job) {
+    public void setPekerjaan(Job job) {
         this.job = job;
     }
-    public void setInHouse(boolean isInHouse){
-        this.inHouse = isInHouse;
-    }
+    // public void setInHouse(boolean isInHouse){
+    //     this.inHouse = isInHouse;
+    // }
     public void setCurrentRoom(Room currentRoom){
         this.currentRoom = currentRoom;
     }
-    public Room getCurrentRoom(){
-        return this.currentRoom;
-    }
-    public Point getCurrentPosition(){
-        return simPosition;
-    }
+    // public Room getCurrentRoom(){
+    //     return this.currentRoom;
+    // }
+    // public Point getCurrentPosition(){
+    //     return simPosition;
+    // }
     public void setCurrentPosition(Point simPosition){
-        this.simPosition = simPosition;
+        this.currentPosition = simPosition;
     }
-    public static ArrayList<Sim> getSims(){
-        return Sims;
-    }
+    // public static ArrayList<Sim> getSims(){
+    //     return Sims;
+    // }
+}
+
+/* 
 
     // aksi tambah Sim
     public static void addSim() {
@@ -152,6 +248,14 @@ public class Sim {
         } else {
             System.out.println("Pilihan tidak valid!");
         }
+    }
+
+    public Point getSimPosition(){
+        return simPosition;
+    }
+
+    public void setSimPosition(Point point){
+        this.simPosition = point;
     }
 
     public void displaySimInfo() throws SimNotInGameException{
@@ -182,6 +286,7 @@ public class Sim {
         }
     }    
 
+    /* 
     public void setWorkSeconds(int workSeconds){
         this.workSeconds = workSeconds;
     }
@@ -377,7 +482,7 @@ class SimNotInGameException extends Exception {
     }
 }
 
-
+*/
 
 /*
     public void editRoom(Room room) {

@@ -1,11 +1,15 @@
 public class Work extends SimActiveAction {
-    public Work(Sim sim, int duration) {
-        super(sim, duration);
+
+    public void begin(Sim sim) {
+        
     }
     
-    @Override
-    public void finish() {
+    public void end(Sim sim) {
+
+        getSim().getjob().getSalary();
         this.getSim().setWorkSeconds(this.getSim().getWorkSeconds() + this.getDuration());
+
+        /*
         if (this.getSim().getWorkSeconds() >= 240) {
             if (this.getSim().getjob().getJobName().equals("MagicClown")){
                 this.getSim().getjob().addGaji(15);
@@ -20,6 +24,12 @@ public class Work extends SimActiveAction {
             }
             
         }
+        */
     }
-    
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'run'");
+    }
 }

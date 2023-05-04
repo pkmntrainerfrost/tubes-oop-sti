@@ -5,14 +5,13 @@ public class Clock implements Runnable {
     private int seconds;
     private int days;
     private boolean running;
-    private SimActionMediator actionMediator;
+    private Mediator mediator = Mediator.getInstance();
     private static Clock instance = new Clock();
 
     private Clock() {
         seconds = 0;
         days = 0;
         running = false;
-        actionMediator = actionMediator.getInstance();
     }
 
     public void run() {

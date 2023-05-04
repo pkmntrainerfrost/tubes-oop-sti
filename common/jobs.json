@@ -39,6 +39,14 @@
     {
       "name": "CEO",
       "salary": 80
+    },
+    {
+      "name": "Mata-Mata",
+      "salary": 60
+    },
+    {
+      "name": "Asisten Labpro",
+      "salary": 1
     }
   ]
 }

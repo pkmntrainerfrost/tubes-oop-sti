@@ -3,22 +3,31 @@ public class House extends GridObject{
 
     private Grid houseGrid;
     /* private Grid grid */
-    /* private List<Room> rooms;  */
+    private ArrayList<Room> roomList;  
 
     private Sim owner;
 
     private Room mainRoom;
 
+    private String name;
+
+    private World world;
+
     //konstruktor
-    public House(Point p, Sim owner) {
+    public House(Point p, World world, Sim owner, String name) {
 
         super(p,1,1);
         this.owner = owner;
+        this.name = name;
+        this.world = world;
+        world.addHouseToWorld(this);
 
         try {
             houseGrid = new Grid(6,6,0,0);
+            roomList = new ArrayList<Room>();
             mainRoom = new Room(new Point(0,0),"placeholder",true);
             houseGrid.addObject(mainRoom);
+            System.out.println("house created");
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -42,6 +51,48 @@ public class House extends GridObject{
     }
     */
 
+    public void upgradeHouse(Room refRoom, String name, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException, SimMiskinException, PositionOutOfBoundsException {
+        
+        int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY(); 
+        int y = up ? refRoom.getMaximumY(): refRoom.getMinimumY();
+
+        Point p = new Point(x,y);
+        Room newRoom = new Room(p,name,true);
+
+        boolean add = false;
+
+        if (owner.getCurrentHouse() != this) {
+            throw new SimNotInHouseException("Sim is not in the house!");
+        }
+
+        if (owner.getUang() < 1500) {
+            throw new SimMiskinException("Sim doesn't have enough money!");
+        }
+
+        if(x == 0 && !up || y == 0 && !right){
+            throw new PositionOutOfBoundsException("You cannot upgrade your house to that direction!");
+        }else{
+            do {
+                try {
+                    houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
+                    owner.setUang(-1500);
+                    roomList.add(newRoom);
+                    System.out.println("completed house upgrade");
+                    // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
+                    // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
+                } catch (PositionOccupiedException e) {
+                    throw new NeighborFoundException("This direction is already occupied!");
+                } catch (PositionOutOfBoundsException e) {
+                    houseGrid.addMaxX(1);
+                    houseGrid.addMaxY(1);
+                    houseGrid.addMinX(1);
+                    houseGrid.addMinY(1);
+                }
+            } while (!add);
+        }
+    }
+
+    /* 
     public void upgradeHouse(Room refRoom, String name, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException, SimMiskinException {
         
         int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY() - 1; 
@@ -52,18 +103,20 @@ public class House extends GridObject{
 
         boolean add = false;
 
-        if (!owner.getInHouse()) {
+        if (owner.getCurrentHouse() != this) {
             throw new SimNotInHouseException("Sim is not in the house!");
         }
 
         if (owner.getUang() < 1500) {
-            throw new SimMiskinException("Sim is miskin!");
+            throw new SimMiskinException("Sim doesn't have enough money!");
         }
 
         do {
             try {
                 houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
                 owner.setUang(-1500);
+                roomList.add(newRoom);
+                System.out.println("completed house upgrade");
                 // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
                 // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
             } catch (PositionOccupiedException e) {
@@ -79,7 +132,7 @@ public class House extends GridObject{
     }
 
 
-    /*
+
     public void upgradeHouse(Room newRoom, Sim sim, String dir) throws SimNotInHouseException, NoNeighborFoundException{
         // sementara 
         Room neighbor = null;
@@ -186,11 +239,15 @@ public class House extends GridObject{
     }
     */
 
-    /*
-    public List<Room> getRoomList() {
-        return rooms;
+
+    public ArrayList<Room> getRoomList() {
+        return roomList;
     }
-    */
+
+
+    public String getHouseName(){
+        return this.name;
+    }
     
     public Grid getHouseGrid(){
         return houseGrid;
@@ -199,6 +256,7 @@ public class House extends GridObject{
     public Room getMainRoom(){
         return mainRoom;
     }
+
 
 }
 

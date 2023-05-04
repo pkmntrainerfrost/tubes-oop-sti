@@ -30,7 +30,7 @@ public class Job {
     public static Job generateRandomJob(List<Job> jobList) { 
         Random random = new Random(); 
         return jobList.get(random.nextInt(jobList.size())); 
-    } 
+    }
  
 } 
  

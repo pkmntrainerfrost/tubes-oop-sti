@@ -1,8 +1,9 @@
 public abstract class Food implements Items {
+    
     private String foodName;
     private int foodFullness;
     private int foodPrice;
-    private boolean buyable = true;
+    private boolean buyable;
     
     public Food(String foodName, int foodPrice, int foodFullness) {
         this.foodName = foodName;

@@ -1,17 +1,19 @@
 public class Drink extends SimActiveAction {
-    public Drink(int duration, Sim sim) {
-        super(sim, duration);
+    public void begin(Sim sim) {
+
     }
 
-    public Drink(Sim sim) {
-        super(sim);
-    }
-
-    public void finish() {
+    public void end(Sim sim) {
         if (getSim().getCurrentRoom().getItemListInRoom().contains("DrinkingGlass")){
-            int time = getDuration()/2;
-            getSim().setKesehatan(getSim().getKesehatan() + time * 2);
-            getSim().setKekenyangan(getSim().getKekenyangan() + time * 1);
+            /* waktu yang dibutuhkan untuk watchmovie tidak dipermasalahkan */
+            getSim().setKesehatan(getSim().getKesehatan() + (2));     // sim akan bertambah kesehatannya sebesar +2
+            getSim().setKekenyangan(getSim().getKekenyangan() + (1)); // sim akan bertambah kekenyangannya sebesar +1
         }
+    }
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 }

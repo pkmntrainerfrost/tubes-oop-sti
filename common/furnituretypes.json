@@ -1,11 +1,109 @@
 {
     "furniture": [
         {
-            "name": "Kasur",
-            "price": 10,
+            "name": "Rak Buku",
+            "length": 2,
+            "height": 3,
+            "price": 75,
+            "action": "ReadBook"
+        },
+        {
+            "name": "Gelas",
             "length": 1,
+            "height": 1,
+            "price": 5,
+            "action": "Drink"
+        },
+        {
+            "name": "Kompor Listrik",
+            "length": 1,
+            "height": 1,
+            "price": 200,
+            "action": "Cook"
+        },
+        {
+            "name": "Kompor Gas",
+            "length": 2,
+            "height": 1,
+            "price": 100,
+            "action": "Cook"
+        },
+        {
+            "name": "Kasur Single",
+            "length": 4,
+            "height": 1,
+            "price": 50,
+            "action": "Sleep"
+        },
+        {
+            "name": "Kasur Queen Size",
+            "length": 4,
             "height": 2,
-            "action": "sleep"
+            "price": 100,
+            "action": "Sleep"
+        },
+        {
+            "name": "Kasur King Size",
+            "length": 5,
+            "height": 2,
+            "price": 150,
+            "action": "Sleep"
+        },
+        {
+            "name": "Matras",
+            "length": 2,
+            "height": 1,
+            "price": 10,
+            "action": "Meditation"
+        },
+        {
+            "name": "Mic",
+            "length": 1,
+            "height": 1,
+            "price": 40,
+            "action": "Sing"
+        },
+        {
+            "name": "Toilet",
+            "length": 1,
+            "height": 1,
+            "price": 50,
+            "action": "Pee"
+        },
+        {
+            "name": "Meja dan Kursi",
+            "length": 3,
+            "height": 3,
+            "price": 50,
+            "action": "Eat"
+        },
+        {
+            "name": "Tong Sampah",
+            "length": 1,
+            "height": 1,
+            "price": 3,
+            "action": "ThrowRubbish"
+        },
+        {
+            "name": "Shower",
+            "length": 1,
+            "height": 1,
+            "price": 20,
+            "action": "Bath"
+        },
+        {
+            "name": "Treadmill",
+            "length": 3,
+            "height": 2,
+            "price": 250,
+            "action": "Exercise"
+        },
+        {
+            "name": "Smart Television",
+            "length": 2,
+            "height": 1,
+            "price": 250,
+            "action": "WatchMovie"
         }
     ]
 }

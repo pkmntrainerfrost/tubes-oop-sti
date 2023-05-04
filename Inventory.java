@@ -1,11 +1,13 @@
 import java.util.*;
 
 public class Inventory {
+
     private Map<String,InventoryItem> items; 
 
     public Inventory() {
         items = new HashMap<>();
     }
+    
     public Items getItem(String itemName) {
         return null;
     }

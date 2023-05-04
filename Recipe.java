@@ -2,18 +2,17 @@ import java.util.*;
 
 public class Recipe extends Food {
     
-    private Map<InventoryItem, Integer> ingredients = new HashMap<>();
+    private Map<String, Integer> ingredients = new HashMap<>();
 
-    public Recipe(String name, Map<InventoryItem, Integer> ingredients) {
-        super(name, 0, 0);
+    public Recipe(String name, int fullness, Map<String, Integer> ingredients) {
+        super(name, 0, fullness);
         this.ingredients = ingredients;
         this.setBuyable(false);
-        this.setPrice(0);
     }
 
     // Cek bisa dimasak apa ga
     public boolean isCookable(Inventory inventory) {
-        for (InventoryItem ingredient : ingredients.keySet()) {
+        for (String ingredient : ingredients.keySet()) {
             if (!inventory.hasItem(ingredient.getName(), ingredients.get(ingredient))) {
                 return false;
             }
@@ -24,7 +23,7 @@ public class Recipe extends Food {
     // Masak
     public void cook(Inventory inventory) {
         if (isCookable(inventory)) {
-            for (InventoryItem ingredient : ingredients.keySet()) {
+            for (String ingredient : ingredients.keySet()) {
                 int quantityNeeded = ingredients.get(ingredient);
                 inventory.removeItem(ingredient.getName(), quantityNeeded);
             }
