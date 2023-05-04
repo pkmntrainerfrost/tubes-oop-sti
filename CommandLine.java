@@ -17,6 +17,8 @@ BYJ?????JJ5B &JJ?P  P?JJY BJJJB YJJ?P#???Y         &Y?Y&  &JJ?B &PYJ???JYG  Y??P
  */
 public class CommandLine extends Exception{
     static ArrayList<String> listMenu = new ArrayList<String>();
+    static ArrayList<String> listAction = new ArrayList<String>();
+
     public void heading(){
         System.out.println("===========================================  Welcome To  ===========================================");
         System.out.println("              G7!7P                                       &5JY#             PJJB                    ");
@@ -33,11 +35,21 @@ public class CommandLine extends Exception{
         System.out.println("                    &&&&    &    &&&&                                                    5??Y55JJJG ");
         System.out.println("                                                                                         &GYJJJY5B  ");
         System.out.println("====================================================================================================");
-        System.out.println("write out [start game] to start a new game!");
-        System.out.println("write out [load] [file name] to continue your previous game!");
+        System.out.println("write out [start] or [load] to start playing!");
+    }
+//doesnt work 
+    public static void setTerminalSize(int columns, int lines) {
+        System.out.print("\u001b[8;" + lines + ";" + columns + "t");
+    }
+
+    public static void clear() {
+        System.out.print("\033[H\033[2J");  
+        System.out.flush(); 
     }
 
     public void makeTheListMenu(){
+        listMenu.add("start");
+        listMenu.add("load");
         listMenu.add("help");
         listMenu.add("exit");
         listMenu.add("view sim info");
@@ -50,8 +62,29 @@ public class CommandLine extends Exception{
         listMenu.add("action");
         listMenu.add("upgrade house");
         listMenu.add("move room");
+        listMenu.add("edit room");
         listMenu.add("add sim");
         listMenu.add("change sim");
+    }
+
+    public void makeTheActionMenu(){
+        listAction.add("Work");
+        listAction.add("Exercise");
+        listAction.add("Eat");
+        listAction.add("Sleep");
+        listAction.add("Cook");
+        listAction.add("Visit");
+        listAction.add("Pee");
+        listAction.add("Sing");
+        listAction.add("Meditation");
+        listAction.add("Read Book");
+        listAction.add("Watch Movie");
+        listAction.add("Drink");
+        listAction.add("Take Bath");
+        listAction.add("ThrowRubbish");
+        listAction.add("buy item");
+        listAction.add("move item");
+        listAction.add("sell item");
     }
 
     public void listMenuInGame(){
@@ -127,16 +160,16 @@ public class CommandLine extends Exception{
         System.out.println("-sell item");
     }
 
-    public boolean validateCommand(String command){
-        if (listMenu.contains(command)){
-            return true;
+    public String commandName(String command){
+        if (listMenu.contains(command.toLowerCase()) || (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 14)){
+            return command.toLowerCase();
         }else{
             try {
                 throw new WrongInputException("The command is not valid!");
             } catch (WrongInputException e) {
                 e.printStackTrace();
             }
-            return false;
+            return command;
         }
     }
 
@@ -146,7 +179,7 @@ public class CommandLine extends Exception{
             return true;
         }else{
             try {
-                throw new WrongInputException("The input is non number!");
+                throw new WrongInputException("The input is not an integer!");
             } catch (WrongInputException e) {
                 e.printStackTrace();
             }
@@ -154,7 +187,7 @@ public class CommandLine extends Exception{
         }
     }
 
-    public boolean validateInputString(String input) throws WrongInputException{
+    public String validateInputString(String input) throws WrongInputException{
         char[] inputInChar = new char[input.length()];
         boolean flag = true;
         for (int i = 0; i < input.length(); i++){
@@ -163,10 +196,14 @@ public class CommandLine extends Exception{
         for (int i = 0; i < inputInChar.length; i++){
             if (!Character.isLetter(inputInChar[i])){
                 flag = false;
-                throw new WrongInputException("Input contains non letter!");
             }
         }
-        return flag;
+
+        if (flag){
+            return input;
+        }else{
+            throw new WrongInputException("Your input is not a string!");
+        }
     }
 
     public boolean validateRoomName(String input, House house) throws WrongInputException{
@@ -179,12 +216,29 @@ public class CommandLine extends Exception{
         return flag;
     }
 
+    //perlu ga ya heum keanya ga 
     public void executeCommand(String command){
         if ((command.equals(listMenu.get(0)))){
             // do something
         }
     }
+
+    public void loadingScreen(int time){ // atur pake timenya buat titik titik
+        System.out.printf("Loading");
+        for (int i = 0; i < time; i++){
+            System.out.printf(".");
+        }
+        System.out.printf("\n");
+    }
 }
+
+/*
+handling yang belom: 
+repetitive start/load -> tinggal kasi exception WrongInput
+validate file name for load and save 
+setting terminal size 
+ */
+
 
 class WrongInputException extends Exception{
     public WrongInputException(String messageString){

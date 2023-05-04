@@ -23,6 +23,7 @@ public class Sim {
 
     private Mediator mediator = Mediator.getInstance();
 
+    
     public Sim(String name) {
         this.name = name;
         mediator.addSim(this);
@@ -83,10 +84,10 @@ public class Sim {
         return currentRoom;
     }
 
-    public Point getCurrentPoistion() {
+    public Point getCurrentPosition() {
         return currentPosition;
     }
-}
+
 
 /*
 public class Sim {
@@ -171,6 +172,8 @@ public class Sim {
     public int getWorkSeconds() {
         return this.workSeconds;
     }
+
+*/
     public void setName(String name) {
         this.name = name;
     }
@@ -186,36 +189,39 @@ public class Sim {
     public void setUang(int uang) {
         this.uang = uang;
     }
-    public Jobs getPekerjaan() {
+    public Job getPekerjaan() {
         return this.job;
     }
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    // public void setStatus(String status) {
+    //     this.status = status;
+    // }
     public Inventory getSimInventory() {
         return this.inventory;
     }
-    public void setPekerjaan(Jobs job) {
+    public void setPekerjaan(Job job) {
         this.job = job;
     }
-    public void setInHouse(boolean isInHouse){
-        this.inHouse = isInHouse;
-    }
+    // public void setInHouse(boolean isInHouse){
+    //     this.inHouse = isInHouse;
+    // }
     public void setCurrentRoom(Room currentRoom){
         this.currentRoom = currentRoom;
     }
-    public Room getCurrentRoom(){
-        return this.currentRoom;
-    }
-    public Point getCurrentPosition(){
-        return simPosition;
-    }
+    // public Room getCurrentRoom(){
+    //     return this.currentRoom;
+    // }
+    // public Point getCurrentPosition(){
+    //     return simPosition;
+    // }
     public void setCurrentPosition(Point simPosition){
-        this.simPosition = simPosition;
+        this.currentPosition = simPosition;
     }
-    public static ArrayList<Sim> getSims(){
-        return Sims;
-    }
+    // public static ArrayList<Sim> getSims(){
+    //     return Sims;
+    // }
+}
+
+/* 
 
     // aksi tambah Sim
     public static void addSim() {
@@ -279,6 +285,7 @@ public class Sim {
         }
     }    
 
+    /* 
     public void setWorkSeconds(int workSeconds){
         this.workSeconds = workSeconds;
     }
