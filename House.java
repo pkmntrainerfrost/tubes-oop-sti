@@ -11,19 +11,23 @@ public class House extends GridObject{
 
     private String name;
 
+    private World world;
+
     //konstruktor
-    public House(Point p, Sim owner, String name) {
+    public House(Point p, World world, Sim owner, String name) {
 
         super(p,1,1);
         this.owner = owner;
         this.name = name;
+        this.world = world;
+        world.addHouseToWorld(this);
 
         try {
             houseGrid = new Grid(6,6,0,0);
             roomList = new ArrayList<Room>();
             mainRoom = new Room(new Point(0,0),"placeholder",true);
             houseGrid.addObject(mainRoom);
-            System.out.println("house  created");
+            System.out.println("house created");
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
