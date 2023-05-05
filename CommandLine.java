@@ -162,7 +162,6 @@ public class CommandLine extends Exception{
     }
 
     public String commandName(String command){
-        command = command.replaceAll(" ", "");
         if (validateInputString(command)){
             if (listMenu.contains(command.toLowerCase()) || (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 17)){
                 return command.toLowerCase();
@@ -182,7 +181,6 @@ public class CommandLine extends Exception{
     }
 
     public String actionName(String action){ 
-        action = action.replaceAll(" ", "");
         if (validateInputString(action)){
             if (listAction.contains(action.toLowerCase()) || (Integer.valueOf(action) >= 1 && Integer.valueOf(action) <= 17)){
                 return action.toLowerCase();
@@ -214,6 +212,7 @@ public class CommandLine extends Exception{
     }
 
     public boolean validateInputString(String input){
+        input = input.replaceAll(" ", "");
         char[] inputInChar = new char[input.length()];
         boolean flag = true;
         for (int i = 0; i < input.length(); i++){
