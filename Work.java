@@ -6,30 +6,33 @@ public class Work extends SimActiveAction {
     
     public void end(Sim sim) {
 
-        getSim().getjob().getSalary();
-        this.getSim().setWorkSeconds(this.getSim().getWorkSeconds() + this.getDuration());
+        sim.getjob().getSalary();
+        sim.setWorkSeconds(sim.getWorkCycle() + this.getDuration());
+
+        if (sim.getWorkCycle() >= 240) {
+            int wage = sim.getPekerjaan().getSalary();
+            sim.setUang(sim.getUang() + wage);
+            if (sim.getPekerjaan().getName().equals("Asisten Labpro")) {
+                
+            }
+        }
 
         /*
-        if (this.getSim().getWorkSeconds() >= 240) {
-            if (this.getSim().getjob().getJobName().equals("MagicClown")){
-                this.getSim().getjob().addGaji(15);
-            } else if (this.getSim().getjob().getJobName().equals("Chef")){
-                this.getSim().getjob().addGaji(30);
-            } else if (this.getSim().getjob().getJobName().equals("Police")){
-                this.getSim().getjob().addGaji(35);
-            } else if (this.getSim().getjob().getJobName().equals("Programmer")){
-                this.getSim().getjob().addGaji(45);
-            } else if (this.getSim().getjob().getJobName().equals("Doctor")){
-                this.getSim().getjob().addGaji(50);
+        if (this.sim.getWorkSeconds() >= 240) {
+            if (this.sim.getjob().getJobName().equals("MagicClown")){
+                this.sim.getjob().addGaji(15);
+            } else if (this.sim.getjob().getJobName().equals("Chef")){
+                this.sim.getjob().addGaji(30);
+            } else if (this.sim.getjob().getJobName().equals("Police")){
+                this.sim.getjob().addGaji(35);
+            } else if (this.sim.getjob().getJobName().equals("Programmer")){
+                this.sim.getjob().addGaji(45);
+            } else if (this.sim.getjob().getJobName().equals("Doctor")){
+                this.sim.getjob().addGaji(50);
             }
             
         }
         */
     }
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
-    }
 }

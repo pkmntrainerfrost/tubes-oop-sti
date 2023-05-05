@@ -1,13 +1,14 @@
 public class Exercise extends SimActiveAction {
-    public void begin(){
+
+    public void begin(Sim sim){
 
     }
 
     @Override
-    public void end() {
+    public void end(Sim sim) {
         int time = getDuration()/20;
-        getSim().setKesehatan(getSim().getKesehatan() + (time * 5));
-        getSim().setKekenyangan(getSim().getKekenyangan() - (time * 5));
-        getSim().setMood(getSim().getMood() + (time * 10));
+        sim.setKesehatan(sim.getKesehatan() + (time * 5));
+        sim.setKekenyangan(sim.getKekenyangan() - (time * 5));
+        sim.setMood(sim.getMood() + (time * 10));
     }
 }

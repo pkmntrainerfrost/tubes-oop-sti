@@ -1,8 +1,17 @@
 public class Eat extends SimActiveAction {
-    private boolean finished;
+    
     private Food itemMakanan;
-    private int duration;
 
+    public void begin(Sim sim) {
+
+    }
+
+    public void end(Sim sim) {
+        sim.setKekenyangan(sim.getKekenyangan() + (itemMakanan.getFullness()));
+        sim.getInventory().removeItem(itemMakanan.getItemName(), 1);
+    }
+
+    /*
     public Eat(Sim sim, Food itemMakanan, int duration) {
         super(sim);
         this.itemMakanan = itemMakanan;
@@ -32,4 +41,6 @@ public class Eat extends SimActiveAction {
         // getSim().getSimInventory().removeItem(itemMakanan.getItemName(), 1); <-- butuh inventory
         this.finished = true;
     }
+    */
+
 }

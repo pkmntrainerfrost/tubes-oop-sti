@@ -1,10 +1,19 @@
 import java.lang.Math;
 
 public class Visit extends SimActiveAction {
-    private House houseToVisit;
-    private int duration;
-    private boolean finished;
 
+    private House houseToVisit;
+
+    public void begin(Sim sim) {
+
+    }
+
+    public void end(Sim sim) {
+        sim.setCurrentHouse(houseToVisit);
+        // asuuuuuuuuuuuuuuuu
+    }
+
+    /*
     public Visit(House houseToVisit, Sim sim){
         super(sim);
         // duration dalam menit
@@ -12,6 +21,7 @@ public class Visit extends SimActiveAction {
         this.duration = (int) Math.sqrt(sim.getSimPosition().getX() - houseToVisit.getPoint().getX()) + (sim.getSimPosition().getY() - houseToVisit.getPoint().getY());
         this.finished = false;
     }
+
 
     public int getDuration() {
         return duration;
@@ -30,4 +40,6 @@ public class Visit extends SimActiveAction {
         finished = true;
         System.out.println("Sim is now in " + houseToVisit.getHouseName());
     }
+    */
+    
 }

@@ -2,6 +2,27 @@ import java.util.*;
 
 public class World {
 
+    private Grid houseGrid;
+
+    private static World instance = new World();
+
+    private World() {
+        houseGrid = new Grid(64,64);
+    }
+
+    public Grid getHouseGrid() {
+        return houseGrid;
+    }
+
+    public static World getInstance() {
+        return instance;
+    }
+
+}
+
+/*
+public class World {
+
     // Implementasi World menggunakan Design Pattern Singleton
     private List<House> houseList;
     private ArrayList<SimAction> actionList;
@@ -87,4 +108,6 @@ public class World {
     public Sim getCurrentSim(){
         return currentSim;
     }
+
 }
+*/

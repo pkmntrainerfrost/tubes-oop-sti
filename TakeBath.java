@@ -1,17 +1,13 @@
 public class TakeBath extends SimActiveAction {
-    
-    public TakeBath(int duration, Sim sim) {
-        super(sim, duration);
+
+    public void begin(Sim sim) {
+        
     }
 
-    public TakeBath(Sim sim) {
-        super(sim);
-    }
-
-    @Override
-    public void finish() {
+    public void end(Sim sim) {
         int time = getDuration()/240;
-        getSim().setMood(getSim().getMood() + time * 10);
-        getSim().setKesehatan(getSim().getKesehatan() + time * 10);
+        sim.setMood(sim.getMood() + time * 10);
+        sim.setKesehatan(sim.getKesehatan() + time * 10);
     }
+
 }
