@@ -3,6 +3,7 @@ public class InventoryItem {
     private String category;
     private int quantity;
     private Item item;
+    private int price;
 
     public InventoryItem(Item item, int quantity) {
         this.item = item;
@@ -14,7 +15,9 @@ public class InventoryItem {
     public Item getItems(){
         return item;
     }
-    
+    public int getPrice(){
+        return price;
+    }
     public String getName() {
         return name;
     }

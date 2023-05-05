@@ -8,8 +8,8 @@ public class Inventory {
         items = new HashMap<>();
     }
     
-    public Item getItem(String itemName) {
-        return null;
+    public static Inventory[] getItem() {
+        ;
     }
 
     Scanner sc = new Scanner(System.in);

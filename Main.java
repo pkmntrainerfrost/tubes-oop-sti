@@ -35,11 +35,11 @@ public class Main {
             System.out.println("Write out [2] or [help] if you need any help!");
             command = in.nextLine();
             switch(cml.commandName(command)) {
-                case "1", "start", "load" :
+                case "start", "load" :
                     System.out.println("Your game is already started!");
                     break;
 
-                case "2", "help" :
+                case "help" :
                 // tentukan dia di dalam room/house/hanya di dalam game
                     // if (sim.getCurrentState() == room){
                         cml.listMenuInRoom();
@@ -50,7 +50,7 @@ public class Main {
                     // }else{
                     //     cml.listMenuInGame();
                     //     break;
-                case "3", "exit" :
+                case "exit" :
                     System.out.println("Do you want to save changes? [Y/N]");
                     String save = in.nextLine();
                     while (!cml.validateInputString(save)){
@@ -69,46 +69,46 @@ public class Main {
                     isPlaying = false;
                     break;
 
-                case "4", "view sim info" :
+                case "view sim info" :
                     
                     break;
 
-                case "5", "view current location":
+                case "view current location":
                     
                     break;
 
-                case "6", "view inventory":
+                case "view inventory":
                
                     break;
 
-                case "7", "upgrade house":
+                case "upgrade house":
 
                     break;
 
-                case "8", "move room":
+                case "move room":
 
                     break;
 
-                case "9", "edit room":
+                case "edit room":
 
                     break;
-                case "10", "add sim":
+                case "add sim":
 
                       break;
 
-                case "11", "change sim":
+                case "change sim":
 
                     break;
 
-                case "12","list object" :
+                case "list object" :
 
                     break;
 
-                case "13","go to object" :
+                case "go to object" :
 
                     break;
 
-                case "14","action" :
+                case "action" :
                     cml.listActiveAction();
                     cml.makeTheActionMenu();
                     System.out.println("Choose your action: ");

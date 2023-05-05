@@ -17,7 +17,7 @@ public class Eat extends SimActiveAction {
     }
 
     public void end(Sim sim) {
-        
+
         sim.setKekenyangan(sim.getKekenyangan() + (itemMakanan.getFullness()));
         sim.getInventory().removeItem(itemMakanan.getItemName(), 1);
         sim.setPeeCycle(true);

@@ -6,7 +6,7 @@ public class Visit extends SimActiveAction {
     private House houseToVisit;
     private World world;
 
-    public void begin(Sim sim) {
+    public static void begin(Sim sim) {
         sim.setIsVisiting(true);
         System.out.println("=======================");
 
@@ -29,7 +29,7 @@ public class Visit extends SimActiveAction {
         
     }
 
-    public void end(Sim sim) {
+    public static void end(Sim sim) {
         sim.setCurrentHouse(houseToVisit);
         sim.setIsVisiting(true);
     }

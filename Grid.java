@@ -63,6 +63,15 @@ public class Grid {
         }
     }
 
+    public GridObject objectOnPosition(Point point) {
+        for (GridObject object : objects) {
+            if (object.overlap(point)) {
+                return object;
+            }
+        }
+        return null;
+    }
+
     public List<GridObject> getObjects() {
         return objects;
     }
