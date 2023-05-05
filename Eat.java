@@ -3,7 +3,7 @@ public class Eat extends SimActiveAction {
     private Food itemMakanan;
 
     public void begin(Sim sim) {
-
+        
     }
 
     public void end(Sim sim) {

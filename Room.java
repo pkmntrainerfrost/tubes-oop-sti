@@ -57,13 +57,10 @@ public class Room extends GridObject {
         }
     }
 
-// belom selesai
-// gini gasi gatau si aing kalo salah ganti lagi aja
-// itu gatau bener instanceof object atau kaga
     public int getAvailableSpace(){
         int space = getHeight()*getLength();
         for(FurnitureObject item: furnitureList){
-            if(item instanceof Items){
+            if(item instanceof Item){
                 space -= 1;
             } else if(item instanceof GridObject){
                 GridObject object = (GridObject) item;
@@ -108,7 +105,7 @@ public class Room extends GridObject {
     
 
     //menambah objek ke room
-    public void addItem(Items item, int quantity) {
+    public void addItem(Item item, int quantity) {
         if (items.containsKey(item.getItemName())) {
             RoomItem currentItem = items.get(item.getItemName());
             currentItem.setQuantity(currentItem.getQuantity() + quantity);

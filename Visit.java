@@ -1,11 +1,23 @@
 import java.lang.Math;
+import java.util.*;
 
 public class Visit extends SimActiveAction {
 
     private House houseToVisit;
 
     public void begin(Sim sim) {
+        System.out.println("=======================");
+        System.out.print("input visit duration: ");
 
+        /* scanner and set duration + set housename to visit */
+        Scanner scan = new Scanner(System.in);
+        int duration = scan.nextInt();
+
+        System.out.println("input house's name to visit: ");
+        String houseName = scan.next();
+
+        System.out.println("=======================");
+        this.setDuration(duration);
     }
 
     public void end(Sim sim) {

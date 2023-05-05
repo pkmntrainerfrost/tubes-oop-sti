@@ -1,5 +1,6 @@
 import java.util.*;
 
+/*
 public class World {
 
     private Grid houseGrid;
@@ -27,8 +28,9 @@ public class World {
     }
 
 }
+*/
 
-/*
+
 public class World {
 
     // Implementasi World menggunakan Design Pattern Singleton
@@ -59,13 +61,13 @@ public class World {
         currentSim = new Sim(name);
     }
 
-    // public static World getInstance() {
-    //     return instance;
-    // }
+    public static World getInstance() {
+        return instance;
+    }
 
-    // public void resetWorld() {
-    //     instance = new World(); // Menginstansiasi ulang instance agar bernilai baru
-    // }
+    public void resetWorld() {
+        instance = new World(); // Menginstansiasi ulang instance agar bernilai baru
+    }
 
     public ArrayList<SimAction> getActionList() {
         return actionList;
@@ -80,14 +82,14 @@ public class World {
 
     public void changeSim() {
         System.out.println("Daftar Sim yang tersedia:");
-        for (int i = 0; i < simMediator.getSimList().size(); i++) {
-            System.out.println((i+1) + ". " + simMediator.getSimList().get(i).getName());
+        for (int i = 0; i < Mediator.getSimList().size(); i++) {
+            System.out.println((i+1) + ". " + Mediator.getSimList().get(i).getName());
         }
         System.out.print("Pilih nomor Sim yang ingin dimainkan: ");
         int choice = sc.nextInt();
         sc.nextLine(); // consume newline character
-        if (choice > 0 && choice <= simMediator.getSimList().size()) {
-            currentSim = simMediator.getSimList().get(choice-1);
+        if (choice > 0 && choice <= Mediator.getSimList().size()) {
+            currentSim = Mediator.getSimList().get(choice-1);
             System.out.println("Anda sekarang bermain sebagai Sim " + currentSim.getName());
         } else {
             System.out.println("Pilihan tidak valid!");
@@ -116,4 +118,3 @@ public class World {
     }
 
 }
-*/
