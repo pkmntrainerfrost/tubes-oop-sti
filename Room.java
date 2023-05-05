@@ -135,7 +135,7 @@ public class Room extends GridObject {
         items.entrySet().removeIf(entry -> entry.getValue().getQuantity() == 0);
     }
 
-    public void buyItem(FurnitureObject buyableItem) throws ItemNotInInventoryException {
+    public void buyItem(InventoryItem buyableItem) throws ItemNotInInventoryException {
         if (!buyableItem.getFurniture().getBuyable()) {
             throw new ItemNotInInventoryException("Item " + buyableItem + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
         }

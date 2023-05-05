@@ -19,13 +19,7 @@ public class Game {
     private static Game instance = new Game();
 
     private Game() {
-        GameBuilder gameBuilder = new NewGameBuilder();
-        this.instance = gameBuilder.getGame();
-    }
-
-    private Game(boolean load) {
-        GameBuilder gameBuilder = load ? new LoadGameBuilder() : new NewGameBuilder();
-        this.instance = gameBuilder.getGame();
+        
     }
 
     public Map<String, Job> getJobMap() {
@@ -88,6 +82,13 @@ public class Game {
 
     public void setCurrentActiveAction(SimActiveAction currActiveAction) {
         this.currentActiveAction = currentActiveAction;
+    }
+
+    public void initializeGame(String firstSimName) {
+        world.resetWorld();
+        clock.resetClock();
+        addSim(firstSimName);
+        
     }
 
 

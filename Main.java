@@ -10,17 +10,14 @@ public class Main {
         boolean commandRight = false;
         String command = in.nextLine();
         while (!commandRight){
-            if (cml.commandName(command).equals("start") || cml.commandName(command).equals("1")){
+            if (cml.commandName(command).equals("start")){
                 cml.loadingScreen(10);
                 System.out.println("New game has started");
-                //World world = new World();
-                //System.out.println("Hello! this is " + world.getCurrentSim().getName() + " playing!");
-                commandRight = true;
-            }
-            else if (cml.commandName(command).equals("load") || cml.commandName(command).equals("2")){
-                System.out.println("input your file name: ");
-                String fileName = in.nextLine();
-                // loadFile(fileName);
+                System.out.println("--------------------");
+                System.out.println("Insert your first sim name: ");
+                String name = in.nextLine();
+                Game game = Game(name);
+                System.out.println("Hello! this is " + game.getCurrentSim().getName() + " playing!");
                 commandRight = true;
             }else{
                 System.out.println("Your game hasn't started yet! re-input your command!");
@@ -32,7 +29,7 @@ public class Main {
         boolean isPlaying = true;
         while (isPlaying){
             System.out.println("What do you want to do?");
-            System.out.println("Write out [2] or [help] if you need any help!");
+            System.out.println("Write out [help] if you need any help!");
             command = in.nextLine();
             switch(cml.commandName(command)) {
                 case "start", "load" :
@@ -70,23 +67,23 @@ public class Main {
                     break;
 
                 case "view sim info" :
-                    
+                    getGame().getCurrentSim().displaySimInfo();
                     break;
 
                 case "view current location":
-                    
+                    getGame().getCurrentSim().displayCurrentLocation();
                     break;
 
                 case "view inventory":
-               
+                    getGame().getCurrentSim().displayInventory();
                     break;
 
                 case "upgrade house":
-
+                    getGame().getCurrentSim().getCurrentHouse().upgradeHouse();
                     break;
 
                 case "move room":
-
+                    getGame().get
                     break;
 
                 case "edit room":

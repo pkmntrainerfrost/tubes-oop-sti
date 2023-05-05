@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Sim {
 
+    private static final Item Item = null;
     private String name;
     private Job job;
 
@@ -235,6 +236,9 @@ public class Sim {
     public Job getPekerjaan() {
         return job;
     }
+    public boolean isDead() {
+        return mood <= 0 || kekenyangan <= 0 || kesehatan <= 0;
+    }
 
     public void editRoom() throws ItemNotInInventoryException, InvalidQuantityException, SimMiskinException {
         if (currentRoom == null) {
@@ -243,7 +247,7 @@ public class Sim {
         }
 
         Scanner scanner = new Scanner(System.in);
-        Inventory inventory = getSimInventory();
+        Inventory inventory = getInventory();
 
         System.out.println("Menu Edit Room:");
         System.out.println("1. Beli barang baru");
@@ -279,9 +283,9 @@ public class Sim {
                     return;
                 }
 
-                Inventory.addItem(selectedItem, 1);
+                Inventory.addItem(Item, 1);
                 setUang(getUang() - totalPrice);
-                System.out.println("Barang " + selectedItem.getItemName() + " berhasil dibeli dan dimasukkan ke inventory.");
+                System.out.println("Barang " + selectedItem.getItem() + " berhasil dibeli dan dimasukkan ke inventory.");
 
                 break;
             case 2:
@@ -298,7 +302,7 @@ public class Sim {
                 System.out.print("Masukkan nama barang yang ingin dipindahkan: ");
                 String itemName = scanner.nextLine();
 
-                if (inventory.getItem(itemName) == null) {
+                if (inventory.getItem() == null) {
                     System.out.println("Barang tidak ditemukan dalam inventory.");
                     return;
                 }
@@ -310,7 +314,6 @@ public class Sim {
                     return;
                 }
                 inventory.removeItem(itemName, 1);
-                InventoryItem items = getSimInventory().getItem(itemName);
                 currentRoom.removeItem(itemName, 1);
 
                 System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
@@ -319,26 +322,26 @@ public class Sim {
 
             case 3:
                 System.out.print("Masukkan nama barang yang ingin dipasang: ");
-                String itemNameTobuy = scanner.nextLine();
+                String itemTobuy = scanner.nextLine();
 
-                InventoryItem itemTobuy = InventoryItem.getItem(itemNameTobuy);
+                InventoryItem item = InventoryItem.getName();
 
                 if (itemTobuy == null) {
                     System.out.println("Barang tidak ditemukan dalam inventory.");
                     return;
                 }
 
-                if (!(itemTobuy instanceof Inventory)) {
+                if (!(item instanceof InventoryItem)) {
                     System.out.println("Barang tidak dapat dipasang.");
                     return;
                 }
 
-                FurnitureObject buyableItem = (FurnitureObject) itemTobuy;
+                InventoryItem buyableItem = (InventoryItem) item;
 
                 try {
                     currentRoom.buyItem(buyableItem);
-                    inventory.removeItem(itemNameTobuy, 1);
-                    System.out.println("Barang " + itemNameTobuy + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
+                    inventory.removeItem(item, 1);
+                    System.out.println("Barang " + item + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
                 } catch (ItemNotInInventoryException e) {
                     System.out.println("Barang tidak dapat dipasang.");
                 }
@@ -364,6 +367,25 @@ public class Sim {
         }
     }
 
+    public void displaySimInfo() throws SimNotInGameException{
+        try {
+            System.out.println("Sim Information:");
+            System.out.println("====================================");
+            System.out.println("Nama Sim: " + getName());
+            System.out.println("Pekerjaan Sim: " + getjob());
+            System.out.println("Kesehatan Sim: " + getKesehatan());
+            System.out.println("Kekenyangan Sim: " + getKekenyangan());
+            System.out.println("Mood Sim: " + getMood());
+            System.out.println("Uang Sim: " + getUang());
+        } catch (Exception e) {
+            // TODO: handle exception
+            throw new SimNotInGameException("Sim is not in the house!");
+        }
+    }
+    public void displayCurrentLocation() throws SimNotInGameException {
+        System.out.println(getName() + "is in house" + getCurrentHouse().getHouseName() + " and in room: " + getCurrentRoom().getRoomName());
+    }    
+
     // display Go To Object
     public void displayGoToObject() {
         Scanner scanner = new Scanner(System.in);
@@ -373,6 +395,12 @@ public class Sim {
         String namaObjek = scanner.next();
 
         this.goToObject(namaSim, namaObjek);
+    }
+}
+
+class SimNotInGameException extends Exception {
+    public SimNotInGameException(String errorMessage) {
+        super(errorMessage);
     }
 }
 
@@ -476,14 +504,6 @@ public class Sim {
 
         this.goToObject(namaSim, namaObjek);
     }
-
-
-
-class SimNotInGameException extends Exception {
-    public SimNotInGameException(String errorMessage) {
-        super(errorMessage);
-    }
-}
 
 */
 

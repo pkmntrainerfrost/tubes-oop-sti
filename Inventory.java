@@ -3,13 +3,20 @@ import java.util.*;
 public class Inventory {
 
     private Map<String,InventoryItem> items; 
+    private int price;
 
     public Inventory() {
         items = new HashMap<>();
     }
-    
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
     public static Inventory[] getItem() {
         ;
+		return null;
+    }
+    public int getPrice(){
+        return price;
     }
 
     Scanner sc = new Scanner(System.in);

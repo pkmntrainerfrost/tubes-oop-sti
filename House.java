@@ -20,7 +20,7 @@ public class House extends GridObject{
         this.owner = owner;
         this.name = name;
         this.world = world;
-        world.addHouseToWorld(this);
+        world.add(this);
 
         try {
             houseGrid = new Grid(5,5,5,5);
