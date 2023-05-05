@@ -22,10 +22,13 @@ public class Sim {
     private Point currentPosition;
     
     public Sim(String name) {
+
         this.name = name;
-        int salary = 80; //sementara
-        String[] jobArray = {"Police", "MagicClown", "Chef", "Police", "Programmer", "Doctor"};
-        this.job = new Job(jobArray[((int) (Math.random() * jobArray.length))], salary);
+
+        Collection<String> jobs = Game.getInstance().getJobMap().keySet();
+        String[] jobArray = jobs.toArray(new String[0]);
+        this.job = Game.getInstance().getJobMap().get(jobArray[((int) (Math.random() * jobArray.length))]);
+        
     }
 
     /* getter */
