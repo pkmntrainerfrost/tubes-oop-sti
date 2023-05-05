@@ -15,6 +15,8 @@ public class Sim {
     private int workSeconds = 0;
     private boolean peeCycle = false;
     private boolean sleepCycle = false;
+    private int peeCycleStart;
+    private int sleepCycleStart;
 
     private Inventory inventory = new Inventory();
     private House currentHouse;
@@ -38,7 +40,7 @@ public class Sim {
 
         new Thread(() -> {
             while (true) {
-                int peeCycleStart = clock.getSeconds();
+                peeCycleStart = clock.getSeconds();
                 while (peeCycle) {
                     while (clock.getRunning()) {
                         if (clock.getSeconds() >= peeCycleStart + 240) {
@@ -53,7 +55,7 @@ public class Sim {
 
         new Thread(() -> {
             while (true) {
-                int sleepCycleStart = clock.getSeconds();
+                sleepCycleStart = clock.getSeconds();
                 while (sleepCycle) {
                     while (clock.getRunning()) {
                         if (clock.getSeconds() >= sleepCycleStart + 600) {
