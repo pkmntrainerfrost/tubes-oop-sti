@@ -28,7 +28,45 @@ public class Sim {
         Collection<String> jobs = Game.getInstance().getJobMap().keySet();
         String[] jobArray = jobs.toArray(new String[0]);
         this.job = Game.getInstance().getJobMap().get(jobArray[((int) (Math.random() * jobArray.length))]);
-        
+
+    }
+
+    public void startSimTimers() {
+
+        Clock clock = Clock.getInstance();
+        clock.startClock();
+
+        new Thread(() -> {
+            while (true) {
+                int peeCycleStart = clock.getSeconds();
+                while (peeCycle) {
+                    while (clock.getRunning()) {
+                        if (clock.getSeconds() >= peeCycleStart + 240) {
+                            peeCycle = false;
+                            addMood(-5);
+                            addKesehatan(-5);
+                        }
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(() -> {
+            while (true) {
+                int sleepCycleStart = clock.getSeconds();
+                while (sleepCycle) {
+                    while (clock.getRunning()) {
+                        if (clock.getSeconds() >= sleepCycleStart + 600) {
+                            sleepCycleStart = clock.getSeconds();
+                            addMood(-5);
+                            addKesehatan(-5);
+                        }
+                    }
+                }
+            }
+        }).start();
+
+
     }
 
     /* getter */

@@ -23,11 +23,19 @@ public class House extends GridObject{
         world.addHouseToWorld(this);
 
         try {
-            houseGrid = new Grid(6,6,0,0);
-            roomList = new ArrayList<Room>();
+            houseGrid = new Grid(5,5,5,5);
+            // roomList = new ArrayList<Room>();
             mainRoom = new Room(new Point(0,0),"placeholder",true);
             houseGrid.addObject(mainRoom);
             System.out.println("house created");
+            try {
+                // nambahin furniture stock
+                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
+                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
+                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
+                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
+                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
+            }
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -90,6 +98,23 @@ public class House extends GridObject{
                 }
             } while (!add);
         }
+    }
+
+    public ArrayList<Room> getRoomList() {
+        return roomList;
+    }
+
+
+    public String getHouseName(){
+        return this.name;
+    }
+    
+    public Grid getHouseGrid(){
+        return houseGrid;
+    }
+
+    public Room getMainRoom(){
+        return mainRoom;
     }
 
     /* 
@@ -238,24 +263,6 @@ public class House extends GridObject{
         return neighbor;
     }
     */
-
-
-    public ArrayList<Room> getRoomList() {
-        return roomList;
-    }
-
-
-    public String getHouseName(){
-        return this.name;
-    }
-    
-    public Grid getHouseGrid(){
-        return houseGrid;
-    }
-
-    public Room getMainRoom(){
-        return mainRoom;
-    }
 
 
 }

@@ -17,9 +17,9 @@ public class Room extends GridObject {
     // Konstruktor dengan parameter point, name, dan finished
     public Room(Point point, String name, boolean finished) {
         // Memanggil konstruktor dari kelas induk
-        super(point, 6, 6);
+        super(point, 1, 1);
         // Membuat objectGrid baru
-        objectGrid = new Grid(6+point.getX(), 6+point.getY(), point.getX(), point.getY());
+        objectGrid = new Grid(6,6);
         // Mengisi atribut name dan finished
         this.name = name;
         this.finished = finished;

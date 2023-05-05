@@ -14,6 +14,14 @@ public class World {
         return houseGrid;
     }
 
+    public void addHouseToWorld(House house){
+        try {
+            houseGrid.addObject(house);
+        } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
+
+        }
+    }
+
     public static World getInstance() {
         return instance;
     }
@@ -63,9 +71,7 @@ public class World {
         return actionList;
     }
 
-    public void addHouseToWorld(House house){
-        houseList.add(house);
-    }
+    
 
     public void addSim(String name) {
         Sim sim = new Sim(name);
