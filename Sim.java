@@ -14,7 +14,7 @@ public class Sim {
 
     private int workSeconds = 0;
     private boolean peeCycle = false;
-    private boolean sleepCycle = false;
+    private boolean sleepCycle = true;
     private int peeCycleStart;
     private int sleepCycleStart;
 
@@ -31,6 +31,8 @@ public class Sim {
         String[] jobArray = jobs.toArray(new String[0]);
         this.job = Game.getInstance().getJobMap().get(jobArray[((int) (Math.random() * jobArray.length))]);
 
+        startSimTimers();
+
     }
 
     public void startSimTimers() {
@@ -38,6 +40,7 @@ public class Sim {
         Clock clock = Clock.getInstance();
         clock.startClock();
 
+        // timer kencing
         new Thread(() -> {
             while (true) {
                 peeCycleStart = clock.getSeconds();
@@ -53,6 +56,7 @@ public class Sim {
             }
         }).start();
 
+        // timer tidur
         new Thread(() -> {
             while (true) {
                 sleepCycleStart = clock.getSeconds();
@@ -67,7 +71,6 @@ public class Sim {
                 }
             }
         }).start();
-
 
     }
 
