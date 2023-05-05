@@ -1,10 +1,43 @@
 import java.util.EventListener;
 
-public abstract class SimPassiveAction implements EventListener, SimAction {    
-    private int timePassed = 0;
-    private int startTime;
+public abstract class SimPassiveAction implements SimAction {    
+    
     private int duration;
-    private Sim sim;
+    private int endTime;
+    private boolean finished = false;
+
+    public void execute(Sim sim) {
+        begin(sim);
+        new Thread(() -> {
+            process(sim);
+            end(sim);
+        }).start();
+    }
+
+    public abstract void begin(Sim sim);
+
+    public void process(Sim sim) {
+
+        endTime = Clock.getInstance().getSeconds() + duration;
+
+        Game.getInstance().getPassiveAction().add(this);
+
+        Clock.getInstance().startClock();
+        
+        int currentTime = Clock.getInstance().getSeconds();
+            
+        while (currentTime < endTime) {
+            currentTime = Clock.getInstance().getSeconds();
+        }
+        finished = true;
+
+        if (Game.getInstance().getPassiveAction().isEmpty()) {
+            Clock.getInstance().stopClock();
+        }
+
+    }
+
+    public abstract void end(Sim sim);
 
     public void setDuration(int duration) {
         this.duration = duration;
@@ -14,26 +47,6 @@ public abstract class SimPassiveAction implements EventListener, SimAction {
         return duration;
     }
 
-    public SimPassiveAction(Sim sim, int duration) {
-        this.sim = sim;
-        startTime = World.getInstance().getSeconds();
-        setDuration(duration);
-    }
-
-    public abstract void act();
-    public abstract void finish();
-    public Sim getSim() {
-        return sim;
-    }
-
-    public void update(String eventType) {
-        timePassed += World.getInstance().getSeconds() - startTime;
-        if (timePassed >= getDuration()) {
-            act();
-            World.getInstance().getEvents().unsubscribe(eventType, this);
-        }
-    }
-    
 }
 
 class HouseUpgrade extends SimPassiveAction {

@@ -15,6 +15,8 @@ public abstract class SimActiveAction implements SimAction {
     public void process(Sim sim) {
 
         endTime = Clock.getInstance().getSeconds() + duration;
+
+        Clock.getInstance().startClock();
         
         new Thread(() -> {
             int currentTime = Clock.getInstance().getSeconds();
@@ -28,6 +30,10 @@ public abstract class SimActiveAction implements SimAction {
             System.out.println("."); 
         }
 
+        if (Game.getInstance().getPassiveAction().isEmpty()) {
+            Clock.getInstance().stopClock();
+        }
+
     }
 
     public abstract void end(Sim sim);
@@ -38,6 +44,10 @@ public abstract class SimActiveAction implements SimAction {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }   
+
+    public void addDuration(int duration) {
+        this.duration += duration;
     }
 
 }

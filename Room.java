@@ -80,6 +80,7 @@ public class Room extends GridObject {
         if (sim.getCurrentRoom() == this) {
             // Memindahkan sim ke room baru
             sim.setCurrentRoom(newRoom);
+            sim.setCurrentPosition(newRoom.getPoint());
             System.out.println("Sim berhasil berpindah ke " + newRoom.getRoomName());
         } else {
             System.out.println("Sim tidak berada di dalam rumah ini!");

@@ -1,15 +1,26 @@
+import java.util.*;
+
 public class Eat extends SimActiveAction {
     
     private Food itemMakanan;
 
     public void begin(Sim sim) {
         System.out.print("input the food " + sim.getName() + " want to eat: ");
-        if ()
+        Scanner scan = new Scanner(System.in);
+        String eat = scan.next();
+        this.setDuration(10);
+        if (sim.getInventory().equals(eat)) {
+            System.out.println("eat successfully");
+        } else {
+            System.out.println("food doesn't exist");
+        }
     }
 
     public void end(Sim sim) {
+        
         sim.setKekenyangan(sim.getKekenyangan() + (itemMakanan.getFullness()));
         sim.getInventory().removeItem(itemMakanan.getItemName(), 1);
+        sim.setPeeCycle(true);
     }
 
     /*

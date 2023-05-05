@@ -1,7 +1,9 @@
+import java.util.*;
+
 public class Pee extends SimActiveAction {
     
     public void begin(Sim sim) {
-        
+        this.setDuration(10);
     }
 
     public void end(Sim sim) {

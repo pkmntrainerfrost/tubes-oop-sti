@@ -6,11 +6,12 @@ public class Game {
     private Map<String, Item> itemMap;
 
     private Map<String, Sim> simMap;
-    private Map<Sim, SimAction> currentActionMap; 
+    
+    private List<SimPassiveAction> currentPassiveActions;
 
     private Sim currentSim;
 
-    private SimAction currentActiveAction;
+    private SimActiveAction currentActiveAction;
 
     private Clock clock = Clock.getInstance();
     private World world = World.getInstance();
@@ -39,8 +40,8 @@ public class Game {
         return simMap;
     }
 
-    public Map<Sim, SimAction> getActionMap() {
-        return currentActionMap;
+    public List<SimPassiveAction> getPassiveAction() {
+        return currentPassiveActions;
     }
 
     public static Game getInstance() {
@@ -59,6 +60,7 @@ public class Game {
         for (int i = 0; i < simList.size(); i++) {
             System.out.println((i+1) + ". " + simList.get(i).getName());
         }
+        System.out.println("Pilih nomor Sim yang ingin dimainkan: ");
 
         /*
         for (int i = 0; i < Mediator.getSimList().size(); i++) {
@@ -78,6 +80,14 @@ public class Game {
 
     public Sim getCurrentSim() {
         return currentSim;
+    }
+
+    public SimActiveAction getCurrentActiveAction() {
+        return currentActiveAction;
+    }
+
+    public void setCurrentActiveAction(SimActiveAction currActiveAction) {
+        this.currentActiveAction = currentActiveAction;
     }
 
 

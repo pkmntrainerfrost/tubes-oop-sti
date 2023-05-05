@@ -13,10 +13,13 @@ public class Sim {
     private boolean busy = false;
 
     private int workSeconds = 0;
+    private int visitSeconds = 0;
+    private boolean isVisiting = false;
     private boolean peeCycle = false;
     private boolean sleepCycle = true;
     private int peeCycleStart;
     private int sleepCycleStart;
+    private int visitStart;
 
     private Inventory inventory = new Inventory();
     private House currentHouse;
@@ -38,7 +41,6 @@ public class Sim {
     public void startSimTimers() {
 
         Clock clock = Clock.getInstance();
-        clock.startClock();
 
         // timer kencing
         new Thread(() -> {
@@ -67,6 +69,17 @@ public class Sim {
                             addMood(-5);
                             addKesehatan(-5);
                         }
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(() -> {
+            while (true) {
+                visitStart = clock.getSeconds();
+                while (isVisiting) {
+                    while (clock.getRunning()) {
+                        visitSeconds = clock.getSeconds() - visitStart;
                     }
                 }
             }
@@ -157,6 +170,18 @@ public class Sim {
 
     public void addWorkSeconds(int seconds) {
         this.workSeconds += seconds;
+    }
+
+    public synchronized boolean getIsVisiting() {
+        return isVisiting;
+    }
+
+    public synchronized void setIsVisiting(boolean isVisiting) {
+        this.isVisiting = isVisiting;
+    }
+
+    public synchronized int getVisitSeconds() {
+        return visitSeconds;
     }
 
     public synchronized boolean getPeeCycle() {

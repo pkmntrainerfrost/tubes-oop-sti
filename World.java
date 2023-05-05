@@ -2,20 +2,33 @@ import java.util.*;
 
 public class World {
 
-    private Grid houseGrid;
+    private Grid map;
 
     private static World instance = new World();
+    private ArrayList<House> houseList;
+
+    private Sim playedSim;
+    private ArrayList<Sim> simList = new ArrayList<>();
+
+    private final int lengthTotal = 64;
+    private final int widthTotal = 64;
 
     private World() {
-        houseGrid = new Grid(64,64);
+        Grid matrix = new Grid(lengthTotal, widthTotal);
+        this.map = matrix;
+        this.houseList = new ArrayList<>();
     }
 
-    public Grid getHouseGrid() {
-        return houseGrid;
+    public Grid getMap() {
+        return Map;
     }
 
-    public List<GridObject> getHouseList() {
-        return houseGrid.getObjects();
+    public List<GridObject> getHouseMap() {
+        return Map.getObjects();
+    }
+
+    public ArrayList<House> getHouseList(){
+        return this.houseList;
     }
 
     public static World getInstance() {

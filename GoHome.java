@@ -1,30 +1,10 @@
 import java.lang.Math;
 import java.util.*;
 
-public class Visit extends SimActiveAction {
-
-    private House houseToVisit;
-    private World world;
+public class GoHome extends SimActiveAction {
 
     public void begin(Sim sim) {
-        sim.setIsVisiting(true);
-        System.out.println("=======================");
-
-        /* scanner set housename to visit */
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("input house's name to visit: ");
-        String houseName = scan.next();
-
-        for(int i = 0; i < world.getHouseList().size(); i++){
-            if(world.getHouseList().get(i).getHouseName().equals(houseName)){
-                System.out.println(sim.getName() + " is visiting " + houseName);
-            }
-        }
-    
-
-        System.out.println("=======================");
-
+        
         setDuration((int) Math.sqrt(sim.getCurrentHouse().getPoint().getX() - houseToVisit.getPoint().getX()) + (sim.getCurrentHouse().getPoint().getY()) - houseToVisit.getPoint().getY());
         
     }
