@@ -51,7 +51,7 @@ class HouseUpgrade extends SimPassiveAction {
 
 }
 
-// belom kelar
+/*
 class addItemToRoom extends SimPassiveAction{
     private Room room;
     private FurnitureObject furniture;
@@ -61,7 +61,7 @@ class addItemToRoom extends SimPassiveAction{
         return sim;
     }
 
-    public addItemToRoom(Sim sim, Room room, FurnitureObject furniture) {
+    public addItemToRoom(Sim sim, Room room, FurnitureType furniture) {
         super(sim, 0);
         //TODO Auto-generated constructor stub
         this.furniture = furniture;
@@ -81,3 +81,4 @@ class addItemToRoom extends SimPassiveAction{
 
     
 }
+*/

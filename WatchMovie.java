@@ -1,7 +1,7 @@
 public class WatchMovie extends SimActiveAction {
 
-    public void begin(Sim sim) {
-
+    public void begin(Sim sim){
+        /* ini gaperlu inputan */
     }
 
     public void end(Sim sim) {

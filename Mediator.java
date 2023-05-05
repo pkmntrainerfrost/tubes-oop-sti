@@ -8,7 +8,7 @@ public class Mediator {
 
     private Clock clock;
 
-    private ArrayList<Sim> simList = new ArrayList<Sim>();
+    private static ArrayList<Sim> simList = new ArrayList<Sim>();
     private Map<Sim,SimAction> simActionMap;
     
     private static Mediator instance = new Mediator();
@@ -44,7 +44,7 @@ public class Mediator {
         simList.remove(sim);
     }
 
-    public ArrayList<Sim> getSimList(){
+    public static ArrayList<Sim> getSimList(){
         return simList;
     }
 

@@ -12,23 +12,24 @@ public class Sim {
 
     private boolean busy = false;
 
-    private int workSeconds = 0;
-    private boolean peeCycle = false;
-    private boolean sleepCycle = false;
+    private int workCycle = 0;
+    private int peeCycle = 0;
+    private int sleepCycle = 0;
 
     private Inventory inventory = new Inventory();
     private House currentHouse;
     private Room currentRoom;
     private Point currentPosition;
+
+    private Mediator mediator = Mediator.getInstance();
+
     
     public Sim(String name) {
-
         this.name = name;
-
-        Collection<String> jobs = Game.getInstance().getJobMap().keySet();
-        String[] jobArray = jobs.toArray(new String[0]);
-        this.job = Game.getInstance().getJobMap().get(jobArray[((int) (Math.random() * jobArray.length))]);
-        
+        int salary = 80; //sementara
+        String[] jobArray = {"Police", "MagicClown", "Chef", "Police", "Programmer", "Doctor"};
+        this.job = new Job(jobArray[((int) (Math.random() * jobArray.length))], salary);
+        mediator.addSim(this);
     }
 
     /* getter */
@@ -36,142 +37,196 @@ public class Sim {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Job getjob() {
         return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
     }
 
     public int getKekenyangan() {
         return kekenyangan;
     }
 
-    public void setKekenyangan(int kekenyangan) {
-        this.kekenyangan = kekenyangan;
-    }
-
-    public void addKekenyangan(int kekenyangan) {
-        this.kekenyangan += kekenyangan;
-    }
-
     public int getMood() {
         return mood;
-    }
-
-    public void setMood(int mood) {
-        this.mood = mood;
-    }
-
-    public void addMood(int mood) {
-        this.mood += mood;
     }
 
     public int getUang() {
         return uang;
     }
 
-    public void setUang(int uang) {
-        this.uang = uang;
-    }
-
-    public void addUang(int uang) {
-        this.uang += uang;
-    }
-
     public int getKesehatan(){
         return kesehatan;
-    }
-
-    public void setKesehatan(int kesehatan) {
-        this.kesehatan = kesehatan;
-    }
-
-    public void addKesehatan(int kesehatan) {
-        this.kesehatan += kesehatan;
     }
 
     public boolean getBusy() {
         return busy;
     }
 
-    public void setBusy(boolean busy) {
-        this.busy = busy;
+    public int getWorkCycle() {
+        return workCycle;
     }
 
-    public int getWorkSeconds() {
-        return workSeconds;
-    }
-
-    public void setWorkSeconds(int seconds) {
-        this.workSeconds = seconds;
-    }
-
-    public void addWorkSeconds(int seconds) {
-        this.workSeconds += seconds;
-    }
-
-    public synchronized boolean getPeeCycle() {
+    public int getPeeCycle() {
         return peeCycle;
     }
 
-    public synchronized void setPeeCycle(boolean peeCycle) {
-        this.peeCycle = peeCycle;
-    }
-
-    public synchronized boolean getSleepCycle() {
+    public int getSleepCycle() {
         return sleepCycle;
     }
 
-    public synchronized void setSleepCycle(boolean sleepCycle) {
-        this.sleepCycle = sleepCycle;
-    }
-
     public Inventory getInventory() {
-        return this.inventory;
+        return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
-    public House getCurrentHouse () {
+    public House getCurrentHouse() {
         return currentHouse;
-    }
-
-    public void setCurrentHouse(House newHouse) {
-        this.currentHouse = newHouse;
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
 
-    public void setCurrentRoom(Room currentRoom){
-        this.currentRoom = currentRoom;
-    }
-    
-    public Point getCurrentPoisition() {
+    public Point getCurrentPosition() {
         return currentPosition;
     }
 
+
+/*
+public class Sim {
+
+    private String name;
+    private Jobs job;
+    private int kekenyangan=80;
+    private int mood=80;
+    private int kesehatan=80;
+    private int uang=100;
+    private int workSeconds;
+    private String status="";
+    private Inventory inventory;
+    private boolean inHouse;
+    private Room currentRoom;
+    private Point simPosition;
+    private static final Random RANDOM = new Random();
+    private static final Jobs[] jobChoices = {new MagicClown(), new Chef(), new Police(), new Programmer(), new Doctor()};
+
+    private static final Scanner scanner = new Scanner(System.in);
+    private static ArrayList<Sim> Sims = new ArrayList<>();
+    private Room[] getRooms() {
+        return null;
+    }
+
+    public Sim(String name) {
+        this.name = name;
+        int randomJob = (int) (Math.random() * 5) + 1;
+        switch (randomJob) {
+            case 1:
+                this.job = new MagicClown();
+                break;
+            case 2:
+                this.job = new Chef();
+                break;
+            case 3:
+                this.job = new Police();
+                break;
+            case 4:
+                this.job = new Programmer();
+                break;
+            case 5:
+                this.job = new Doctor();
+                break;
+            default:
+                break;
+        }
+        this.inventory = new Inventory();
+        this.inHouse = true;
+    }
+    public Jobs getJobChoices() {
+        int index = RANDOM.nextInt(jobChoices.length);
+        return jobChoices[index];
+    }
+    public Jobs PindahJob(){
+        return getJobChoices();
+    }
+    public String getName() {
+        return this.name;
+    }
+    public Jobs getjob() {
+        return this.job;
+    }
+    public int getKekenyangan() {
+        return this.kekenyangan;
+    }
+    public int getMood() {
+        return this.mood;
+    }
+    public String getStatus() {
+        return this.status;
+    }
+    public int getUang() {
+        return this.uang;
+    }
+    public int getKesehatan(){
+        return this.kesehatan;
+    }
+    public boolean getInHouse(){
+        return this.inHouse;
+    }
+    public int getWorkSeconds() {
+        return this.workSeconds;
+    }
+
+*/  public void setWorkCycle(int workCycle) {
+        this.workCycle = workCycle;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setKekenyangan(int kekenyangan) {
+        this.kekenyangan = kekenyangan;
+    }
+    public void setMood(int mood) {
+        this.mood = mood;
+    }
+    public void setKesehatan(int kesehatan) {
+        this.kesehatan = kesehatan;
+    }
+    public void setUang(int uang) {
+        this.uang = uang;
+    }
+    public Job getPekerjaan() {
+        return this.job;
+    }
+    // public void setStatus(String status) {
+    //     this.status = status;
+    // }
+    public Inventory getSimInventory() {
+        return this.inventory;
+    }
+    public void setPekerjaan(Job job) {
+        this.job = job;
+    }
+    // public void setInHouse(boolean isInHouse){
+    //     this.inHouse = isInHouse;
+    // }
+    public void setCurrentHouse(House newHouse) {
+        this.currentHouse = newHouse;
+    }
+
+    public void setCurrentRoom(Room currentRoom){
+        this.currentRoom = currentRoom;
+    }
+    // public Room getCurrentRoom(){
+    //     return this.currentRoom;
+    // }
+    // public Point getCurrentPosition(){
+    //     return simPosition;
+    // }
     public void setCurrentPosition(Point simPosition){
         this.currentPosition = simPosition;
     }
-
-    public int getWorkCycle() {
-        return workSeconds;
-    }
-
-    public Job getPekerjaan() {
-        return job;
-    }
-
+    // public static ArrayList<Sim> getSims(){
+    //     return Sims;
+    // }
 }
 
 /* 
