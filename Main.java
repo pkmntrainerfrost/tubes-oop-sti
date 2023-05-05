@@ -13,8 +13,8 @@ public class Main {
             if (cml.commandName(command).equals("start") || cml.commandName(command).equals("1")){
                 cml.loadingScreen(10);
                 System.out.println("New game has started");
-                World world = new World();
-                System.out.println("Hello! this is " + world.getCurrentSim().getName() + " playing!");
+                //World world = new World();
+                //System.out.println("Hello! this is " + world.getCurrentSim().getName() + " playing!");
                 commandRight = true;
             }
             else if (cml.commandName(command).equals("load") || cml.commandName(command).equals("2")){

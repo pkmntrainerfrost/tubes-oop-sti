@@ -55,6 +55,12 @@ public class Game {
 
     public void changeSim() {
         System.out.println("Daftar Sim yang tersedia:");
+        List<Sim> simList = new ArrayList<Sim>(simMap.values());
+        for (int i = 0; i < simList.size(); i++) {
+            System.out.println((i+1) + ". " + simList.get(i).getName());
+        }
+
+        /*
         for (int i = 0; i < Mediator.getSimList().size(); i++) {
             System.out.println((i+1) + ". " + Mediator.getSimList().get(i).getName());
         }
@@ -67,8 +73,12 @@ public class Game {
         } else {
             System.out.println("Pilihan tidak valid!");
         }
+        */
     }
 
+    public Sim getCurrentSim() {
+        return currentSim;
+    }
 
 
 }

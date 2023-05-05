@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class World {
 
     private Grid houseGrid;
@@ -15,22 +14,22 @@ public class World {
         return houseGrid;
     }
 
-    public void addHouseToWorld(House house){
-        try {
-            houseGrid.addObject(house);
-        } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
-
-      }
+    public List<GridObject> getHouseList() {
+        return houseGrid.getObjects();
     }
 
     public static World getInstance() {
         return instance;
     }
 
+    public void resetWorld() {
+        instance = new World(); // Menginstansiasi ulang instance agar bernilai baru
+    }
+    
+
 }
-*/
 
-
+/*
 public class World {
 
     // Implementasi World menggunakan Design Pattern Singleton
@@ -39,7 +38,7 @@ public class World {
     private Grid houseGrid;
     private Mediator actionMediator;
     private Mediator simMediator;
-    // private static World instance = new World();
+    private static World instance = new World();
     private Scanner sc = new Scanner(System.in);
     private Sim currentSim;
     private House currentHouse;
@@ -52,7 +51,7 @@ public class World {
         houseList = new ArrayList<>();
         Point pAwal = new Point(0, 0);
         currentHouse = new House(pAwal, this, currentSim, "home");
-        addHouseToWorld(currentHouse);
+        instance.addHouseToWorld(currentHouse);
         actionMediator = Mediator.getInstance();
         simMediator = Mediator.getInstance();
 
@@ -65,9 +64,7 @@ public class World {
         return instance;
     }
 
-    public void resetWorld() {
-        instance = new World(); // Menginstansiasi ulang instance agar bernilai baru
-    }
+    
 
     public ArrayList<SimAction> getActionList() {
         return actionList;
@@ -118,3 +115,4 @@ public class World {
     }
 
 }
+*/

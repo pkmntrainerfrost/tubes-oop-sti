@@ -14,14 +14,14 @@ public class Work extends SimActiveAction {
     }
     
     public void end(Sim sim) {
-        sim.setWorkCycle(sim.getWorkCycle() + this.getDuration());
+        sim.setWorkSeconds(sim.getWorkSeconds() + this.getDuration());
         
         int time = this.getDuration() / 30;
         sim.setKekenyangan(sim.getKekenyangan() + (time * 10));
         sim.setMood(sim.getMood() + (time * 10));
 
         /* jika kerja diatas 4 menit */
-        if (sim.getWorkCycle() >= 240) { 
+        if (sim.getWorkSeconds() >= 240) { 
             int wage = sim.getPekerjaan().getSalary();
             sim.setUang(sim.getUang() + wage);
             

@@ -3,7 +3,8 @@ public class Eat extends SimActiveAction {
     private Food itemMakanan;
 
     public void begin(Sim sim) {
-        
+        System.out.print("input the food " + sim.getName() + " want to eat: ");
+        if ()
     }
 
     public void end(Sim sim) {

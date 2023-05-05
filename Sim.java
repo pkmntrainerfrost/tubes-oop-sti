@@ -207,10 +207,6 @@ public class Sim {
         this.currentPosition = simPosition;
     }
 
-    public int getWorkCycle() {
-        return workSeconds;
-    }
-
     public Job getPekerjaan() {
         return job;
     }
@@ -367,13 +363,12 @@ public class Sim {
 
                 break;
             case 2:
-                System.out.println("1. Pindahkan barang ke ruangan lain");
-                System.out.println("2. Pindahkan barang ke inventory");
+                System.out.println("Pindahkan barang ke inventory");
 
                 int moveChoice = scanner.nextInt();
                 scanner.nextLine(); 
 
-                if (moveChoice < 1 || moveChoice > 2) {
+                if (moveChoice != 1) {
                     System.out.println("Pilihan tidak valid.");
                     return;
                 }
@@ -381,61 +376,25 @@ public class Sim {
                 System.out.print("Masukkan nama barang yang ingin dipindahkan: ");
                 String itemName = scanner.nextLine();
 
-                if (moveChoice == 1) {
-                    Room[] rooms = getRooms();
-                    System.out.println("Daftar ruangan yang tersedia:");
-                    for (int i = 0; i < rooms.length; i++) {
-                        if (!rooms[i].equals(currentRoom)) {
-                            System.out.println((i + 1) + ". " + rooms[i].getRoomName());
-                        }
-                    }
-
-                    System.out.print("Pilih ruangan tujuan (masukkan nomor): ");
-                    int roomNumber = scanner.nextInt();
-                    scanner.nextLine(); 
-
-                    if (roomNumber < 1 || roomNumber > rooms.length - 1) {
-                        System.out.println("Nomor ruangan tidak valid.");
-                        return;
-                    }
-
-                    Room destinationRoom = rooms[roomNumber - 1];
-
-                    if (currentRoom.getItem(itemName) == null) {
-                        System.out.println("Barang tidak ditemukan dalam ruangan ini.");
-                        return;
-                    }
-
-                    int quantity = currentRoom.getItemQuantity(itemName);
-                    if (quantity < 1) {
-                        System.out.println("Jumlah barang tidak mencukupi.");
-                        return;
-                    }
-                    Items items = getSimInventory().getItem(itemName);
-                    currentRoom.removeItem(itemName, 1); //ini ak sesuaiin soalnya di room ga konsisten pake type items atau string utk namanya doang, jd kupake items ya
-                    destinationRoom.addItem(items, 1); //ini ak ngikut addItem sm removeItem inventory, ga ngerti juga kenapa addItem pake item tapi removeItem pake itemName
-
-                    System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + destinationRoom.getRoomName() + ".");
-                } else {
-                    if (inventory.getItem(itemName) == null) {
-                        System.out.println("Barang tidak ditemukan dalam inventory.");
-                        return;
-                    }
-
-                    int quantity = inventory.getItemQuantity(itemName);
-
-                    if (quantity < 1) {
-                        System.out.println("Jumlah barang tidak mencukupi.");
-                        return;
-                    }
-                    inventory.removeItem(itemName, 1);
-                    Items items = getSimInventory().getItem(itemName);
-                    currentRoom.removeItem(itemName, 1);
-
-                    System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
+                if (inventory.getItem(itemName) == null) {
+                    System.out.println("Barang tidak ditemukan dalam inventory.");
+                    return;
                 }
 
+                int quantity = inventory.getItemQuantity(itemName);
+
+                if (quantity < 1) {
+                    System.out.println("Jumlah barang tidak mencukupi.");
+                    return;
+                }
+                inventory.removeItem(itemName, 1);
+                Items items = getSimInventory().getItem(itemName);
+                currentRoom.removeItem(itemName, 1);
+
+                System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
+
                 break;
+
             case 3:
                 System.out.print("Masukkan nama barang yang ingin dipasang: ");
                 String itemNameTobuy = scanner.nextLine();
