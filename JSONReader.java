@@ -85,9 +85,4 @@ public class JSONReader {
         }
     }
 
-    public static void main(String[] args) {
-        HashMap<String,Item> itemMap = readItems();
-        itemMap.forEach((name, item) -> System.out.println("Item Name: " + name + ", Item Class: " + item.getClass().getSimpleName()));
-    }
-
 }
