@@ -2,7 +2,12 @@ import java.util.Scanner;
 
 public class DriverGeneral {
     public static void main(String[] args) {
-
+        CommandLine cli = new CommandLine();
+        Scanner scanner = new Scanner(System.in);
+        String nama = scanner.nextLine();
+        cli.clear();
+        System.out.println("coba lagi");
+        cli.heading();
     }
 }
 

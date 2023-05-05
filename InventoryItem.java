@@ -14,7 +14,7 @@ public class InventoryItem {
     public Item getItems(){
         return item;
     }
-    public InventoryItem getName() {
+    public String getName() {
         return name;
     }
 

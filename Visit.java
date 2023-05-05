@@ -14,11 +14,11 @@ public class Visit extends SimActiveAction {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("input house's name to visit: ");
-        String houseName = scan.next();
+        String houseToVisit = scan.nextLine();
 
         for(int i = 0; i < world.getHouseList().size(); i++){
-            if(world.getHouseList().get(i).getHouseName().equals(houseName)){
-                System.out.println(sim.getName() + " is visiting " + houseName);
+            if(world.getHouseList().get(i).getHouseName().equals(houseToVisit)){
+                System.out.println(sim.getName() + " is visiting " + houseToVisit);
             }
         }
     
