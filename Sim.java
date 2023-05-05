@@ -129,7 +129,7 @@ public class Sim {
         this.sleepCycle = sleepCycle;
     }
 
-    public Inventory getSimInventory() {
+    public Inventory getInventory() {
         return this.inventory;
     }
 
