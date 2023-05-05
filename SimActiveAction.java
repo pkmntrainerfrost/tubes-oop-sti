@@ -5,29 +5,31 @@ public abstract class SimActiveAction implements SimAction {
 
     public abstract void begin(Sim sim);
     
-    public void run(Sim sim) {
-        act(sim);
+    public void execute(Sim sim) {
+        begin(sim);
+        process(sim);
         end(sim);
     }
 
-    public void act(Sim sim) {
+    public void process(Sim sim) {
 
         endTime = Clock.getInstance().getSeconds() + duration;
 
         int currentTime = Clock.getInstance().getSeconds();
 
-        Mediator.getInstance().addAction(sim,this);
+        Clock.getInstance().startClock();
 
         while (currentTime < endTime) {
             currentTime = Clock.getInstance().getSeconds();
         }
+
+        if (Game.getInstance().getActionMap().isEmpty()) {
+            Clock.getInstance().stopClock();
+        }
+
     }
 
     public abstract void end(Sim sim);
-
-    public Sim getSim() {
-        return sim;
-    }
 
     public int getDuration() {
         return duration;

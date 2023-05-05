@@ -8,14 +8,14 @@ public class Inventory {
         items = new HashMap<>();
     }
     
-    public Items getItem(String itemName) {
+    public Item getItem(String itemName) {
         return null;
     }
 
     Scanner sc = new Scanner(System.in);
 
     // Menambahkan objek ke inventory
-    public void addItem(Items item, int quantity) {
+    public void addItem(Item item, int quantity) {
         if (items.containsKey(item.getItemName())) {
             InventoryItem currentItem = items.get(item.getItemName());
             currentItem.setQuantity(currentItem.getQuantity() + quantity);

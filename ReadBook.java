@@ -12,17 +12,10 @@ public class ReadBook extends SimActiveAction {
     }
 
     public void end(Sim sim) {
-        if (getSim().getCurrentRoom().getItemListInRoom().contains("Rak buku")){
             /* efek dari meditation berlaku per 60 detik sekali */
             int duration = getDuration()/60;
-            getSim().setMood(getSim().getMood() + (duration * 6));                  // sim akan bertambah moodnya sebesar +6 per 60 detik
-            getSim().setKekenyangan(getSim().getKekenyangan() - (duration * 6));    // sim akan berkurang kekenyangannya sebesar -6 per 60 detik
-        }
+            sim.setMood(sim.getMood() + (duration * 6));                  // sim akan bertambah moodnya sebesar +6 per 60 detik
+            sim.setKekenyangan(sim.getKekenyangan() - (duration * 6));    // sim akan berkurang kekenyangannya sebesar -6 per 60 detik
     }
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
-    }
 }

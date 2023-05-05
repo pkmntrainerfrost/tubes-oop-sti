@@ -205,6 +205,10 @@ public class Sim {
     // public void setInHouse(boolean isInHouse){
     //     this.inHouse = isInHouse;
     // }
+    public void setCurrentHouse(House newHouse) {
+        this.currentHouse = newHouse;
+    }
+
     public void setCurrentRoom(Room currentRoom){
         this.currentRoom = currentRoom;
     }

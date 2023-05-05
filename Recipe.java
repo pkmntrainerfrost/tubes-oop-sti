@@ -13,11 +13,15 @@ public class Recipe extends Food {
     // Cek bisa dimasak apa ga
     public boolean isCookable(Inventory inventory) {
         for (String ingredient : ingredients.keySet()) {
-            if (!inventory.hasItem(ingredient.getName(), ingredients.get(ingredient))) {
+            if (!inventory.hasItem(ingredient, ingredients.get(ingredient))) {
                 return false;
             }
         }
         return true;
+    }
+
+    public Map<String, Integer> getIngredients() {
+        return ingredients;
     }
 
     // Masak
@@ -25,7 +29,7 @@ public class Recipe extends Food {
         if (isCookable(inventory)) {
             for (String ingredient : ingredients.keySet()) {
                 int quantityNeeded = ingredients.get(ingredient);
-                inventory.removeItem(ingredient.getName(), quantityNeeded);
+                inventory.removeItem(ingredient, quantityNeeded);
             }
             // inventory.addItem(){
     

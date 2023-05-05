@@ -5,7 +5,6 @@ public class Clock implements Runnable {
     private int seconds;
     private int days;
     private boolean running;
-    private Mediator mediator = Mediator.getInstance();
     private static Clock instance = new Clock();
 
     private Clock() {
@@ -27,9 +26,7 @@ public class Clock implements Runnable {
     }
 
     public synchronized void startClock() {
-        if (!running) {
-            running = true;
-        }
+        running = true;
     }
 
     public synchronized void stopClock() {
