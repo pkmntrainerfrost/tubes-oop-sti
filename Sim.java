@@ -161,6 +161,14 @@ public class Sim {
         this.currentPosition = simPosition;
     }
 
+    public int getWorkCycle() {
+        return workSeconds;
+    }
+
+    public Job getPekerjaan() {
+        return job;
+    }
+
 }
 
 /* 
