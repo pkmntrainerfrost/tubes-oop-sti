@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.*;
 
 public class Cook extends SimActiveAction {
     
@@ -15,6 +16,13 @@ public class Cook extends SimActiveAction {
 
     public void begin(Sim sim) {
         /* MASUKIN INPUTNYA COK */
+        System.out.println("input recipe's name: ");
+        Scanner scan = new Scanner(System.in);
+        String recipeName = scan.next();
+
+        if(recipe.getItemName().equals(recipeName)){
+            
+        }
     }
 
     @Override

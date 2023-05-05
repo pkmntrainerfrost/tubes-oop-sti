@@ -1,6 +1,6 @@
 import java.util.*;
 
-/*
+
 public class World {
 
     private Grid houseGrid;
@@ -20,7 +20,7 @@ public class World {
             houseGrid.addObject(house);
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
 
-        }
+      }
     }
 
     public static World getInstance() {
