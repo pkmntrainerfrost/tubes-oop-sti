@@ -115,6 +115,7 @@ public class CommandLine extends Exception{
         listAction.add("buyitem");
         listAction.add("moveitem");
         listAction.add("putitem");
+        listAction.add("lookatclock");
     }
 
     public void listMenuInGame(){
@@ -179,10 +180,11 @@ public class CommandLine extends Exception{
         System.out.println("8. Sing");
         System.out.println("9. Meditation");
         System.out.println("10. Read Book");
-        System.out.println("11.Watch Movie");
+        System.out.println("11. Watch Movie");
         System.out.println("12. Drink");
         System.out.println("13. Take Bath");
         System.out.println("14. Throw Rubbish");
+        System.out.println("15. Look At Clock");
     }
 
     public String commandName(String command){

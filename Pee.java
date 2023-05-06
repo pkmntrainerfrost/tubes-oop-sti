@@ -3,7 +3,21 @@ import java.util.*;
 public class Pee extends SimActiveAction {
     
     public void begin(Sim sim) {
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("Pee"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
         this.setDuration(10);
+        }
     }
 
     public void end(Sim sim) {

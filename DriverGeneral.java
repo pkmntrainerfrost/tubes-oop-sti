@@ -20,13 +20,16 @@ public class DriverGeneral {
                 Game.getInstance().initializeGame(name);
                 System.out.println("Hello! this is " + Game.getInstance().getCurrentSim().getName() + " playing!");
                 commandRight = true;
-            }else{
+            } else{
                 System.out.println("Your game hasn't started yet! re-input your command!");
                 command = in.nextLine();
             }
+            Eat eat = new Eat();
+            eat.execute(Game.getInstance().getCurrentSim());
 
         }
-
+        
+        /*
         boolean isPlaying = true;
         while (isPlaying){
             System.out.println("What do you want to do?");
@@ -58,8 +61,9 @@ public class DriverGeneral {
                 Game.getInstance().getCurrentSim().moveRoom();
                     break;
                 default:
-                }
+            }
         }
+        */
     }
 }
 

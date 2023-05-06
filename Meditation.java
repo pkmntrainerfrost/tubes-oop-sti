@@ -2,6 +2,19 @@ import java.util.*;
 
 public class Meditation extends SimActiveAction {
     public void begin(Sim sim){
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("Meditation"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
         System.out.println("=======================");
         System.out.print("input meditation duration: ");
 
@@ -20,6 +33,7 @@ public class Meditation extends SimActiveAction {
         int duration = Integer.parseInt(inputDuration);
         System.out.println("meditation duration valid!");
         this.setDuration(duration);
+        }
     }
 
     public void end(Sim sim) {

@@ -4,14 +4,14 @@ import java.util.*;
 public class GoHome extends SimActiveAction {
 
     public void begin(Sim sim) {
-        
+        House houseToVisit = sim.getRumah(); 
         setDuration((int) Math.sqrt(sim.getCurrentHouse().getPoint().getX() - houseToVisit.getPoint().getX()) + (sim.getCurrentHouse().getPoint().getY()) - houseToVisit.getPoint().getY());
         
     }
 
     public void end(Sim sim) {
-        sim.setCurrentHouse(houseToVisit);
-        sim.setIsVisiting(true);
+        sim.setCurrentHouse(sim.getRumah());
+        sim.setIsVisiting(false);
     }
 
     /*

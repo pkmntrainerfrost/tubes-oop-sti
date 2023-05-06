@@ -6,7 +6,7 @@ public class Visit extends SimActiveAction {
     private House houseToVisit;
     private World world;
 
-    public static void begin(Sim sim) {
+    public void begin(Sim sim) {
         sim.setIsVisiting(true);
         System.out.println("=======================");
 
@@ -15,21 +15,24 @@ public class Visit extends SimActiveAction {
 
         System.out.println("input house's name to visit: ");
         String houseToVisit = scan.nextLine();
-
+        GridObject houseVisiting = null;
         for(int i = 0; i < world.getHouseList().size(); i++){
             if(world.getHouseList().get(i).getHouseName().equals(houseToVisit)){
                 System.out.println(sim.getName() + " is visiting " + houseToVisit);
+                houseVisiting = world.getHouseList().get(i);
+                break;
             }
         }
+        if (houseToVisit==null){
+            System.out.println("House " + houseToVisit + " not found.");
+            return;
+        }
     
-
         System.out.println("=======================");
+		setDuration((int) Math.sqrt(sim.getCurrentHouse().getPoint().getX() - houseVisiting.getPoint().getX()) + (sim.getCurrentHouse().getPoint().getY()) - houseVisiting.getPoint().getY());
+    }    
 
-        setDuration((int) Math.sqrt(sim.getCurrentHouse().getPoint().getX() - houseToVisit.getPoint().getX()) + (sim.getCurrentHouse().getPoint().getY()) - houseToVisit.getPoint().getY());
-        
-    }
-
-    public static void end(Sim sim) {
+    public void end(Sim sim) {
         sim.setCurrentHouse(houseToVisit);
         sim.setIsVisiting(true);
     }
@@ -62,5 +65,5 @@ public class Visit extends SimActiveAction {
         System.out.println("Sim is now in " + houseToVisit.getHouseName());
     }
     */
-    
 }
+

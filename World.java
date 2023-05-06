@@ -25,8 +25,7 @@ public class World {
     public void resetWorld() {
         instance = new World(); // Menginstansiasi ulang instance agar bernilai baru
     }
-    
-
+           
 }
 
 /*

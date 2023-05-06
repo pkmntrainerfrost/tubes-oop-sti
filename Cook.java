@@ -14,9 +14,29 @@ public class Cook extends SimActiveAction {
     */
 
     public void begin(Sim sim) {
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("Cook"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
         System.out.print("input recipe's name: ");
         Scanner scan = new Scanner(System.in);
         String recipeName = scan.next();
+
+        CommandLine cli = new CommandLine();
+
+        while (!cli.validateInputString(recipeName)){
+            System.out.print("input recipe's name: ");
+            recipeName = scan.next();
+        }
         
         if(recipe.getItemName().equals(recipeName)){
             if (recipe.isCookable(sim.getInventory())) {
@@ -29,6 +49,7 @@ public class Cook extends SimActiveAction {
             }
         } else {
             this.setCancelled(true);
+        }
         }
     }
 

@@ -3,6 +3,19 @@ import java.util.*;
 public class TakeBath extends SimActiveAction {
 
     public void begin(Sim sim){
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("TakeBath"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
         System.out.println("=======================");
         System.out.print("input takebath duration: ");
 
@@ -21,6 +34,7 @@ public class TakeBath extends SimActiveAction {
         int duration = Integer.parseInt(inputDuration);
         System.out.println("takebath duration valid!");
         this.setDuration(duration);
+        }
     }
 
     public void end(Sim sim) {

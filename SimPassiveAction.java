@@ -1,4 +1,4 @@
-import java.util.EventListener;
+import java.util.*;
 
 public abstract class SimPassiveAction implements SimAction {    
     
@@ -23,7 +23,14 @@ public abstract class SimPassiveAction implements SimAction {
 
         endTime = Clock.getInstance().getSeconds() + duration;
 
-        Game.getInstance().getPassiveAction().add(this);
+        if (!(Game.getInstance().getPassiveAction().containsKey(sim))) {
+            List<SimPassiveAction> list = new ArrayList<>();
+            list.add(this);
+            Game.getInstance().getPassiveAction().put(sim, list);
+        } else {
+            List<SimPassiveAction> list = Game.getInstance().getPassiveAction().get(sim);
+            list.add(this);
+        }
 
         Clock.getInstance().startClock();
         
@@ -48,6 +55,10 @@ public abstract class SimPassiveAction implements SimAction {
 
     public int getDuration() {
         return duration;
+    }
+
+    public int getEndTime() {
+        return endTime;
     }
 
     public boolean getCancelled() {

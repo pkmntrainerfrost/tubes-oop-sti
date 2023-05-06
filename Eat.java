@@ -5,6 +5,32 @@ public class Eat extends SimActiveAction {
     private Food itemMakanan;
 
     public void begin(Sim sim) {
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("Eat"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
+        System.out.println("here is the food list in inventory");
+        //Map<String, Integer> mapIng = new HashMap<>();
+        //mapIng.put("Nasi", 10);
+        //mapIng.put("Ayam", 5);
+        //sim.getInventory().addItem(new Recipe("Nasi Ayam", 10, mapIng) , 10);
+        for (InventoryItem invItem : sim.getInventory().getArrayInventoryItem()) {
+            if (invItem.getCategory().equals("Food")){
+                //System.out.println("TESTER");
+                System.out.println("=================================================================");
+                System.out.println("||" + invItem.getName() + "||" + invItem.getQuantity() + "||" + invItem.getCategory());
+            }
+        }
+        System.out.println();
         System.out.print("input the food " + sim.getName() + " want to eat: ");
         Scanner scan = new Scanner(System.in);
         String eat = scan.next();
@@ -16,7 +42,7 @@ public class Eat extends SimActiveAction {
             eat = scan.next();
         }
         /* mengecek apakah inputan eat ada atau tidak */
-        for (InventoryItem makanan : sim.getInventory().getItem()) {
+        for (InventoryItem makanan : sim.getInventory().getArrayInventoryItem()) {
             if (makanan.getCategory().equals("Food")) {
                 if (makanan.getName().equals(eat)) {
                     System.out.println("eat successfully");
@@ -30,6 +56,7 @@ public class Eat extends SimActiveAction {
                 this.setCancelled(true);
             }
         }
+        }
     }
 
     public void end(Sim sim) {
@@ -39,36 +66,5 @@ public class Eat extends SimActiveAction {
         sim.setPeeCycle(true);
     }
 
-    /*
-    public Eat(Sim sim, Food itemMakanan, int duration) {
-        super(sim);
-        this.itemMakanan = itemMakanan;
-        this.finished = false;
-        this.duration = duration;
-    }
-
-    public Eat(Sim sim) {
-        super(sim);
-    }
-
-    public Food getItemMakanan() {
-        return itemMakanan;
-    }
-
-    public boolean getStatusFinish() {
-        return finished;
-    }
-
-    public void setItemMakanan(Food itemMakanan) {
-        this.itemMakanan = itemMakanan;
-    }
-
-    @Override
-    public void finish() {
-        getSim().setKekenyangan(getSim().getKekenyangan() + (itemMakanan.getFullness()*duration/30));
-        // getSim().getSimInventory().removeItem(itemMakanan.getItemName(), 1); <-- butuh inventory
-        this.finished = true;
-    }
-    */
 
 }

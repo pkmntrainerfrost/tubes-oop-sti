@@ -19,23 +19,29 @@ public abstract class SimActiveAction implements SimAction {
 
         endTime = Clock.getInstance().getSeconds() + duration;
 
+        System.out.println(endTime);
+
         Clock.getInstance().startClock();
         
         new Thread(() -> {
-            int currentTime = Clock.getInstance().getSeconds();
-            while (currentTime < endTime) {
-                currentTime = Clock.getInstance().getSeconds();
+            while (Clock.getInstance().getSeconds() <= endTime) {
+            }
+            if (Game.getInstance().getPassiveAction().isEmpty()) {
+                Clock.getInstance().stopClock();
             }
             finished = true;
         }).start();
 
         while (!finished) {
-            System.out.println("."); 
+            System.out.println(".");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+
+            }
         }
 
-        if (Game.getInstance().getPassiveAction().isEmpty()) {
-            Clock.getInstance().stopClock();
-        }
+        
 
     }
 

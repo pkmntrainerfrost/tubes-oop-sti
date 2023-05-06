@@ -5,6 +5,7 @@ public class UpgradeHouse extends SimPassiveAction {
     Room room;
     
     public void begin(Sim sim) {
+        setDuration(18 * 60);
         boolean valid = false;
         if (!(sim.getCurrentHouse().getOwner().getName().equals(sim.getName()))) {
             System.out.println("Sorry, you must be in your house to upgrade.");
@@ -13,8 +14,8 @@ public class UpgradeHouse extends SimPassiveAction {
             do {
                 System.out.println("List of rooms:");
                 int i = 1;
-                for (GridObject room : sim.getCurrentHouse().getRoomList()) {
-                    System.out.println(String.valueOf(i) + ". " + ((Room) room).getRoomName());
+                for (GridObject roomCheck : sim.getCurrentHouse().getRoomList()) {
+                    System.out.println(String.valueOf(i) + ". " + ((Room) roomCheck).getRoomName());
                     i += 1;
                 }
                 System.out.println("Select a reference room [1-" + i + "] or type [cancel] to cancel:");
@@ -25,23 +26,23 @@ public class UpgradeHouse extends SimPassiveAction {
                     Room refRoom = (Room) sim.getCurrentHouse().getRoomList().get(Integer.valueOf(roomChoice) - 1);
                     System.out.println("Select direction [U/D/L/R]");
                     String dir = scan.nextLine();
-                    int x; int y; Point p; boolean validDir = true;
+                    int x; int y; Point p = new Point(0,0); boolean validDir = true;
                     switch (dir.toLowerCase()) {
                         case "u":
-                            x = room.getMinimumX();
-                            y = room.getMaximumY();
+                            x = refRoom.getMinimumX();
+                            y = refRoom.getMaximumY();
                             break;
                         case "d":   
-                            x = room.getMinimumX();
-                            y = room.getMinimumY() - 1;
+                            x = refRoom.getMinimumX();
+                            y = refRoom.getMinimumY() - 1;
                             break;
                         case "l":
-                            x = room.getMinimumX() - 1;
-                            y = room.getMinimumY();
+                            x = refRoom.getMinimumX() - 1;
+                            y = refRoom.getMinimumY();
                             break;
                         case "r":
-                            x = room.getMaximumX();
-                            y = room.getMinimumY();
+                            x = refRoom.getMaximumX();
+                            y = refRoom.getMinimumY();
                             break;
                         default:
                             System.out.println("Invalid direction!");
@@ -51,23 +52,22 @@ public class UpgradeHouse extends SimPassiveAction {
                     if (validDir) {
                         boolean validName = true;
                         String newRoomName = scan.nextLine();
-                        for (GridObject room : sim.getCurrentHouse().getRoomList()) {
-                            if (((Room) room).getRoomName().equals(newRoomName)) {
-                                System.out.println("Room name should not be duplicate!");
+                        for (GridObject roomCheck : sim.getCurrentHouse().getRoomList()) {
+                            if (((Room) roomCheck).getRoomName().equals(newRoomName)) {
+                                System.out.println("Room name must not be duplicate!");
                                 validName = false;
                             }
                         }
                         try {
-                            sim.getCurrentHouse().upgradeHouse(room, newRoomName, p);
+                            room = sim.getCurrentHouse().upgradeHouse(refRoom, newRoomName, p);
+                            valid = true;
                         } catch (NeighborFoundException e) {
                             System.out.println("This direction is already occupied!");
                         } catch (SimNotInHouseException e) {
                             System.out.println("You are not in your house!");
                         } catch (SimMiskinException e) {
                             System.out.println("You don't have enough money!");
-                        } catch (PositionOutOfBoundsException e) {
-                            System.out.println("");
-                        }
+                        } 
                     }
                 } else if (roomChoice.toLowerCase().equals("cancel")) {
                     setCancelled(true);
@@ -76,15 +76,12 @@ public class UpgradeHouse extends SimPassiveAction {
                     System.out.println("Invalid input!");
                 }
             } while (!valid);
-            
-            
-                
                 
         }
     }
 
     public void end(Sim sim) {
-
+        room.setFinished(true);
     }
 
     

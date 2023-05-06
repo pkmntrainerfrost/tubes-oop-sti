@@ -1,13 +1,13 @@
 public interface GameBuilder {
 
-    Game game = Game.getInstance();
+//    Game game = Game.getInstance();
     
-    public void loadJobs() {
+ //   public void loadJobs() {
 
-    }
+   // }
 
     
 
-    public Game getGame();
+    //public Game getGame();
 
 }

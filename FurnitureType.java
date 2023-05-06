@@ -13,7 +13,7 @@ public class FurnitureType implements Item {
         this.furnitureWidth = furnitureWidth;
         this.furniturePrice = furniturePrice;
         this.furnitureAction = furnitureAction;
-        this.isBuyable = false;
+        this.isBuyable = true;
     }
 
     @Override

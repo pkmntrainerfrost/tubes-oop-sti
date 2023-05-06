@@ -109,8 +109,8 @@
             "name": "Jam",
             "length": 1,
             "height": 1,
-            "price": 250,
-            "action": "WatchMovie"
+            "price": 10,
+            "action": "LookAtClock"
         }
     ]
 }

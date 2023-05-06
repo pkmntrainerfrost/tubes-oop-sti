@@ -27,14 +27,14 @@ public class Sim {
     private Room currentRoom;
     private Point currentPosition;
     
+    private House rumah;
+
     public Sim(String name) {
 
         this.name = name;
-
         Collection<String> jobs = Game.getInstance().getJobMap().keySet();
         String[] jobArray = jobs.toArray(new String[0]);
         this.job = Game.getInstance().getJobMap().get(jobArray[((int) (Math.random() * jobArray.length))]);
-
         startSimTimers();
 
     }
@@ -54,6 +54,11 @@ public class Sim {
                             addMood(-5);
                             addKesehatan(-5);
                         }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+
+                        }
                     }
                 }
             }
@@ -70,6 +75,11 @@ public class Sim {
                             addMood(-5);
                             addKesehatan(-5);
                         }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+
+                        }
                     }
                 }
             }
@@ -81,8 +91,18 @@ public class Sim {
                 while (isVisiting) {
                     while (clock.getRunning()) {
                         visitSeconds = clock.getSeconds() - visitStart;
+                        try {
+                             Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+
+                        }       
                     }
                 }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+
+                }                
             }
         }).start();
 
@@ -108,7 +128,9 @@ public class Sim {
     public int getKekenyangan() {
         return kekenyangan;
     }
-
+    public House getRumah() {
+        return this.rumah;
+    }
     public void setKekenyangan(int kekenyangan) {
         this.kekenyangan = kekenyangan;
     }
@@ -236,8 +258,27 @@ public class Sim {
     public Job getPekerjaan() {
         return job;
     }
-    public boolean isDead() {
-        return mood <= 0 || kekenyangan <= 0 || kesehatan <= 0;
+
+    public void setRumah(House rumah) {
+        this.rumah = rumah;
+    }
+    
+    public boolean checkDie() {
+        if (mood <= 0) {
+            return true;
+        }
+        if (kekenyangan <= 0) {
+            return true;
+        }
+        if (kesehatan <= 0) {
+            return true;
+        }
+        return false;
+    }
+    public void InstantDie() {
+        this.kesehatan = 0;
+        this.kekenyangan = 0;
+        this.mood = 0;
     }
 
     // Method untuk memindahkan sim ke room baru
@@ -266,39 +307,8 @@ public class Sim {
     }
 
     public void buyItem(){
-        Scanner scanner = new Scanner(System.in);
-        Inventory inventory = getInventory();
-        if (currentRoom == null) {
-            System.out.println("Anda tidak berada dalam ruangan saat ini.");
-        }else{
-            System.out.println("Daftar barang yang tersedia:");
-            Inventory[] availableItems = Inventory.getItem();
-            for (int i = 0; i < availableItems.length; i++) {
-                System.out.println((i + 1) + ". " + availableItems[i].getItem() + " (" + availableItems[i].getPrice() + ")");
-            }
-    
-            System.out.print("Pilih barang yang ingin dibeli (masukkan nomor): ");
-            int itemNumber = scanner.nextInt();
-            scanner.nextLine(); 
-    
-            if (itemNumber < 1 || itemNumber > availableItems.length) {
-                System.out.println("Nomor barang tidak valid.");
-                return;
-            }
-    
-            Inventory selectedItem = availableItems[itemNumber - 1];
-            int totalPrice = selectedItem.getPrice();
-    
-            if (getUang() < totalPrice) {
-                System.out.println("Uang Anda tidak cukup untuk membeli barang ini.");
-                return;
-            }
-    
-            inventory.addItem(Item, 1);
-            setUang(getUang() - totalPrice);
-            System.out.println("Barang " + selectedItem.getItem() + " berhasil dibeli dan dimasukkan ke inventory.");
-        }
-
+        BuyItem buyItem = new BuyItem();
+        buyItem.execute(Game.getInstance().getCurrentSim());
     }
     
     public void moveItem() {
@@ -333,46 +343,72 @@ public class Sim {
         }
     }
 
-
-
-    public void putItem(){
+    public void putItem() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Masukkan nama barang yang ingin dipasang: ");
-        String itemTobuy = scanner.nextLine();
-        InventoryItem item = InventoryItem.getName();
 
-        if (itemTobuy == null) {
-            System.out.println("Barang tidak ditemukan dalam inventory.");
-            return;
+        int i = 1;
+        ArrayList<String> furnitureTypeList = new ArrayList<>();
+        // Menampilkan daftar furniture pada inventory beserta nomor urutannya
+        for (Map.Entry<String, InventoryItem> entry : inventory.getItems().entrySet()) {
+            String key = entry.getKey();
+            Item currentItem = entry.getValue().getItems();
+            if (currentItem instanceof FurnitureType) {
+                System.out.println(String.valueOf(i) + ". " + currentItem.getItemName());
+                furnitureTypeList.add(currentItem.getItemName());
+            }
         }
 
-        if (!(item instanceof InventoryItem)) {
-            System.out.println("Barang tidak dapat dipasang.");
-            return;
+        if (i == 1) {
+            System.out.println("You have no furniture in your inventory");
+        } else {
+            System.out.println("Type which furniture [1-" + i + "] to put:");
+            String furnitureIndex = scanner.nextLine();
+            if (CommandLine.validateInputInteger(furnitureIndex)) {
+                if (Integer.valueOf(furnitureIndex) - 1 < 0 || Integer.valueOf(furnitureIndex) > i) {
+                    System.out.println("Invalid input!");
+                } else {
+                    String furnitureName = furnitureTypeList.get(Integer.valueOf(furnitureIndex) - 1);
+                    System.out.println("Input x-coordinate [0-5]:");
+                    String x = scanner.nextLine();
+                    System.out.println("Input y-coordinate [0-5]:");
+                    String y = scanner.nextLine();
+                    if (CommandLine.validateInputInteger(x) && CommandLine.validateInputInteger(y)) {
+                        int xInt = Integer.valueOf(x);
+                        int yInt = Integer.valueOf(y);
+                        try {
+                            FurnitureObject newFurniture = new FurnitureObject(new Point(xInt,yInt), (FurnitureType) Game.getInstance().getItemMap().get(furnitureName));
+                            currentRoom.getObjectGrid().addObject(newFurniture);
+                            inventory.removeItem(furnitureName, 1);
+                            System.out.println("Object placed!");
+                        } catch (PositionOccupiedException e) {
+                            System.out.println("Object overlaps other object(s)!");
+                        } catch (PositionOutOfBoundsException e) {
+                            System.out.println("Object position is invalid!");
+                        }
+                    } else {
+                        System.out.println("Invalid input");
+                    }
+                }
+            } else {
+                System.out.println("Invalid input!");
+            }
         }
 
-        InventoryItem buyableItem = (InventoryItem) item;
 
-        try {
-            inventory.addItem(Item, 1);
-            inventory.removeItem(itemTobuy, 1);;
-            System.out.println("Barang " + item + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
-        } catch (ItemNotInInventoryException e) {
-            System.out.println("Barang tidak dapat dipasang.");
-        }
+        // Meminta input dari pengguna untuk memilih furniture yang ingin diletakkan
+        
+        
+
+        // Menambahkan furniture ke room jika furniture yang dipilih valid dan kuantitasnya lebih dari 0
     }
 
     // aksi go to object
-    public void goToObject(String simName, String furnitureName){
-        if (simName.equals(this.getName())){
-            if (furnitureName.equals(getCurrentRoom().findFurnitureName(furnitureName))) {
-                setCurrentPosition(getCurrentRoom().getItem(furnitureName).getPoint());
-                System.out.println("Sim " + simName + " telah berhasil pindah!");
-            } else {
-                System.out.println("Maaf nama objek tidak ada di ruangan saat ini");
-            }
+    public void goToObject(String furnitureName){
+        if (getCurrentRoom().findFurnitureName(furnitureName) != null) {
+            setCurrentPosition(getCurrentRoom().findFurnitureName(furnitureName).getPoint());
+            System.out.println("Sim " + name + " successfully moved!");
         } else {
-            System.out.println("Maaf nama sim tidak sesuai dengan sim yang ada");
+            System.out.println("The object is not in the room!");
         }
     }
 
@@ -392,17 +428,16 @@ public class Sim {
         }
     }
     public void displayCurrentLocation() throws SimNotInGameException {
-        System.out.println(getName() + "is in house" + getCurrentHouse().getHouseName() + " and in room: " + getCurrentRoom().getRoomName());
+        System.out.println(getName() + " is in " + getCurrentHouse().getHouseName() + " and in " + getCurrentRoom().getRoomName());
     }    
 
     // display Go To Object
     public void displayGoToObject() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Masukkan nama Sim yang ingin menuju posisi Objek: ");
-        String namaSim = scanner.next();
-        System.out.print("Masukkan nama Objek yang ingin dituju: ");
-        String namaObjek = scanner.next();
-        this.goToObject(namaSim, namaObjek);
+        System.out.print("Input the object you want to go: ");
+        String namaObjek = scanner.nextLine();
+        this.goToObject(namaObjek);
+
     }
 }
 

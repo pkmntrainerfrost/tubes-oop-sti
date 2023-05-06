@@ -1,10 +1,11 @@
 import java.util.*;
 
-public class Clock {
+public class Clock implements Runnable {
 
-    private int seconds;
+    private int seconds = 0;
     private int days;
-    private boolean running;
+    private boolean running = false;
+    private Object lock = new Object();
     private static Clock instance = new Clock();
 
     private Clock() {
@@ -13,23 +14,31 @@ public class Clock {
         running = false;
     }
 
-    public void runClock() {      
-        new Thread(() -> {
-            while (true) {
-                if (running) {
+    public void run() {      
+        while(true) {
+            synchronized(lock) {
+                while (!running) {
                     try {
-                        Thread.sleep(1000);
-                        updateTime();
+                        lock.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+
                     }
                 }
             }
-        }).start();
+            try {
+                Thread.sleep(1000);
+                updateTime();
+            } catch (InterruptedException e) {
+
+            }
+        }
     }
 
     public synchronized void startClock() {
-        running = true;
+        synchronized (lock) {
+            running = true;
+            lock.notifyAll();
+        }
     }
 
     public synchronized void stopClock() {
@@ -38,7 +47,7 @@ public class Clock {
 
     public synchronized void updateTime() {
         this.seconds += 1;
-        this.days = this.days % 720;
+        this.days = this.seconds / 720;
     }
 
     public synchronized int getSeconds() {
@@ -55,7 +64,7 @@ public class Clock {
 
     public void setTime(int seconds) {
         this.seconds = seconds;
-        this.days = days % 720;
+        this.days = seconds / 720;
     }
 
     public void resetClock() {

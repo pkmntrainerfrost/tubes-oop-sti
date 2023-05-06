@@ -86,7 +86,11 @@ public abstract class GridObject {
     }
 
     public boolean overlap(Point point) {
-        return (this.getMinimumX() >= point.getX() && this.getMinimumX() <= point.getX()) && (this.getMinimumY() >= point.getY() && this.getMinimumY() <= point.getY());
+        return !((this.getMaximumY() <= point.getY() || this.getMinimumY() >= point.getY() ||  (this.getMaximumX() <= point.getX() || this.getMinimumX() >= point.getX())));
+    }
+
+    public Object getHouseName() {
+        return null;
     }
 
 

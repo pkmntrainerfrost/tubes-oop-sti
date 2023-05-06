@@ -69,7 +69,7 @@ public class Grid {
 
     public GridObject objectOnPosition(Point point) {
         for (GridObject object : objects) {
-            if (object.overlap(point)) {
+            if (object.getPoint().getX() == point.getX() && object.getPoint().getY() == point.getY()) {
                 return object;
             }
         }

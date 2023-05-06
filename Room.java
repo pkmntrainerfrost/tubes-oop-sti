@@ -44,10 +44,10 @@ public class Room extends GridObject {
 
     // display list items dalam room
     public void displayItemsInRoom() {
-
+        System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
         for (GridObject furniture : objectGrid.getObjects()) {
-            System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
-            System.out.println(((FurnitureObject) furniture).getFurniture().getItemName());
+            FurnitureType furnitureType = ((FurnitureObject) furniture).getFurniture();
+            System.out.println(furnitureType.getItemName());
         }
     }
 
@@ -63,67 +63,13 @@ public class Room extends GridObject {
         return this.objectGrid;
     }
 
-    public FurnitureObject getItem(String itemName) {
-        return null;
-    }
-
-    public String findFurnitureName(String furnitureName) {
+    public GridObject findFurnitureName(String furnitureName) {
         for (GridObject furniture : getFurnitureList()) {
             if (((FurnitureObject) furniture).getFurniture().getItemName().equals(furnitureName)) {
-                return ((FurnitureObject) furniture).getFurniture().getItemName();
+                return ((GridObject) furniture);
             }
         }
         return null;
     }
+
 }
-    
-    /*
-    public int getItemQuantity(String itemName) {
-        return 0;
-    }
-    */
-
-    // menambah objek ke room
-    /*
-    public void addItem(Item item, int quantity) {
-        if (items.containsKey(item.getItemName())) {
-            RoomItem currentItem = items.get(item.getItemName());
-            currentItem.setQuantity(currentItem.getQuantity() + quantity);
-        } else {
-            RoomItem newItem = new RoomItem(item, quantity);
-            items.put(item.getItemName(), newItem);
-        }
-        clearZeroQuantityItems();
-    }
-
-    // Menghapus objek dari Room
-    public void removeItem(String itemName, int quantity) {
-        if (items.containsKey(itemName)) {
-            RoomItem currentItem = items.get(itemName);
-            if (currentItem.getQuantity() > quantity) {
-                currentItem.setQuantity(currentItem.getQuantity() - quantity);
-            } else {
-                items.remove(itemName);
-            }
-        }
-        clearZeroQuantityItems();
-    }
-    */
-
-    // Menghapus objek dari inventory jika jumlahnya 0
-    /*
-    public void clearZeroQuantityItems() {
-        items.entrySet().removeIf(entry -> entry.getValue().getQuantity() == 0);
-    }
-    */
-
-    /*
-    public void buyItem(InventoryItem buyableItem) throws ItemNotInInventoryException {
-        if (!buyableItem.getFurniture().getBuyable()) {
-            throw new ItemNotInInventoryException(
-                    "Item " + buyableItem + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
-        }
-        buyableItem.getFurniture().getBuyable();
-
-    }
-    */

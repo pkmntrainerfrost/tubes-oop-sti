@@ -18,8 +18,17 @@ public class Inventory {
         return price;
     }
 
-    public InventoryItem getInIt(){
-        return get
+    public ArrayList<InventoryItem> getArrayInventoryItem() {
+        ArrayList<InventoryItem> arrayInvItem = new ArrayList<>();
+        items.forEach((String, InventoryItem) -> {
+            arrayInvItem.add(InventoryItem);
+        });
+
+        return arrayInvItem;
+    }
+
+    public Map<String,InventoryItem> getItems() {
+        return items;
     }
 
     Scanner sc = new Scanner(System.in);
