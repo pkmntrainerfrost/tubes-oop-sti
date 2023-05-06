@@ -93,6 +93,7 @@ public class Game {
         firstSim.setCurrentRoom(firstHouse.getMainRoom());
         firstSim.setCurrentPosition(new Point(0, 0));
         currentSim = firstSim;
+        clock.run();
     }
 
 
