@@ -15,28 +15,43 @@ public class House extends GridObject{
         super(p,1,1);
         this.owner = owner;
         this.name = owner.getName() + "'s House";
-        World.getInstance().getHouseGrid().addObject(this);
 
-        try {
-            roomGrid = new Grid(5,5,5,5);
-            // roomList = new ArrayList<Room>();
-            mainRoom = new Room(new Point(0,0),"Main Room",true);
-            roomGrid.addObject(mainRoom);
-            System.out.println("house created");
+        boolean success = false;
+
+        while (!success) {
             try {
-                // nambahin furniture stock
-                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
-                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,5), (FurnitureType) Game.getInstance().getItemMap().get("Toilet")));
-                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(4,0), (FurnitureType) Game.getInstance().getItemMap().get("Kompor Gas")));
-                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(3,0), (FurnitureType) Game.getInstance().getItemMap().get("Jam")));
-                mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(2,2), (FurnitureType) Game.getInstance().getItemMap().get("Meja dan Kursi")));
-            } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
+                World.getInstance().getHouseGrid().addObject(this);
+                success = true;
+                try {
+                    roomGrid = new Grid(5,5,5,5);
+                    // roomList = new ArrayList<Room>();
+                    mainRoom = new Room(new Point(0,0),"Main Room",true);
+                    roomGrid.addObject(mainRoom);
+                    System.out.println("house created");
+                    try {
+                        // nambahin furniture stock
+                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
+                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,5), (FurnitureType) Game.getInstance().getItemMap().get("Toilet")));
+                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(4,0), (FurnitureType) Game.getInstance().getItemMap().get("Kompor Gas")));
+                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(3,0), (FurnitureType) Game.getInstance().getItemMap().get("Jam")));
+                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(2,2), (FurnitureType) Game.getInstance().getItemMap().get("Meja dan Kursi")));
+                    } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
+                } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
+                    e.printStackTrace();
+                }    
+            } catch (PositionOccupiedException e) {
+                if (p.getX() != 64) {
+                    p.setX(p.getX() + 1);
+                } else {
+                    p.setY(p.getY() + 1);
+                    p.setX(0);
+                }
+            } catch (PositionOutOfBoundsException e) {
                 e.printStackTrace();
             }
-        } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
-            e.printStackTrace();
         }
-        
 
     }
 
