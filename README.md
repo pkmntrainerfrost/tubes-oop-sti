@@ -12,26 +12,19 @@ The game is developed using the Java programming language, which implements vari
 
 To use the Sim-Plicity program, follow these steps:
 
-1. Clone the Tubes-IF2212-SimPlicity folder from this Github repository to a directory on your device.
+1. Clone the tubes-oop-sti folder from this Github repository to a directory on your device.
 2. Open the command prompt or terminal on your device.
-3. Navigate to the "src" directory in the Tubes-IF2212-SimPlicity folder.
-4. To compile the program, type the following command:
-```
-./gradlew build
-```
-5. After successful compilation, run the program by typing:
-```
-java -jar build/libs/tubes-oop-sti.jar
-```
+3. Navigate to the directory in the Tubes-IF2212-SimPlicity folder.
+4. To compile the program, open Main.java in VSCode and press run on the main method.
 6. Anda telah berhasil menjalankan program dan game siap untuk dimainkan 
 
 ## Kontributor
-Program ini dibuat dan dikembangkan oleh kelompok 5 dari K02 yang berisikan manusia manusia hebat berikut. 
-1. Gevyndo Gunawan (1821076)
-2. Muhammad Pedro (18221138)
-3. Muhammad Dastin Fauzi (18221)
-4. Reswara Trista Aulianingsih (18221)
-5. Salman Arif (18221)
+Program ini dibuat dan dikembangkan oleh kelompok 12 dari K02 yang berisikan manusia manusia hebat berikut. 
+1. Gevyndo Gunawan (18221076)
+2. Muhamad Pedro (18221138)
+3. Muhammad Dastin Fauzi (18221062)
+4. Reswara Trista Aulianingsih (18221122)
+5. Salman Ma'arif Achsien (18221102)
 
 Yang dipandu oleh asisten yang bernama Pandu Puncak Prawira 
 
