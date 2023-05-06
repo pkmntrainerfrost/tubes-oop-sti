@@ -8,9 +8,15 @@ public class Work extends SimActiveAction {
 
         /* scanner and set duration */
         Scanner scan = new Scanner(System.in);
-        int duration = scan.nextInt();
+        String inputDuration = scan.nextLine();
         System.out.println("=======================");
-        this.setDuration(duration);
+        try {
+            int duration = Integer.parseInt(inputDuration);
+            System.out.println("work duration valid!");
+            this.setDuration(duration);
+        } catch (NumberFormatException e) {
+            System.out.println("work duration tidak valid!");
+        }
     }
     
     public void end(Sim sim) {

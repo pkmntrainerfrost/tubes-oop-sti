@@ -8,9 +8,15 @@ public class Exercise extends SimActiveAction {
 
         /* scanner and set duration */
         Scanner scan = new Scanner(System.in);
-        int duration = scan.nextInt();
+        String inputDuration = scan.nextLine();
         System.out.println("=======================");
-        this.setDuration(duration);
+        try {
+            int duration = Integer.parseInt(inputDuration);
+            System.out.println("exercise duration valid!");
+            this.setDuration(duration);
+        } catch (NumberFormatException e) {
+            System.out.println("exercise duration not valid!");
+        }
     }
 
     public void end(Sim sim) {
@@ -20,3 +26,11 @@ public class Exercise extends SimActiveAction {
         sim.setMood(sim.getMood() + (time * 10));
     }
 }
+
+/*
+ input nama barang + letak, dicek valid atau engga sama isi dari inventory item, jika dia ga valid lempar ke catch, 
+ jika valid, dicek apakah tipenya furniture atau bukan, jika bukan lempar lagi,
+ jika valid, dicek apakah letaknya tersedia di room, jika tidak lempar lagi,
+ jika valid, barang di inventory di kurangin quantitynya, lakukan setpoint untuk memberi tau bahwa letak tersebut sudah ada barang
+ tampilkan pesan berhasil di pasang.
+ */
