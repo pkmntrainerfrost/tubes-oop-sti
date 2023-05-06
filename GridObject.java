@@ -62,14 +62,31 @@ public abstract class GridObject {
         }
         if (this.getMaximumX() <= object.getMinimumX() || this.getMinimumX() >= object.getMaximumX()){
             flag = false;
-        }
+        }   
         */
-        return (this.getMinimumX() >= object.getMinimumX() && this.getMinimumX() <= object.getMaximumX()) || (this.getMinimumY() >= object.getMinimumY() && this.getMinimumY() <= this.getMaximumY());
+       /*
+       System.out.println("---");
+       System.out.println(length);
+       System.out.println(height);
+       System.out.println(getMaximumX());
+       System.out.println(getMinimumX());
+       System.out.println(getMaximumY());
+       System.out.println(getMinimumY());
+       System.out.println("---");
+       System.out.println(object.getLength());
+       System.out.println(object.getHeight());
+       System.out.println(object.getMaximumX());
+       System.out.println(object.getMinimumX());
+       System.out.println(object.getMaximumY());
+       System.out.println(object.getMinimumY());
+       */
+
+        return !((this.getMaximumY() <= object.getMinimumY() || this.getMinimumY() >= object.getMaximumY()) ||  (this.getMaximumX() <= object.getMinimumX() || this.getMinimumX() >= object.getMaximumX()));
     
     }
 
     public boolean overlap(Point point) {
-        return (this.getMinimumX() >= point.getX() && this.getMinimumX() <= point.getX()) || (this.getMinimumY() >= point.getY() && this.getMinimumY() <= point.getY());
+        return (this.getMinimumX() >= point.getX() && this.getMinimumX() <= point.getX()) && (this.getMinimumY() >= point.getY() && this.getMinimumY() <= point.getY());
     }
 
 

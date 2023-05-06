@@ -17,17 +17,18 @@ public class Cook extends SimActiveAction {
         System.out.print("input recipe's name: ");
         Scanner scan = new Scanner(System.in);
         String recipeName = scan.next();
-        int duration = ((int)1.5 * recipe.getFullness());
-
-        this.setDuration(duration);
+        
         if(recipe.getItemName().equals(recipeName)){
             if (recipe.isCookable(sim.getInventory())) {
+                int duration = ((int)1.5 * recipe.getFullness());
+                this.setDuration(duration);
                 System.out.println("recipe successfully cooked!");
             } else {
                 System.out.println("ingredients doesn't exist!");
+                this.setCancelled(true);
             }
         } else {
-            System.out.println("recipe doesn't exist!");
+            this.setCancelled(true);
         }
     }
 
@@ -72,5 +73,11 @@ public class Cook extends SimActiveAction {
     }
 
        */
+    }
+}
+
+class RecipeDoesntExistException extends Exception {
+    public RecipeDoesntExistException(String messageString) {
+        super(messageString);
     }
 }

@@ -5,13 +5,16 @@ public abstract class SimPassiveAction implements SimAction {
     private int duration;
     private int endTime;
     private boolean finished = false;
+    private boolean cancelled = false;
 
     public void execute(Sim sim) {
         begin(sim);
-        new Thread(() -> {
-            process(sim);
-            end(sim);
-        }).start();
+        if (!cancelled) {
+            new Thread(() -> {
+                process(sim);
+                end(sim);
+            }).start();
+        }
     }
 
     public abstract void begin(Sim sim);
@@ -47,19 +50,12 @@ public abstract class SimPassiveAction implements SimAction {
         return duration;
     }
 
-}
-
-class HouseUpgrade extends SimPassiveAction {
-
-    private Room room;
-
-    public HouseUpgrade(Sim sim, Room room) {
-        super(sim, 1080);
-        this.room = room;
+    public boolean getCancelled() {
+        return cancelled;
     }
-
-    public void act() {
-        room.setFinished(true);
+    
+    public void setCancelled(boolean cancel) {
+        this.cancelled = cancel;
     }
 
 }

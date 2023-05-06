@@ -240,7 +240,7 @@ public class Sim {
         return mood <= 0 || kekenyangan <= 0 || kesehatan <= 0;
     }
 
-        // Method untuk memindahkan sim ke room baru
+    // Method untuk memindahkan sim ke room baru
     public void moveRoom() {
         // Cek apakah sim saat ini berada di dalam room ini
         for (GridObject room : currentHouse.getRoomList()) {
@@ -300,36 +300,40 @@ public class Sim {
         }
 
     }
-    public void moveItem(){
+    
+    public void moveItem() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Pindahkan barang ke inventory");
-        int moveChoice = scanner.nextInt();
-        scanner.nextLine(); 
 
-        if (moveChoice != 1) {
-            System.out.println("Pilihan tidak valid.");
-            return;
+        // Menampilkan daftar furniture beserta point pada gridnya
+        List<GridObject> furnitureList = getCurrentRoom().getFurnitureList();
+        for (int i = 0; i < furnitureList.size(); i++) {
+            FurnitureObject furnitureObject = (FurnitureObject) furnitureList.get(i);
+            System.out.println(i + 1 + ". " + furnitureObject.getFurniture().getItemName() + " (" + furnitureObject.getPoint().getX() + ", " + furnitureObject.getPoint().getY() + ")");
         }
 
-        System.out.print("Masukkan nama barang yang ingin dipindahkan: ");
-        String itemName = scanner.nextLine();
+        // Meminta input dari pengguna untuk memilih furniture yang ingin dipindahkan
+        System.out.print("Pilih nomor furniture yang ingin dipindahkan: ");
+        int furnitureIndex = scanner.nextInt() - 1;
 
-        if (inventory.getItem() == null) {
-            System.out.println("Barang tidak ditemukan dalam inventory.");
-            return;
+        // Memindahkan furniture dari room ke inventory jika furniture yang dipilih valid
+        if (furnitureIndex >= 0 && furnitureIndex < furnitureList.size()) {
+            FurnitureObject furnitureObject = (FurnitureObject) furnitureList.get(furnitureIndex);
+
+            // Menghapus FurnitureObject dari Room
+            getCurrentRoom().getObjectGrid().removeObject(furnitureObject.getPoint());
+
+            // Menambahkan FurnitureType ke Inventory
+            FurnitureType furnitureType = furnitureObject.getFurniture();
+            InventoryItem item = new InventoryItem(Item, 1);
+            getInventory().addItem(Item, 1);
+
+            System.out.println("Furniture " + furnitureType.getItemName() + " berhasil dipindahkan ke inventory.");
+        } else {
+            System.out.println("Nomor furniture tidak valid.");
         }
-
-        int quantity = inventory.getItemQuantity(itemName);
-
-        if (quantity < 1) {
-            System.out.println("Jumlah barang tidak mencukupi.");
-            return;
-        }
-        inventory.removeItem(itemName, 1);
-        currentRoom.removeItem(itemName, 1);
-
-        System.out.println("Barang " + itemName + " berhasil dipindahkan ke ruangan " + currentRoom.getRoomName() + ".");
     }
+
+
 
     public void putItem(){
         Scanner scanner = new Scanner(System.in);
@@ -350,8 +354,8 @@ public class Sim {
         InventoryItem buyableItem = (InventoryItem) item;
 
         try {
-            currentRoom.buyItem(buyableItem);
-            inventory.removeItem(item, 1);
+            inventory.addItem(Item, 1);
+            inventory.removeItem(itemTobuy, 1);;
             System.out.println("Barang " + item + " berhasil dipasang di ruangan " + currentRoom.getRoomName() + ".");
         } catch (ItemNotInInventoryException e) {
             System.out.println("Barang tidak dapat dipasang.");
@@ -377,7 +381,7 @@ public class Sim {
             System.out.println("Sim Information:");
             System.out.println("====================================");
             System.out.println("Sim Name: " + getName());
-            System.out.println("Sim Job: " + getjob());
+            System.out.println("Sim Job: " + getjob().getName());
             System.out.println("Sim Health: " + getKesehatan());
             System.out.println("Sim Fullness: " + getKekenyangan());
             System.out.println("Sim Mood: " + getMood());

@@ -4,12 +4,22 @@ public class Sleep extends SimActiveAction {
     
     public void begin(Sim sim){
         System.out.println("=======================");
-        System.out.print("input work duration: ");
+        System.out.print("input sleep duration: ");
+
+        CommandLine cli = new CommandLine();
 
         /* scanner and set duration */
         Scanner scan = new Scanner(System.in);
-        int duration = scan.nextInt();
+        String inputDuration = scan.nextLine();
         System.out.println("=======================");
+
+        while (!cli.validateInputInteger(inputDuration)) {
+            System.out.println("=======================");
+            System.out.print("input sleep duration: ");
+            inputDuration = scan.nextLine();
+        }
+        int duration = Integer.parseInt(inputDuration);
+        System.out.println("sleep duration valid!");
         this.setDuration(duration);
     }
 

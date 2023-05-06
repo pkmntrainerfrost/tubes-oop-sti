@@ -8,11 +8,27 @@ public class Eat extends SimActiveAction {
         System.out.print("input the food " + sim.getName() + " want to eat: ");
         Scanner scan = new Scanner(System.in);
         String eat = scan.next();
-        this.setDuration(10);
-        if (sim.getInventory().equals(eat)) {
-            System.out.println("eat successfully");
-        } else {
-            System.out.println("food doesn't exist");
+
+        CommandLine cli = new CommandLine();
+
+        while (cli.validateInputString(eat)){
+            System.out.print("input the food " + sim.getName() + " want to eat: ");
+            eat = scan.next();
+        }
+        /* mengecek apakah inputan eat ada atau tidak */
+        for (InventoryItem makanan : sim.getInventory().getItem()) {
+            if (makanan.getCategory().equals("Food")) {
+                if (makanan.getName().equals(eat)) {
+                    System.out.println("eat successfully");
+                    this.setDuration(10);
+                } else {
+                    System.out.println("food doesn't exist");
+                    this.setCancelled(true);
+                }
+            } else {
+                System.out.println(makanan.getName() +" input is not a Food!");
+                this.setCancelled(true);
+            }
         }
     }
 

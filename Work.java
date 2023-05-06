@@ -6,17 +6,21 @@ public class Work extends SimActiveAction {
         System.out.println("=======================");
         System.out.print("input work duration: ");
 
+        CommandLine cli = new CommandLine();
+
         /* scanner and set duration */
         Scanner scan = new Scanner(System.in);
         String inputDuration = scan.nextLine();
         System.out.println("=======================");
-        try {
-            int duration = Integer.parseInt(inputDuration);
-            System.out.println("work duration valid!");
-            this.setDuration(duration);
-        } catch (NumberFormatException e) {
-            System.out.println("work duration tidak valid!");
+
+        while (!cli.validateInputInteger(inputDuration)) {
+            System.out.println("=======================");
+            System.out.print("input work duration: ");
+            inputDuration = scan.nextLine();
         }
+        int duration = Integer.parseInt(inputDuration);
+        System.out.println("work duration valid!");
+        this.setDuration(duration);
     }
     
     public void end(Sim sim) {

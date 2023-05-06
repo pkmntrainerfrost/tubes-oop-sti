@@ -20,7 +20,6 @@ public class FurnitureType implements Item {
     public String getItemName() {
         return furnitureName;
     }
-
     public void setItemName(String name) {
         this.furnitureName = name;
     }
@@ -33,7 +32,7 @@ public class FurnitureType implements Item {
         this.furniturePrice = price;
     }
 
-    public boolean getBuyable() {
+    public boolean getBuyable(){
         return isBuyable;
     }
 

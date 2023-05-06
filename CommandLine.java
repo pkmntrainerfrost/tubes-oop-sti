@@ -187,6 +187,7 @@ public class CommandLine extends Exception{
 
     public String commandName(String command){
         if (validateInputString(command)){
+            command = command.replaceAll(" ", "");
             if (listMenu.contains(command.toLowerCase())){
                 return command.toLowerCase();
             }else{
@@ -200,6 +201,7 @@ public class CommandLine extends Exception{
 
     public String actionName(String action){ 
         if (validateInputString(action)){
+            action = action.replaceAll(" ", "");
             if (listAction.contains(action.toLowerCase())){
                 return action.toLowerCase();
             }else{
@@ -241,7 +243,7 @@ public class CommandLine extends Exception{
     public boolean validateRoomName(String input, House house){
         boolean flag = true;
         for (int i = 0; i < house.getRoomList().size(); i++){
-            if (house.getRoomList().get(i).getRoomName().equals(input)){
+            if (((Room) house.getRoomList().get(i)).getRoomName().equals(input)){
                 flag = false;
             }
         }

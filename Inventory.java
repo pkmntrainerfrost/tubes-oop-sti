@@ -12,11 +12,14 @@ public class Inventory {
         return items.isEmpty();
     }
     public static Inventory[] getItem() {
-        ;
 		return null;
     }
     public int getPrice(){
         return price;
+    }
+
+    public InventoryItem getInIt(){
+        return get
     }
 
     Scanner sc = new Scanner(System.in);

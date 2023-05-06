@@ -2,10 +2,10 @@ import java.util.*;
 
 public class Game {
     
-    private Map<String, Job> jobMap;
-    private Map<String, Item> itemMap;
+    private Map<String, Job> jobMap = new HashMap<>();
+    private Map<String, Item> itemMap = new HashMap<>();
 
-    private Map<String, Sim> simMap;
+    private Map<String, Sim> simMap = new HashMap<>();
     
     private List<SimPassiveAction> currentPassiveActions;
 
@@ -87,13 +87,17 @@ public class Game {
     public void initializeGame(String firstSimName) {
         world.resetWorld();
         clock.resetClock();
+        jobMap = JSONReader.readJobs();
+        itemMap = JSONReader.readItems();
         Sim firstSim = new Sim(firstSimName);
-        House firstHouse = new House(null, firstSim);
+        simMap.put("name", firstSim);
+        Point firstHousePoint = new Point(0,0);
+        House firstHouse = new House(firstHousePoint, firstSim);
         firstSim.setCurrentHouse(firstHouse);
         firstSim.setCurrentRoom(firstHouse.getMainRoom());
         firstSim.setCurrentPosition(new Point(0, 0));
         currentSim = firstSim;
-        clock.run();
+        clock.runClock();
     }
 
 

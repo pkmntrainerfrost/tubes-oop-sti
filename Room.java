@@ -75,6 +75,7 @@ public class Room extends GridObject {
         }
         return null;
     }
+}
     
     /*
     public int getItemQuantity(String itemName) {
@@ -116,7 +117,7 @@ public class Room extends GridObject {
     }
     */
 
-    //ini apa cok
+    /*
     public void buyItem(InventoryItem buyableItem) throws ItemNotInInventoryException {
         if (!buyableItem.getFurniture().getBuyable()) {
             throw new ItemNotInInventoryException(
@@ -125,4 +126,4 @@ public class Room extends GridObject {
         buyableItem.getFurniture().getBuyable();
 
     }
-}
+    */

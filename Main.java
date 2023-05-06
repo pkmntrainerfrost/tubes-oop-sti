@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws WrongInputException, NeighborFoundException, SimNotInHouseException, SimMiskinException, InterruptedException{
+    public static void main(String[] args) throws WrongInputException, NeighborFoundException, SimNotInHouseException, SimMiskinException, InterruptedException, SimNotInGameException{
         CommandLine.setTerminalSize(44, 120);
         Scanner in = new Scanner(System.in);
         CommandLine cml = new CommandLine();
@@ -31,6 +31,7 @@ public class Main {
             System.out.println("What do you want to do?");
             System.out.println("Write out [help] if you need any help!");
             command = in.nextLine();
+            System.out.println(command);
             switch(cml.commandName(command)) {
                 case "start" :
                     System.out.println("Your game is already started!");
@@ -39,8 +40,8 @@ public class Main {
                 case "help" :
                 // tentukan dia di dalam room/house/hanya di dalam game
                     // if (sim.getCurrentState() == room){
-                        cml.listMenuInRoom();
-                        break;
+                    cml.listMenuInGame();
+                    break;
                     //}else if (getCurrentState() == house){
                     //     cml.listMenuInHouse();
                     //     break;
@@ -52,29 +53,31 @@ public class Main {
                     isPlaying = false;
                     break;
 
-                case "view sim info" :
+                case "viewsiminfo" :
                     Game.getInstance().getCurrentSim().displaySimInfo();
                     break;
 
-                case "view current location":
+                case "viewcurrentlocation":
                     Game.getInstance().getCurrentSim().displayCurrentLocation();
                     break;
 
-                case "view inventory":
+                case "viewinventory":
                     Game.getInstance().getCurrentSim().getInventory().displayInventory();
                     break;
 
-                case "upgrade house":
-                    Game.getInstance().getCurrentSim().getCurrentHouse().upgradeHouse();
-                    break;
+                // case "upgrade house":
+                //     System.out.println("choose the reference room: ");
+                //     String refRoomName = in.nextLine();
+                //     Room refRoom = Game.getInstance().getCurrentSim().getCurrentRoom();
+                //     Game.getInstance().getCurrentSim().getCurrentHouse().upgradeHouse();
+                //     break;
 
-                case "move room":
+                case "moveroom":
                     System.out.println("Choose which room to go: ");
-                    
-                    Game.getInstance().getCurrentSim().getCurrentRoom().moveRoom(Game.getInstance().getCurrentSim(), );
+                    Game.getInstance().getCurrentSim().moveRoom();
                     break;
 
-                case "edit room":
+                case "editroom":
                     System.out.println("Menu Edit Room:");
                     System.out.println("1. Buy item");
                     System.out.println("2. Move item");
@@ -83,29 +86,34 @@ public class Main {
                     String action = in.nextLine();
                     action = cml.actionName(action);
                     if (action.equals("buyitem")){ 
-                        Game.getInstance().getCurrentSim().getCurrentRoom().buyItem();
+                        Game.getInstance().getCurrentSim().buyItem();
                     }else if(action.equals("moveitem")){
-                        Game.getInstance().getCurrentSim().getCurrentRoom().moveItem();
+                        Game.getInstance().getCurrentSim().moveItem();
                     }else if(action.equals("putitem")){
-                        Game.getInstance().getCurrentSim().getCurrentRoom().putItem();
+                        Game.getInstance().getCurrentSim().putItem();
                     }else{
                         System.out.println("That is not an edit room action!");
                     }
                     break;
-                case "add sim":
-                    Game.getInstance().addSim();
-                      break;
+                case "addsim":
+                    String name = in.nextLine();
+                    while (!cml.validateInputString(name)){
+                        System.out.println("Invalid Name. Try again: ");
+                        name = in.nextLine();
+                    }
+                    Game.getInstance().addSim(name);
+                    break;
 
-                case "change sim":
+                case "changesim":
                     Game.getInstance().changeSim();
                     break;
 
-                case "list object" :
+                case "listobject" :
                     Game.getInstance().getCurrentSim().getCurrentRoom().displayItemsInRoom();
                     break;
 
-                case "go to object" :
-                    Game.getInstance().getCurrentSim().getCurrentRoom().displayGoToObject();
+                case "gotoobject" :
+                    Game.getInstance().getCurrentSim().displayGoToObject();
                     break;
 
                 case "action" :
@@ -162,7 +170,6 @@ public class Main {
                     break;
                 default :
             }
-            CommandLine.clear();
             System.out.println("----------------------------------------");
         }
     }

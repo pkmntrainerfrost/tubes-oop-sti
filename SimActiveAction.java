@@ -3,13 +3,16 @@ public abstract class SimActiveAction implements SimAction {
     private int duration;
     private int endTime;
     private boolean finished = false;
+    private boolean cancelled = false;
 
     public abstract void begin(Sim sim);
     
     public void execute(Sim sim) {
         begin(sim);
-        process(sim);
-        end(sim);
+        if (!cancelled) {
+            process(sim);
+            end(sim);
+        }
     }
 
     public void process(Sim sim) {
@@ -48,6 +51,14 @@ public abstract class SimActiveAction implements SimAction {
 
     public void addDuration(int duration) {
         this.duration += duration;
+    }
+
+    public boolean getCancelled() {
+        return cancelled;
+    }
+    
+    public void setCancelled(boolean cancel) {
+        this.cancelled = cancel;
     }
 
 }

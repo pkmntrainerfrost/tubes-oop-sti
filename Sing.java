@@ -6,10 +6,20 @@ public class Sing extends SimActiveAction {
         System.out.println("=======================");
         System.out.print("input sing duration: ");
 
+        CommandLine cli = new CommandLine();
+
         /* scanner and set duration */
         Scanner scan = new Scanner(System.in);
-        int duration = scan.nextInt();
+        String inputDuration = scan.nextLine();
         System.out.println("=======================");
+
+        while (!cli.validateInputInteger(inputDuration)) {
+            System.out.println("=======================");
+            System.out.print("input sing duration: ");
+            inputDuration = scan.nextLine();
+        }
+        int duration = Integer.parseInt(inputDuration);
+        System.out.println("in duration valid!");
         this.setDuration(duration);
     }
  

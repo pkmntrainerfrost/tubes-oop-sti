@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Clock implements Runnable {
+public class Clock {
 
     private int seconds;
     private int days;
@@ -13,16 +13,19 @@ public class Clock implements Runnable {
         running = false;
     }
 
-    public void run() {
-        while (true) {
-            if (running) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    public void runClock() {      
+        new Thread(() -> {
+            while (true) {
+                if (running) {
+                    try {
+                        Thread.sleep(1000);
+                        updateTime();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
+        }).start();
     }
 
     public synchronized void startClock() {

@@ -7,7 +7,7 @@ public class World {
     private static World instance = new World();
 
     private World() {
-        this.houseGrid = new Grid(64, 64);;
+        this.houseGrid = new Grid(64, 64);
     }
 
     public Grid getHouseGrid() {

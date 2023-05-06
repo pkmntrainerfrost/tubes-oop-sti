@@ -22,17 +22,16 @@ public class House extends GridObject{
             try {
                 World.getInstance().getHouseGrid().addObject(this);
                 try {
-                    roomGrid = new Grid(5,5,5,5);
+                    roomGrid = new Grid(5,5);
                     // roomList = new ArrayList<Room>();
                     mainRoom = new Room(new Point(0,0),"Main Room",true);
                     roomGrid.addObject(mainRoom);
-                    System.out.println("house created");
                     try {
                         // nambahin furniture stock
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,0), (FurnitureType) Game.getInstance().getItemMap().get("Kasur Single")));
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(0,5), (FurnitureType) Game.getInstance().getItemMap().get("Toilet")));
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(4,0), (FurnitureType) Game.getInstance().getItemMap().get("Kompor Gas")));
-                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(3,0), (FurnitureType) Game.getInstance().getItemMap().get("Jam")));
+                        mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(5,5), (FurnitureType) Game.getInstance().getItemMap().get("Jam")));
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(2,2), (FurnitureType) Game.getInstance().getItemMap().get("Meja dan Kursi")));
                         success = true;
                     } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
@@ -71,12 +70,8 @@ public class House extends GridObject{
     }
     */
 
-    public void upgradeHouse(Room refRoom, String name, boolean up, boolean right) throws NeighborFoundException, SimNotInHouseException, SimMiskinException, PositionOutOfBoundsException {
-        
-        int x = right ? refRoom.getMaximumX() : refRoom.getMinimumY(); 
-        int y = up ? refRoom.getMaximumY(): refRoom.getMinimumY();
+    public void upgradeHouse(Room refRoom, String name, Point p) throws NeighborFoundException, SimNotInHouseException, SimMiskinException, PositionOutOfBoundsException {
 
-        Point p = new Point(x,y);
         Room newRoom = new Room(p,name,false);
 
         boolean add = false;
@@ -89,23 +84,20 @@ public class House extends GridObject{
             throw new SimMiskinException("Sim doesn't have enough money!");
         }
 
-        if(x == 0 && !up || y == 0 && !right){
+        int x=refRoom.getPoint().getX(); 
+        int y=refRoom.getPoint().getX();
+		if(x == 0 || y == 0 ){
             throw new PositionOutOfBoundsException("You cannot upgrade your house to that direction!");
         }else{
             do {
                 try {
                     roomGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
                     owner.setUang(-1500);
-                    System.out.println("completed house upgrade");
-                    // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
-                    // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
                 } catch (PositionOccupiedException e) {
                     throw new NeighborFoundException("This direction is already occupied!");
                 } catch (PositionOutOfBoundsException e) {
                     roomGrid.addMaxX(1);
                     roomGrid.addMaxY(1);
-                    roomGrid.addMinX(1);
-                    roomGrid.addMinY(1);
                 }
             } while (!add);
         }
@@ -126,6 +118,10 @@ public class House extends GridObject{
 
     public Room getMainRoom(){
         return mainRoom;
+    }
+
+    public Sim getOwner() {
+        return owner;
     }
 
     /* 
