@@ -83,29 +83,29 @@ public class Main {
                     String action = in.nextLine();
                     action = cml.actionName(action);
                     if (action.equals("buyitem")){ 
-                        getGame().getCurrentSim().getCurrentRoom().buyItem();
+                        Game.getInstance().getCurrentSim().getCurrentRoom().buyItem();
                     }else if(action.equals("moveitem")){
-                        getGame().getCurrentSim().getCurrentRoom().moveItem();
+                        Game.getInstance().getCurrentSim().getCurrentRoom().moveItem();
                     }else if(action.equals("putitem")){
-                        getGame().getCurrentSim().getCurrentRoom().putItem();
+                        Game.getInstance().getCurrentSim().getCurrentRoom().putItem();
                     }else{
                         System.out.println("That is not an edit room action!");
                     }
                     break;
                 case "add sim":
-                    getGame().getCurrentSim().addSim();
+                    Game.getInstance().addSim();
                       break;
 
                 case "change sim":
-                    getGame().getCurrentSim().changeSim();
+                    Game.getInstance().changeSim();
                     break;
 
                 case "list object" :
-                    getGame().getCurrentSim().getCurrentRoom().displayItemsInRoom();
+                    Game.getInstance().getCurrentSim().getCurrentRoom().displayItemsInRoom();
                     break;
 
                 case "go to object" :
-                    getGame().getCurrentSim().getCurrentRoom().displayGoToObject();
+                    Game.getInstance().getCurrentSim().getCurrentRoom().displayGoToObject();
                     break;
 
                 case "action" :
@@ -116,48 +116,48 @@ public class Main {
                     switch (cml.actionName(actionName)){ 
                         case "work":
                             Work work = new Work();
-                            work.begin(getGame().getCurrentSim());
+                            work.execute(Game.getInstance().getCurrentSim());
                             break;
                         case "exercise":
                             Exercise exercise = new Exercise();
-                            exercise.begin(getGame().getCurrentSim);
+                            exercise.execute(Game.getInstance().getCurrentSim());
                             break;
                         case "eat":
                             Eat eat = new Eat();
-                            eat.begin(getGame().getCurrentSim);
+                            eat.execute(Game.getInstance().getCurrentSim());
                         case "sleep":
                             Sleep sleep = new Sleep();
-                            sleep.begin(getGame().getCurrentSim);
+                            sleep.execute(Game.getInstance().getCurrentSim());
                         case "cook":
                             Cook cook = new Cook();
-                            cook.begin(getGame().getCurrentSim);
+                            cook.execute(Game.getInstance().getCurrentSim());
                         case "visit": //belum ditambahin untuk balik rumah asal
                             Visit visit = new Visit();
-                            visit.begin(getGame().getCurrentSim);
+                            visit.execute(Game.getInstance().getCurrentSim());
                         case "pee":
                             Pee pee = new Pee();
-                            pee.begin(getGame().getCurrentSim);
+                            pee.execute(Game.getInstance().getCurrentSim());
                         case "sing":
                             Sing sing = new Sing();
-                            sing.begin(getGame().getCurrentSim);
+                            sing.execute(Game.getInstance().getCurrentSim());
                         case "meditation":
                             Meditation meditation = new Meditation();
-                            meditation.begin(getGame().getCurrentSim);
+                            meditation.execute(Game.getInstance().getCurrentSim());
                         case "readbook":
                             ReadBook readBook = new ReadBook();
-                            readBook.begin(getGame().getCurrentSim);
+                            readBook.execute(Game.getInstance().getCurrentSim());
                         case "watchmovie":
                             WatchMovie watchMovie = new WatchMovie();
-                            watchMovie.begin(getGame().getCurrentSim);
+                            watchMovie.execute(Game.getInstance().getCurrentSim());
                         case "drink":
                             Drink drink = new Drink();
-                            drink.begin(getGame().getCurrentSim);
+                            drink.execute(Game.getInstance().getCurrentSim());
                         case "takebath":
                             TakeBath takeBath = new TakeBath();
-                            takeBath.begin(getGame().getCurrentSim);
+                            takeBath.execute(Game.getInstance().getCurrentSim());
                         case "throwrubbish":
                             ThrowRubbish throwRubbish = new ThrowRubbish();
-                            throwRubbish.begin(getGame().getCurrentSim());
+                            throwRubbish.execute(Game.getInstance().getCurrentSim());
                     }   
                     break;
                 default :

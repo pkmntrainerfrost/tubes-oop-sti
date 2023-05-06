@@ -18,10 +18,9 @@ public class House extends GridObject{
 
         boolean success = false;
 
-        while (!success) {
+        do {
             try {
                 World.getInstance().getHouseGrid().addObject(this);
-                success = true;
                 try {
                     roomGrid = new Grid(5,5,5,5);
                     // roomList = new ArrayList<Room>();
@@ -35,12 +34,13 @@ public class House extends GridObject{
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(4,0), (FurnitureType) Game.getInstance().getItemMap().get("Kompor Gas")));
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(3,0), (FurnitureType) Game.getInstance().getItemMap().get("Jam")));
                         mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(2,2), (FurnitureType) Game.getInstance().getItemMap().get("Meja dan Kursi")));
+                        success = true;
                     } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
                         e.printStackTrace();
                     }
                 } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
                     e.printStackTrace();
-                }    
+                }          
             } catch (PositionOccupiedException e) {
                 if (p.getX() != 64) {
                     p.setX(p.getX() + 1);
@@ -51,7 +51,7 @@ public class House extends GridObject{
             } catch (PositionOutOfBoundsException e) {
                 e.printStackTrace();
             }
-        }
+        } while (!success);
 
     }
 
@@ -77,7 +77,7 @@ public class House extends GridObject{
         int y = up ? refRoom.getMaximumY(): refRoom.getMinimumY();
 
         Point p = new Point(x,y);
-        Room newRoom = new Room(p,name,true);
+        Room newRoom = new Room(p,name,false);
 
         boolean add = false;
 
