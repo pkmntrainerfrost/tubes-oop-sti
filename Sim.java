@@ -247,13 +247,21 @@ public class Sim {
             System.out.println("List of room to go: ");
             System.out.println(((Room) room).getRoomName());
         }
-        if (inRomm) {
-            // Memindahkan sim ke room baru
+        Scanner in = new Scanner(System.in);
+        System.out.println("Choose which room to go: ");
+        String roomName = in.nextLine();
+        Room newRoom = getCurrentRoom();
+        for (GridObject room : currentHouse.getRoomList()) {
+            if (roomName.equals(((Room) room).getRoomName())){
+                newRoom = (Room) room;
+            }
+        }
+        if (newRoom != getCurrentRoom()){
             setCurrentRoom(newRoom);
             setCurrentPosition(newRoom.getPoint());
-            System.out.println("Sim berhasil berpindah ke " + newRooms.getRoomName());
-        } else {
-            System.out.println("Sim tidak berada di dalam rumah ini!");
+            System.out.println("sim successfully moved to " + newRoom.getRoomName());
+        }else{
+            System.out.println("sim is already in " + newRoom.getRoomName());
         }
     }
 
