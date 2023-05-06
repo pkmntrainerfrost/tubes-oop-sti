@@ -17,7 +17,7 @@ public class Main {
                 System.out.println("Insert your first sim name: ");
                 String name = in.nextLine();
                 Game.getInstance().initializeGame(name);
-                System.out.println("Hello! this is " + game.getCurrentSim().getName() + " playing!");
+                System.out.println("Hello! this is " + Game.getInstance().getCurrentSim().getName() + " playing!");
                 commandRight = true;
             }else{
                 System.out.println("Your game hasn't started yet! re-input your command!");
@@ -53,23 +53,25 @@ public class Main {
                     break;
 
                 case "view sim info" :
-                    getGame().getCurrentSim().displaySimInfo();
+                    Game.getInstance().getCurrentSim().displaySimInfo();
                     break;
 
                 case "view current location":
-                    getGame().getCurrentSim().displayCurrentLocation();
+                    Game.getInstance().getCurrentSim().displayCurrentLocation();
                     break;
 
                 case "view inventory":
-                    getGame().getCurrentSim().displayInventory();
+                    Game.getInstance().getCurrentSim().getInventory().displayInventory();
                     break;
 
                 case "upgrade house":
-                    getGame().getCurrentSim().getCurrentHouse().upgradeHouse();
+                    Game.getInstance().getCurrentSim().getCurrentHouse().upgradeHouse();
                     break;
 
                 case "move room":
-                    getGame().getCurrentSim().getCurrentRoom().moveRoom();
+                    System.out.println("Choose which room to go: ");
+                    
+                    Game.getInstance().getCurrentSim().getCurrentRoom().moveRoom(Game.getInstance().getCurrentSim(), );
                     break;
 
                 case "edit room":

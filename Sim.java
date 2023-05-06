@@ -240,6 +240,23 @@ public class Sim {
         return mood <= 0 || kekenyangan <= 0 || kesehatan <= 0;
     }
 
+        // Method untuk memindahkan sim ke room baru
+    public void moveRoom() {
+        // Cek apakah sim saat ini berada di dalam room ini
+        for (GridObject room : currentHouse.getRoomList()) {
+            System.out.println("List of room to go: ");
+            System.out.println(((Room) room).getRoomName());
+        }
+        if (inRomm) {
+            // Memindahkan sim ke room baru
+            setCurrentRoom(newRoom);
+            setCurrentPosition(newRoom.getPoint());
+            System.out.println("Sim berhasil berpindah ke " + newRooms.getRoomName());
+        } else {
+            System.out.println("Sim tidak berada di dalam rumah ini!");
+        }
+    }
+
     public void buyItem(){
         Scanner scanner = new Scanner(System.in);
         Inventory inventory = getInventory();

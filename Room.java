@@ -74,19 +74,6 @@ public class Room extends GridObject {
         return this.objectGrid;
     }
 
-    // Method untuk memindahkan sim ke room baru
-    public void moveRoom(Sim sim, Room newRoom) {
-        // Cek apakah sim saat ini berada di dalam room ini
-        if (sim.getCurrentRoom() == this) {
-            // Memindahkan sim ke room baru
-            sim.setCurrentRoom(newRoom);
-            sim.setCurrentPosition(newRoom.getPoint());
-            System.out.println("Sim berhasil berpindah ke " + newRoom.getRoomName());
-        } else {
-            System.out.println("Sim tidak berada di dalam rumah ini!");
-        }
-    }
-
     public FurnitureObject getItem(String itemName) {
         return null;
     }
