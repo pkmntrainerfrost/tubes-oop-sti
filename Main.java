@@ -16,7 +16,7 @@ public class Main {
                 System.out.println("--------------------");
                 System.out.println("Insert your first sim name: ");
                 String name = in.nextLine();
-                Game game = Game(name);
+                Game.getInstance().initializeGame(name);
                 System.out.println("Hello! this is " + game.getCurrentSim().getName() + " playing!");
                 commandRight = true;
             }else{

@@ -87,8 +87,12 @@ public class Game {
     public void initializeGame(String firstSimName) {
         world.resetWorld();
         clock.resetClock();
-        addSim(firstSimName);
-        
+        Sim firstSim = new Sim(firstSimName);
+        House firstHouse = new House(null, firstSim);
+        firstSim.setCurrentHouse(firstHouse);
+        firstSim.setCurrentRoom(firstHouse.getMainRoom());
+        firstSim.setCurrentPosition(new Point(0, 0));
+        currentSim = firstSim;
     }
 
 

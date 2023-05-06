@@ -1,32 +1,27 @@
 import java.util.*;
 public class House extends GridObject{
 
-    private Grid houseGrid;
+    private Grid roomGrid;
     /* private Grid grid */
-    private ArrayList<Room> roomList;  
 
     private Sim owner;
 
     private Room mainRoom;
 
     private String name;
-
-    private World world;
-
     //konstruktor
-    public House(Point p, World world, Sim owner, String name) {
+    public House(Point p, Sim owner) {
 
         super(p,1,1);
         this.owner = owner;
-        this.name = name;
-        this.world = world;
-        world.add(this);
+        this.name = owner.getName() + "'s House";
+        World.getInstance().getHouseGrid().addObject(this);
 
         try {
-            houseGrid = new Grid(5,5,5,5);
+            roomGrid = new Grid(5,5,5,5);
             // roomList = new ArrayList<Room>();
-            mainRoom = new Room(new Point(0,0),"placeholder",true);
-            houseGrid.addObject(mainRoom);
+            mainRoom = new Room(new Point(0,0),"Main Room",true);
+            roomGrid.addObject(mainRoom);
             System.out.println("house created");
             try {
                 // nambahin furniture stock
@@ -35,6 +30,8 @@ public class House extends GridObject{
                 mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(4,0), (FurnitureType) Game.getInstance().getItemMap().get("Kompor Gas")));
                 mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(3,0), (FurnitureType) Game.getInstance().getItemMap().get("Jam")));
                 mainRoom.getObjectGrid().addObject(new FurnitureObject(new Point(2,2), (FurnitureType) Game.getInstance().getItemMap().get("Meja dan Kursi")));
+            } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
+                e.printStackTrace();
             }
         } catch (PositionOccupiedException | PositionOutOfBoundsException e) {
             e.printStackTrace();
@@ -82,26 +79,25 @@ public class House extends GridObject{
         }else{
             do {
                 try {
-                    houseGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
+                    roomGrid.addObject(newRoom); // sementara, belum ngurus dia makan waktu
                     owner.setUang(-1500);
-                    roomList.add(newRoom);
                     System.out.println("completed house upgrade");
                     // HouseUpgrade upgrade = new HouseUpgrade(owner, newRoom);
                     // World.getInstance().getEvents().subscribe("timeincrement", upgrade);
                 } catch (PositionOccupiedException e) {
                     throw new NeighborFoundException("This direction is already occupied!");
                 } catch (PositionOutOfBoundsException e) {
-                    houseGrid.addMaxX(1);
-                    houseGrid.addMaxY(1);
-                    houseGrid.addMinX(1);
-                    houseGrid.addMinY(1);
+                    roomGrid.addMaxX(1);
+                    roomGrid.addMaxY(1);
+                    roomGrid.addMinX(1);
+                    roomGrid.addMinY(1);
                 }
             } while (!add);
         }
     }
 
-    public ArrayList<Room> getRoomList() {
-        return roomList;
+    public List<GridObject> getRoomList() {
+        return roomGrid.getObjects();
     }
 
 
@@ -109,8 +105,8 @@ public class House extends GridObject{
         return this.name;
     }
     
-    public Grid getHouseGrid(){
-        return houseGrid;
+    public Grid getRoomGrid(){
+        return roomGrid;
     }
 
     public Room getMainRoom(){
