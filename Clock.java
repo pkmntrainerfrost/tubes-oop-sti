@@ -2,10 +2,10 @@ import java.util.*;
 
 public class Clock implements Runnable {
 
-    private int seconds;
+    private int seconds = 0;
     private int days;
-    private boolean running;
-    private Mediator mediator = Mediator.getInstance();
+    private boolean running = false;
+    private Object lock = new Object();
     private static Clock instance = new Clock();
 
     private Clock() {
@@ -14,21 +14,30 @@ public class Clock implements Runnable {
         running = false;
     }
 
-    public void run() {
-        while (true) {
-            if (running) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    public void run() {      
+        while(true) {
+            synchronized(lock) {
+                while (!running) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+
+                    }
                 }
+            }
+            try {
+                Thread.sleep(1000);
+                updateTime();
+            } catch (InterruptedException e) {
+
             }
         }
     }
 
     public synchronized void startClock() {
-        if (!running) {
+        synchronized (lock) {
             running = true;
+            lock.notifyAll();
         }
     }
 
@@ -38,7 +47,7 @@ public class Clock implements Runnable {
 
     public synchronized void updateTime() {
         this.seconds += 1;
-        this.days = this.days % 720;
+        this.days = this.seconds / 720;
     }
 
     public synchronized int getSeconds() {
@@ -55,7 +64,7 @@ public class Clock implements Runnable {
 
     public void setTime(int seconds) {
         this.seconds = seconds;
-        this.days = days % 720;
+        this.days = seconds / 720;
     }
 
     public void resetClock() {

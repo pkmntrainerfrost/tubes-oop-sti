@@ -18,6 +18,7 @@ BYJ?????JJ5B &JJ?P  P?JJY BJJJB YJJ?P#???Y         &Y?Y&  &JJ?B &PYJ???JYG  Y??P
 public class CommandLine extends Exception{
     static ArrayList<String> listMenu = new ArrayList<String>();
     static ArrayList<String> listAction = new ArrayList<String>();
+    static String[] editRoomList = {"buyitem", "moveitem", "putitem"};
 
     public void heading(){
         System.out.println("===========================================  Welcome To  ===========================================");
@@ -35,8 +36,37 @@ public class CommandLine extends Exception{
         System.out.println("                    &&&&    &    &&&&                                                    5??Y55JJJG ");
         System.out.println("                                                                                         &GYJJJY5B  ");
         System.out.println("====================================================================================================");
-        System.out.println("write out [start] or [load] to start playing!");
+        System.out.println("write out [start] to start playing!");
     }
+
+    public void footer(){
+        System.out.println("==================thank you for playing, see you again!==========================");
+        System.out.println("                                               /#(                               ");
+        System.out.println("                                 **,**             #.                            ");
+        System.out.println("                        **/     *,....,*      ##     #                           ");
+        System.out.println("                      *,...,,*   *,.....,*       #    /#                         ");
+        System.out.println("                       *,.....,/   *,.....,*      #    ,#          **/           ");
+        System.out.println("                         *,.....,*   *,.....,*     #    .       /****/(          ");
+        System.out.println("                     **/    *,.....,*   *,.....,/             *,,,,,**/          ");
+        System.out.println("                   *,,,,,/   *,.....,*   *,.....,/           ,,,,,,,*/           ");
+        System.out.println("                   ,,.....,*   *,.....,*   *,.....,/         ,,,,,,*/            ");
+        System.out.println("                    *,......,*   *,.....,*   ,.....,*/      *,,,,,,*             ");
+        System.out.println("                       *,......,/  /,......,,.......,,,,*,,,,,,,,,,*             ");
+        System.out.println("                         *,......,*  *,.........................,,,*             ");
+        System.out.println("                           *,......,*   ,........................,,,/            ");
+        System.out.println("                    /,,,,,*   *,......,,...........,,............,,,*            ");
+        System.out.println("                      *,....,*  *,.................,,............,,,*            ");
+        System.out.println("            ,    #      *,,...,,/  ,............................,,,,*/           ");
+        System.out.println("            /#    #.      *,,....,,,...........................,,,,**/           ");
+        System.out.println("              #     ##       *,,..............................,,,,**/            ");
+        System.out.println("                #       ##     /*,,,........................,,,,****,            ");
+        System.out.println("                  (#              /*,,,,..................,,,,,***/              ");
+        System.out.println("                       .             /*,,,............,,,,,,*****(               ");
+        System.out.println("                                        /,,,,,,,,,,,,,,,,*****/                  ");
+        System.out.println("                                           /*,,,,,,,,*****/(                     ");
+        System.out.println("                                                 .,,                             "); 
+        System.out.println("=================================================================================");
+}
 //doesnt work 
     public static void setTerminalSize(int columns, int lines) {
         System.out.print("\u001b[8;" + lines + ";" + columns + "t");
@@ -84,7 +114,8 @@ public class CommandLine extends Exception{
         listAction.add("throwrubbish");
         listAction.add("buyitem");
         listAction.add("moveitem");
-        listAction.add("sellitem");
+        listAction.add("putitem");
+        listAction.add("lookatclock");
     }
 
     public void listMenuInGame(){
@@ -139,41 +170,30 @@ public class CommandLine extends Exception{
     }
 
     public void listActiveAction(){
-        System.out.println("-Work");
-        System.out.println("-Exercise");
-        System.out.println("-Eat");
-        System.out.println("-Sleep");
-        System.out.println("-Cook");
-        System.out.println("-Visit");
-        System.out.println("-Pee");
-        System.out.println("-Sing");
-        System.out.println("-Meditation");
-        System.out.println("-Read Book");
-        System.out.println("-Watch Movie");
-        System.out.println("-Drink");
-        System.out.println("-Take Bath");
-        System.out.println("-ThrowRubbish");
-    }
-
-    public void listEditRoom(){
-        System.out.println("-buy item");
-        System.out.println("-move item");
-        System.out.println("-sell item");
+        System.out.println("1. Work");
+        System.out.println("2. Exercise");
+        System.out.println("3. Eat");
+        System.out.println("4. Sleep");
+        System.out.println("5. Cook");
+        System.out.println("6. Visit");
+        System.out.println("7. Pee");
+        System.out.println("8. Sing");
+        System.out.println("9. Meditation");
+        System.out.println("10. Read Book");
+        System.out.println("11. Watch Movie");
+        System.out.println("12. Drink");
+        System.out.println("13. Take Bath");
+        System.out.println("14. Throw Rubbish");
+        System.out.println("15. Look At Clock");
     }
 
     public String commandName(String command){
-        command = command.replaceAll(" ", "");
         if (validateInputString(command)){
-            if (listMenu.contains(command.toLowerCase()) || (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 17)){
+            command = command.replaceAll(" ", "");
+            if (listMenu.contains(command.toLowerCase())){
                 return command.toLowerCase();
             }else{
                 System.out.println("Invalid command!");
-            }
-        }else if (validateInputInteger(command)){
-            if (Integer.valueOf(command) >= 1 && Integer.valueOf(command) <= 11){
-                return command;
-            }else{
-                System.out.println("Number out of range!");
             }
         }else{
             System.out.println("The input is not valid!");
@@ -182,18 +202,12 @@ public class CommandLine extends Exception{
     }
 
     public String actionName(String action){ 
-        action = action.replaceAll(" ", "");
         if (validateInputString(action)){
-            if (listAction.contains(action.toLowerCase()) || (Integer.valueOf(action) >= 1 && Integer.valueOf(action) <= 17)){
+            action = action.replaceAll(" ", "");
+            if (listAction.contains(action.toLowerCase())){
                 return action.toLowerCase();
             }else{
                 System.out.println("Wrong input of action");
-            }
-        }else if (validateInputInteger(action)){
-            if (Integer.valueOf(action) >= 1 && Integer.valueOf(action) <= 17){
-                return action;
-            }else{
-                System.out.println("Number out of range!");
             }
         }else{
             System.out.println("The input is not valid!");
@@ -214,6 +228,7 @@ public class CommandLine extends Exception{
     }
 
     public boolean validateInputString(String input){
+        input = input.replaceAll(" ", "");
         char[] inputInChar = new char[input.length()];
         boolean flag = true;
         for (int i = 0; i < input.length(); i++){
@@ -230,19 +245,14 @@ public class CommandLine extends Exception{
     public boolean validateRoomName(String input, House house){
         boolean flag = true;
         for (int i = 0; i < house.getRoomList().size(); i++){
-            if (house.getRoomList().get(i).getRoomName().equals(input)){
+            if (((Room) house.getRoomList().get(i)).getRoomName().equals(input)){
                 flag = false;
             }
         }
         return flag;
     }
 
-    //perlu ga ya heum keanya ga 
-    public void executeCommand(String command){
-        if ((command.equals(listMenu.get(0)))){
-            // do something
-        }
-    }
+    
 
     public void loadingScreen(int time){ // atur pake timenya buat titik titik
         System.out.printf("Loading");

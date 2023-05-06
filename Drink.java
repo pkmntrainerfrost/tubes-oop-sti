@@ -1,19 +1,26 @@
 public class Drink extends SimActiveAction {
-    public void begin(Sim sim) {
 
-    }
+    public void begin(Sim sim) {
+        /* ini gaperlu inputan */
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("Drink"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
+            setDuration(2);
+        }
+    }   
 
     public void end(Sim sim) {
-        if (getSim().getCurrentRoom().getItemListInRoom().contains("DrinkingGlass")){
-            /* waktu yang dibutuhkan untuk watchmovie tidak dipermasalahkan */
-            getSim().setKesehatan(getSim().getKesehatan() + (2));     // sim akan bertambah kesehatannya sebesar +2
-            getSim().setKekenyangan(getSim().getKekenyangan() + (1)); // sim akan bertambah kekenyangannya sebesar +1
-        }
-    }
-
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+        sim.setKesehatan(sim.getKesehatan() + (2));
+        sim.setKekenyangan(sim.getKekenyangan() + (1));
     }
 }

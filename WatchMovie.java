@@ -1,20 +1,27 @@
 public class WatchMovie extends SimActiveAction {
-    public void begin(Sim sim) {
 
-    }
-
-    public void end(Sim sim) {
-        if (getSim().getCurrentRoom().getItemListInRoom().contains("Smart Television")){
-            /* waktu yang dibutuhkan untuk watchmovie tidak dipermasalahkan */
-            getSim().setMood(getSim().getMood() + (10));                    // sim akan bertambah moodnya sebesar +10              
-            getSim().setKesehatan(getSim().getKesehatan() - (4));           // sim akan berkurang kesehatannya sebesar -4
-            getSim().setKekenyangan(getSim().getKekenyangan() - (4));       // sim akan berkurang kekenyangannya sebesar -4
+    public void begin(Sim sim){
+        boolean validpos = true;
+        if (sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition()) == null) {
+            validpos = false;
+        } else {
+            FurnitureObject furniture = (FurnitureObject) sim.getCurrentRoom().getObjectGrid().objectOnPosition(sim.getCurrentPoisition());
+            if (!(furniture.getFurniture().getAction().equals("Cook"))) {
+                validpos = false;
+            }
+        }
+        if (!validpos) {
+            System.out.println("You are not on the correct object!");
+            setCancelled(true);
+        } else {
+            setDuration(60);
         }
     }
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+    public void end(Sim sim) {
+        sim.setMood(sim.getMood() + (10));                    // sim akan bertambah moodnya sebesar +10              
+        sim.setKesehatan(sim.getKesehatan() - (4));           // sim akan berkurang kesehatannya sebesar -4
+        sim.setKekenyangan(sim.getKekenyangan() - (4));       // sim akan berkurang kekenyangannya sebesar -4
     }
+
 }

@@ -3,19 +3,38 @@ import java.util.*;
 public class Inventory {
 
     private Map<String,InventoryItem> items; 
+    private int price;
 
     public Inventory() {
         items = new HashMap<>();
     }
-    
-    public Items getItem(String itemName) {
-        return null;
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+    public static Inventory[] getItem() {
+		return null;
+    }
+    public int getPrice(){
+        return price;
+    }
+
+    public ArrayList<InventoryItem> getArrayInventoryItem() {
+        ArrayList<InventoryItem> arrayInvItem = new ArrayList<>();
+        items.forEach((String, InventoryItem) -> {
+            arrayInvItem.add(InventoryItem);
+        });
+
+        return arrayInvItem;
+    }
+
+    public Map<String,InventoryItem> getItems() {
+        return items;
     }
 
     Scanner sc = new Scanner(System.in);
 
     // Menambahkan objek ke inventory
-    public void addItem(Items item, int quantity) {
+    public void addItem(Item item, int quantity) {
         if (items.containsKey(item.getItemName())) {
             InventoryItem currentItem = items.get(item.getItemName());
             currentItem.setQuantity(currentItem.getQuantity() + quantity);

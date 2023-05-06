@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws WrongInputException, NeighborFoundException, SimNotInHouseException, SimMiskinException, InterruptedException{
+    public static void main(String[] args) throws WrongInputException, NeighborFoundException, SimNotInHouseException, SimMiskinException, InterruptedException, SimNotInGameException{
         CommandLine.setTerminalSize(44, 120);
         Scanner in = new Scanner(System.in);
         CommandLine cml = new CommandLine();
@@ -10,117 +10,193 @@ public class Main {
         boolean commandRight = false;
         String command = in.nextLine();
         while (!commandRight){
-            if (cml.commandName(command).equals("start") || cml.commandName(command).equals("1")){
+            CommandLine.clear();
+            if (cml.commandName(command).equals("start")){
                 cml.loadingScreen(10);
                 System.out.println("New game has started");
-                World world = new World();
-                System.out.println("Hello! this is " + world.getCurrentSim().getName() + " playing!");
+                System.out.println("--------------------");
+                System.out.println("Insert your first sim name: ");
+                String name = in.nextLine();
+                Game.getInstance().initializeGame(name);
+                System.out.println("Hello! this is " + Game.getInstance().getCurrentSim().getName() + " playing!");
                 commandRight = true;
-            }
-            else if (cml.commandName(command).equals("load") || cml.commandName(command).equals("2")){
-                System.out.println("input your file name: ");
-                String fileName = in.nextLine();
-                // loadFile(fileName);
-                commandRight = true;
-            }else{
+            } else{
                 System.out.println("Your game hasn't started yet! re-input your command!");
                 command = in.nextLine();
             }
-
         }
 
         boolean isPlaying = true;
         while (isPlaying){
+            Game.getInstance().updateMap();
             System.out.println("What do you want to do?");
-            System.out.println("Write out [2] or [help] if you need any help!");
+            System.out.println("Write out [help] if you need any help!");
             command = in.nextLine();
             switch(cml.commandName(command)) {
-                case "1", "start", "load" :
+                case "start" :
                     System.out.println("Your game is already started!");
                     break;
 
-                case "2", "help" :
+                case "help" :
                 // tentukan dia di dalam room/house/hanya di dalam game
                     // if (sim.getCurrentState() == room){
-                        cml.listMenuInRoom();
-                        break;
+                    cml.listMenuInGame();
+                    break;
                     //}else if (getCurrentState() == house){
                     //     cml.listMenuInHouse();
                     //     break;
                     // }else{
                     //     cml.listMenuInGame();
                     //     break;
-                case "3", "exit" :
-                    System.out.println("Do you want to save changes? [Y/N]");
-                    String save = in.nextLine();
-                    while (!cml.validateInputString(save)){
-                        save = in.nextLine();
-                    }
-
-                    while (!save.equals("Y") && !save.equals("N")){
-                        System.out.println("Please input Y or N!");
-                        save = in.nextLine();
-                    }
-                    if (save.equals(("Y"))){
-                        System.out.println("Succesfully saved!");
-                    }else if (save.equals("N")){
-                        System.out.println("No changes saved!");
-                    }
+                case "exit" :
+                    cml.footer();
                     isPlaying = false;
+                    Game.getInstance().updateMap();
                     break;
 
-                case "4", "view sim info" :
+                case "viewsiminfo" :
+                    Game.getInstance().getCurrentSim().displaySimInfo();
+                    Game.getInstance().updateMap();
+                    break;
+
+                case "viewcurrentlocation":
+                    Game.getInstance().getCurrentSim().displayCurrentLocation();
+                    Game.getInstance().updateMap();
+                    break;
+
+                case "viewinventory":
+                    Game.getInstance().getCurrentSim().getInventory().displayInventory();
+                    Game.getInstance().updateMap();
+                    break;
+
+                // case "upgrade house":
+                //     System.out.println("choose the reference room: ");
+                //     String refRoomName = in.nextLine();
+                //     Room refRoom = Game.getInstance().getCurrentSim().getCurrentRoom();
+                //     Game.getInstance().getCurrentSim().getCurrentHouse().upgradeHouse();
+                //     break;
+
+                case "moveroom":
+                    System.out.println("Choose which room to go: ");
+                    Game.getInstance().getCurrentSim().moveRoom();
+                    Game.getInstance().updateMap();
+                    break;
+
+                case "editroom":
+                    cml.makeTheActionMenu();
+                    System.out.println("Menu Edit Room:");
+                    System.out.println("1. Buy item");
+                    System.out.println("2. Move item");
+                    System.out.println("3. Put item");
+                    System.out.println("Write out the action to start doing it: ");
+                    String action = in.nextLine();
+                    switch (action = cml.actionName(action)){
+                        case "buyitem":
+                            Game.getInstance().getCurrentSim().buyItem();
+                            break;
+                        case "moveitem":
+                            Game.getInstance().getCurrentSim().moveItem();
+                            break;
+                        case "putitem":
+                            Game.getInstance().getCurrentSim().putItem();
+                            break;
+                        default:
+                    Game.getInstance().updateMap();
+                    }
+                    break;
                     
+                case "addsim":
+                System.out.println("Enter your sim name to add: ");
+                    String name = in.nextLine();
+                    while (!cml.validateInputString(name)){
+                        System.out.println("Invalid Name. Try again: ");
+                        name = in.nextLine();
+                    }
+                    Game.getInstance().addSim(name);
+                    Game.getInstance().updateMap();
                     break;
 
-                case "5", "view current location":
-                    
+                case "changesim":
+                    Game.getInstance().changeSim();
+                    Game.getInstance().updateMap();
                     break;
 
-                case "6", "view inventory":
-               
+                case "listobject" :
+                    Game.getInstance().getCurrentSim().getCurrentRoom().displayItemsInRoom();
+                    Game.getInstance().updateMap();
                     break;
 
-                case "7", "upgrade house":
-
+                case "gotoobject" :
+                    Game.getInstance().getCurrentSim().displayGoToObject();
+                    Game.getInstance().updateMap();
                     break;
 
-                case "8", "move room":
-
-                    break;
-
-                case "9", "edit room":
-
-                    break;
-                case "10", "add sim":
-
-                    break;
-
-                case "11", "change sim":
-
-                    break;
-
-                case "12","list object" :
-
-                    break;
-
-                case "13","go to object" :
-
-                    break;
-
-                case "14","action" :
+                case "action" :
                     cml.listActiveAction();
                     cml.makeTheActionMenu();
                     System.out.println("Choose your action: ");
                     String actionName = in.nextLine();
                     switch (cml.actionName(actionName)){ 
-                        case "1", "work":
-                            System.out.println("work is done");
+                        case "work":
+                            Work work = new Work();
+                            work.execute(Game.getInstance().getCurrentSim());
                             break;
-                        case "2", "exercise":
-                            System.out.println("Exercise is done");
+                        case "exercise":
+                            Exercise exercise = new Exercise();
+                            exercise.execute(Game.getInstance().getCurrentSim());
                             break;
-                    }
+                        case "eat":
+                            Eat eat = new Eat();
+                            eat.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "sleep":
+                            Sleep sleep = new Sleep();
+                            sleep.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "cook":
+                            Cook cook = new Cook();
+                            cook.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "visit": //belum ditambahin untuk balik rumah asal
+                            Visit visit = new Visit();
+                            visit.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "pee":
+                            Pee pee = new Pee();
+                            pee.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "sing":
+                            Sing sing = new Sing();
+                            sing.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "meditation":
+                            Meditation meditation = new Meditation();
+                            meditation.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "readbook":
+                            ReadBook readBook = new ReadBook();
+                            readBook.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "watchmovie":
+                            WatchMovie watchMovie = new WatchMovie();
+                            watchMovie.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "drink":
+                            Drink drink = new Drink();
+                            drink.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "takebath":
+                            TakeBath takeBath = new TakeBath();
+                            takeBath.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "throwrubbish":
+                            ThrowRubbish throwRubbish = new ThrowRubbish();
+                            throwRubbish.execute(Game.getInstance().getCurrentSim());
+                            break;
+                        case "lookatclock":
+                            Game.getInstance().displayTime();
+                            break;
+                    }   
                     break;
                 default :
             }
@@ -128,9 +204,3 @@ public class Main {
         }
     }
 }
-
-
-// Point p = new Point(0, 0);
-// Sim tata = new Sim("tata");
-// House house = new House(p, tata, "rumah utama");
-// house.upgradeHouse(house.getMainRoom(), "dapur", false, true);

@@ -1,10 +1,53 @@
-import java.util.EventListener;
+import java.util.*;
 
-public abstract class SimPassiveAction implements EventListener, SimAction {    
-    private int timePassed = 0;
-    private int startTime;
+public abstract class SimPassiveAction implements SimAction {    
+    
     private int duration;
-    private Sim sim;
+    private int endTime;
+    private boolean finished = false;
+    private boolean cancelled = false;
+
+    public void execute(Sim sim) {
+        begin(sim);
+        if (!cancelled) {
+            new Thread(() -> {
+                process(sim);
+                end(sim);
+            }).start();
+        }
+    }
+
+    public abstract void begin(Sim sim);
+
+    public void process(Sim sim) {
+
+        endTime = Clock.getInstance().getSeconds() + duration;
+
+        if (!(Game.getInstance().getPassiveAction().containsKey(sim))) {
+            List<SimPassiveAction> list = new ArrayList<>();
+            list.add(this);
+            Game.getInstance().getPassiveAction().put(sim, list);
+        } else {
+            List<SimPassiveAction> list = Game.getInstance().getPassiveAction().get(sim);
+            list.add(this);
+        }
+
+        Clock.getInstance().startClock();
+        
+        int currentTime = Clock.getInstance().getSeconds();
+            
+        while (currentTime < endTime) {
+            currentTime = Clock.getInstance().getSeconds();
+        }
+        finished = true;
+
+        if (Game.getInstance().getPassiveAction().isEmpty()) {
+            Clock.getInstance().stopClock();
+        }
+
+    }
+
+    public abstract void end(Sim sim);
 
     public void setDuration(int duration) {
         this.duration = duration;
@@ -14,44 +57,21 @@ public abstract class SimPassiveAction implements EventListener, SimAction {
         return duration;
     }
 
-    public SimPassiveAction(Sim sim, int duration) {
-        this.sim = sim;
-        startTime = World.getInstance().getSeconds();
-        setDuration(duration);
+    public int getEndTime() {
+        return endTime;
     }
 
-    public abstract void act();
-    public abstract void finish();
-    public Sim getSim() {
-        return sim;
-    }
-
-    public void update(String eventType) {
-        timePassed += World.getInstance().getSeconds() - startTime;
-        if (timePassed >= getDuration()) {
-            act();
-            World.getInstance().getEvents().unsubscribe(eventType, this);
-        }
+    public boolean getCancelled() {
+        return cancelled;
     }
     
-}
-
-class HouseUpgrade extends SimPassiveAction {
-
-    private Room room;
-
-    public HouseUpgrade(Sim sim, Room room) {
-        super(sim, 1080);
-        this.room = room;
-    }
-
-    public void act() {
-        room.setFinished(true);
+    public void setCancelled(boolean cancel) {
+        this.cancelled = cancel;
     }
 
 }
 
-// belom kelar
+/*
 class addItemToRoom extends SimPassiveAction{
     private Room room;
     private FurnitureObject furniture;
@@ -61,7 +81,7 @@ class addItemToRoom extends SimPassiveAction{
         return sim;
     }
 
-    public addItemToRoom(Sim sim, Room room, FurnitureObject furniture) {
+    public addItemToRoom(Sim sim, Room room, FurnitureType furniture) {
         super(sim, 0);
         //TODO Auto-generated constructor stub
         this.furniture = furniture;
@@ -81,3 +101,4 @@ class addItemToRoom extends SimPassiveAction{
 
     
 }
+*/

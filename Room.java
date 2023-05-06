@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.List;
 
 public class Room extends GridObject {
-    
+
     // Attribute objectGrid untuk menyimpan grid object di dalam room
     private Grid objectGrid;
 
@@ -12,18 +12,19 @@ public class Room extends GridObject {
     // Attribute finished untuk menyimpan status selesai atau belumnya room
     private boolean finished;
 
-    private List<FurnitureObject> furnitureList;
-    private Map<String,RoomItem> items; 
+    /*
+     * private List<FurnitureObject> furnitureList;
+     * private Map<String,RoomItem> items;
+     */
     // Konstruktor dengan parameter point, name, dan finished
     public Room(Point point, String name, boolean finished) {
         // Memanggil konstruktor dari kelas induk
-        super(point, 6, 6);
+        super(point, 1, 1);
         // Membuat objectGrid baru
-        objectGrid = new Grid(6+point.getX(), 6+point.getY(), point.getX(), point.getY());
+        objectGrid = new Grid(6, 6);
         // Mengisi atribut name dan finished
         this.name = name;
         this.finished = finished;
-        items = new HashMap<>();
     }
 
     // Getter untuk nama ruangan
@@ -37,113 +38,38 @@ public class Room extends GridObject {
     }
 
     // Getter untuk semua object pada objectGrid
-    public List<GridObject> getObjects() {
+    public List<GridObject> getFurnitureList() {
         return objectGrid.getObjects();
     }
 
-    // Getter untuk list items dalam room
-    public List<FurnitureObject> getItemListInRoom(){
-        return this.furnitureList;
-    }
-
     // display list items dalam room
-    public void displayItemsInRoom(){
-        List<FurnitureObject> listItems;
-        listItems = getItemListInRoom();
-
-        for (FurnitureObject furniture : listItems) {
-            System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
-            System.out.println(furniture.getFurniture().getItemName());
+    public void displayItemsInRoom() {
+        System.out.println("Berikut merupakan items yang ada di ruang " + getRoomName() + ": ");
+        for (GridObject furniture : objectGrid.getObjects()) {
+            FurnitureType furnitureType = ((FurnitureObject) furniture).getFurniture();
+            System.out.println(furnitureType.getItemName());
         }
     }
 
-// belom selesai
-// gini gasi gatau si aing kalo salah ganti lagi aja
-// itu gatau bener instanceof object atau kaga
-    public int getAvailableSpace(){
-        int space = getHeight()*getLength();
-        for(FurnitureObject item: furnitureList){
-            if(item instanceof Items){
-                space -= 1;
-            } else if(item instanceof GridObject){
-                GridObject object = (GridObject) item;
-                space -= object.getHeight() * object.getLength();
-            }
+    public int getAvailableSpace() {
+        int space = getHeight() * getLength();
+        for (GridObject furniture : objectGrid.getObjects()) {
+            space -= furniture.getHeight() * furniture.getLength();
         }
         return space;
     }
 
-    public Grid getObjectGrid(){
+    public Grid getObjectGrid() {
         return this.objectGrid;
     }
 
-    // Method untuk memindahkan sim ke room baru
-    public void moveRoom(Sim sim, Room newRoom) {
-        // Cek apakah sim saat ini berada di dalam room ini
-        if (sim.getCurrentRoom() == this) {
-            // Memindahkan sim ke room baru
-            sim.setCurrentRoom(newRoom);
-            System.out.println("Sim berhasil berpindah ke " + newRoom.getRoomName());
-        } else {
-            System.out.println("Sim tidak berada di dalam rumah ini!");
-        }
-    }
-
-    public FurnitureObject getItem(String itemName) {
-        return null;
-    }
-
-    public String findFurnitureName(String furnitureName) {
-        for (FurnitureObject furniture : furnitureList) {
-            if (furniture.getFurniture().getItemName().equals(furnitureName)) {
-                return furniture.getFurniture().getItemName();
+    public GridObject findFurnitureName(String furnitureName) {
+        for (GridObject furniture : getFurnitureList()) {
+            if (((FurnitureObject) furniture).getFurniture().getItemName().equals(furnitureName)) {
+                return ((GridObject) furniture);
             }
         }
         return null;
     }
 
-    public int getItemQuantity(String itemName) {
-        return 0;
-    }
-    
-
-    //menambah objek ke room
-    public void addItem(Items item, int quantity) {
-        if (items.containsKey(item.getItemName())) {
-            RoomItem currentItem = items.get(item.getItemName());
-            currentItem.setQuantity(currentItem.getQuantity() + quantity);
-        } else {
-            RoomItem newItem = new RoomItem(item, quantity);
-            items.put(item.getItemName(), newItem);
-        }
-        clearZeroQuantityItems();
-    }
-
-    // Menghapus objek dari Room
-    public void removeItem(String itemName, int quantity) {
-        if (items.containsKey(itemName)) {
-            RoomItem currentItem = items.get(itemName);
-            if (currentItem.getQuantity() > quantity) {
-                currentItem.setQuantity(currentItem.getQuantity() - quantity);
-            } else {
-                items.remove(itemName);
-            }
-        }
-        clearZeroQuantityItems();
-    }
-
-    // Menghapus objek dari inventory jika jumlahnya 0
-    public void clearZeroQuantityItems() {
-        items.entrySet().removeIf(entry -> entry.getValue().getQuantity() == 0);
-    }
-
-    public void buyItem(FurnitureObject buyableItem) throws ItemNotInInventoryException {
-        if (!buyableItem.getFurniture().getBuyable()) {
-            throw new ItemNotInInventoryException("Item " + buyableItem + " tidak dapat dipasang di ruangan " + getRoomName() + ".");
-        }
-        buyableItem.getFurniture().getBuyable();
-        
-    }
 }
-
-

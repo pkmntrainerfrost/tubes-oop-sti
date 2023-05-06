@@ -2,19 +2,18 @@ public class InventoryItem {
     private String name;
     private String category;
     private int quantity;
-    private Items item;
+    private Item item;
 
-    public InventoryItem(Items item, int quantity) {
+    public InventoryItem(Item item, int quantity) {
         this.item = item;
         this.name = item.getItemName();
         this.category = item.getCategory();
         this.quantity = quantity;
     }
 
-    public Items getItems(){
+    public Item getItems(){
         return item;
     }
-    
     public String getName() {
         return name;
     }

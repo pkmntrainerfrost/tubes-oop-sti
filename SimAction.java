@@ -1,5 +1,6 @@
-public interface SimAction extends Runnable {
-    public abstract void act(Sim sim);
-    public abstract void end(Sim sim);
-    public Sim getSim();
+public interface SimAction {
+    public void execute(Sim sim);
+    public void begin(Sim sim);
+    public void process(Sim sim);
+    public void end(Sim sim);
 }

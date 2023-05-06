@@ -1,4 +1,4 @@
-public abstract class Food implements Items {
+public abstract class Food implements Item {
     
     private String foodName;
     private int foodFullness;

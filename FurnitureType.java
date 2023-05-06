@@ -1,4 +1,4 @@
-public abstract class FurnitureType implements Items {
+public class FurnitureType implements Item {
 
     public String furnitureName;
     public int furnitureLength;
@@ -13,14 +13,13 @@ public abstract class FurnitureType implements Items {
         this.furnitureWidth = furnitureWidth;
         this.furniturePrice = furniturePrice;
         this.furnitureAction = furnitureAction;
-        this.isBuyable = false;
+        this.isBuyable = true;
     }
 
     @Override
     public String getItemName() {
         return furnitureName;
     }
-
     public void setItemName(String name) {
         this.furnitureName = name;
     }
@@ -33,7 +32,7 @@ public abstract class FurnitureType implements Items {
         this.furniturePrice = price;
     }
 
-    public boolean getBuyable() {
+    public boolean getBuyable(){
         return isBuyable;
     }
 

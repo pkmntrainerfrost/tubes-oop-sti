@@ -51,6 +51,10 @@ public class Grid {
         }
     }
 
+    public void removeObject(Point point) {
+        objects.remove(point);
+    }
+
     public void validPosition(GridObject object) throws PositionOccupiedException, PositionOutOfBoundsException {
         if (object.getMaximumX() > maxX || object.getMaximumY() > maxY || object.getMinimumX() < minX || object.getMinimumY() < minY) { //deleted =
             throw new PositionOutOfBoundsException("Out of Bounds");
@@ -61,6 +65,15 @@ public class Grid {
                 }
             }
         }
+    }
+
+    public GridObject objectOnPosition(Point point) {
+        for (GridObject object : objects) {
+            if (object.getPoint().getX() == point.getX() && object.getPoint().getY() == point.getY()) {
+                return object;
+            }
+        }
+        return null;
     }
 
     public List<GridObject> getObjects() {

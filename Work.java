@@ -1,35 +1,46 @@
+import java.util.*;
+
 public class Work extends SimActiveAction {
 
     public void begin(Sim sim) {
-        
+        System.out.println("=======================");
+        System.out.print("input work duration: ");
+
+        CommandLine cli = new CommandLine();
+
+        /* scanner and set duration */
+        Scanner scan = new Scanner(System.in);
+        String inputDuration = scan.nextLine();
+        System.out.println("=======================");
+
+        while (!cli.validateInputInteger(inputDuration)) {
+            System.out.println("=======================");
+            System.out.print("input work duration: ");
+            inputDuration = scan.nextLine();
+        }
+        int duration = Integer.parseInt(inputDuration);
+        System.out.println("work duration valid!");
+        this.setDuration(duration);
     }
     
     public void end(Sim sim) {
+        sim.setWorkSeconds(sim.getWorkSeconds() + this.getDuration());
+        
+        int time = this.getDuration() / 30;
+        sim.setKekenyangan(sim.getKekenyangan() + (time * 10));
+        sim.setMood(sim.getMood() + (time * 10));
 
-        getSim().getjob().getSalary();
-        this.getSim().setWorkSeconds(this.getSim().getWorkSeconds() + this.getDuration());
-
-        /*
-        if (this.getSim().getWorkSeconds() >= 240) {
-            if (this.getSim().getjob().getJobName().equals("MagicClown")){
-                this.getSim().getjob().addGaji(15);
-            } else if (this.getSim().getjob().getJobName().equals("Chef")){
-                this.getSim().getjob().addGaji(30);
-            } else if (this.getSim().getjob().getJobName().equals("Police")){
-                this.getSim().getjob().addGaji(35);
-            } else if (this.getSim().getjob().getJobName().equals("Programmer")){
-                this.getSim().getjob().addGaji(45);
-            } else if (this.getSim().getjob().getJobName().equals("Doctor")){
-                this.getSim().getjob().addGaji(50);
-            }
+        /* jika kerja diatas 4 menit */
+        if (sim.getWorkSeconds() >= 240) { 
+            int wage = sim.getPekerjaan().getSalary();
+            sim.setUang(sim.getUang() + wage);
             
+            System.out.println("===================================");
+            System.out.println(sim.getName() + " bekerja sebagai " + sim.getPekerjaan().getName());
+            System.out.println("Uang " + sim.getName() + " bertambah menjadi " + sim.getUang());
+            System.out.println("Kekenyangan " + sim.getName() + " bertambah menjadi " + sim.getKekenyangan());
+            System.out.println("Mood " + sim.getName() + " bertambah menjadi " + sim.getMood());
+            System.out.println("===================================");
         }
-        */
-    }
-
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 }
