@@ -81,19 +81,22 @@ public class Room extends GridObject {
     }
 
     public String findFurnitureName(String furnitureName) {
-        for (FurnitureObject furniture : furnitureList) {
-            if (furniture.getFurniture().getItemName().equals(furnitureName)) {
-                return furniture.getFurniture().getItemName();
+        for (GridObject furniture : getFurnitureList()) {
+            if (((FurnitureObject) furniture).getFurniture().getItemName().equals(furnitureName)) {
+                return ((FurnitureObject) furniture).getFurniture().getItemName();
             }
         }
         return null;
     }
-
+    
+    /*
     public int getItemQuantity(String itemName) {
         return 0;
     }
+    */
 
     // menambah objek ke room
+    /*
     public void addItem(Item item, int quantity) {
         if (items.containsKey(item.getItemName())) {
             RoomItem currentItem = items.get(item.getItemName());
@@ -117,12 +120,16 @@ public class Room extends GridObject {
         }
         clearZeroQuantityItems();
     }
+    */
 
     // Menghapus objek dari inventory jika jumlahnya 0
+    /*
     public void clearZeroQuantityItems() {
         items.entrySet().removeIf(entry -> entry.getValue().getQuantity() == 0);
     }
+    */
 
+    //ini apa cok
     public void buyItem(InventoryItem buyableItem) throws ItemNotInInventoryException {
         if (!buyableItem.getFurniture().getBuyable()) {
             throw new ItemNotInInventoryException(
